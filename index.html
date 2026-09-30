@@ -4,45 +4,153 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Vagisha Singh – Product Designer</title>
+
+  <!-- FONT: loads the Inter font from Google -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+
   <style>
+    /* ============ PAGE BASICS ============ */
     body {
-      font-family: Helvetica, Arial, sans-serif;
-      background-color: #ffffff;
-      color: #1a1a1a;
-      max-width: 700px;
-      margin: 80px auto;
+      margin: 0;
+      font-family: 'Inter', Helvetica, Arial, sans-serif;
+      background-color: #F6F6F6;   /* light gray page background */
+      color: #000000;
+    }
+
+    /* ============ TOP BAR (navigation) ============ */
+    .top-bar {
+      background-color: #C4C4C4;
+      height: 52px;
+      display: flex;
+      align-items: center;
       padding: 0 24px;
-      line-height: 1.6;
     }
-    h1 {
-      font-size: 40px;
-      margin-bottom: 8px;
+    .top-bar a {
+      color: #000000;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 16px;
     }
-    .subtitle {
-      font-size: 20px;
-      color: #666666;
-      margin-top: 0;
+
+    /* ============ HERO (big area at the top) ============ */
+    .hero {
+      background-color: #F0F0F0;
+      min-height: 852px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 0 8.8%;             /* same left spacing as the cards */
     }
-    a {
-      color: #0066cc;
+    .hero h1 {
+      font-size: 56px;
+      margin: 0 0 16px 0;
+    }
+    .hero p {
+      font-size: 24px;
+      line-height: 40px;
+      max-width: 811px;
+      margin: 0;
+    }
+
+    /* ============ WORK SECTION (the three case studies) ============ */
+    .work {
+      max-width: 1188px;
+      margin: 0 auto;
+      padding: 132px 24px 200px 24px;
+    }
+
+    /* One case study card */
+    .card {
+      display: block;
+      color: inherit;
+      text-decoration: none;
+      margin-bottom: 80px;
+    }
+
+    /* Gray image placeholder. Later we'll swap these for real images. */
+    .card-image {
+      background-color: #C4C4C4;
+      border-radius: 4px;
+      aspect-ratio: 1188 / 435;
+      width: 100%;
+      margin-bottom: 12px;
+    }
+
+    .card h2 {
+      font-size: 24px;
+      font-weight: 700;
+      margin: 0 0 4px 0;
+    }
+    .card p {
+      font-size: 24px;
+      line-height: 40px;
+      max-width: 811px;
+      margin: 0;
+    }
+
+    /* ============ PHONE SIZES ============ */
+    /* On small screens, make things smaller so they fit */
+    @media (max-width: 700px) {
+      .hero { min-height: 500px; padding: 0 24px; }
+      .hero h1 { font-size: 36px; }
+      .hero p, .card p { font-size: 18px; line-height: 30px; }
+      .card h2 { font-size: 20px; }
+      .work { padding-top: 64px; }
     }
   </style>
 </head>
 <body>
 
-  <h1>Vagisha Singh</h1>
-  <p class="subtitle">Product Designer</p>
+  <!-- TOP BAR -->
+  <nav class="top-bar">
+    <a href="/">Vagisha Singh</a>
+  </nav>
 
-  <p>
-    I'm a UX designer with 7+ years of experience designing e-commerce
-    experiences across web and app. I've redesigned Apple.com checkout
-    and created conversion-focused work for brands like Nissan.
-  </p>
+  <!-- HERO -->
+  <section class="hero">
+    <h1>Vagisha Singh</h1>
+    <p>
+      Product designer with 7+ years of experience designing e-commerce
+      experiences across web and app.
+    </p>
+  </section>
 
-  <h2>Work</h2>
-  <p>
-    <a href="#">Apple Card Monthly Installments – Apple.com Checkout</a>
-  </p>
+  <!-- WORK: three case studies -->
+  <main class="work">
+
+    <!-- Case study 1 -->
+    <a class="card" href="#">
+      <div class="card-image"></div>
+      <h2>Apple Card Monthly Installments</h2>
+      <p>
+        Redesigning Apple.com checkout to add Apple Card Monthly Installments
+        as a payment option.
+      </p>
+    </a>
+
+    <!-- Case study 2 -->
+    <a class="card" href="#">
+      <div class="card-image"></div>
+      <h2>Apple Pricing Portal</h2>
+      <p>
+        Redesigning Apple's in-store iPhone pricing portal for carrier
+        retailers, with a focus on surfacing offers.
+      </p>
+    </a>
+
+    <!-- Case study 3 -->
+    <a class="card" href="#">
+      <div class="card-image"></div>
+      <h2>Nissan March Madness Campaign</h2>
+      <p>
+        Conversion-focused campaign work for Nissan's NCAA March Madness
+        sponsorship.
+      </p>
+    </a>
+
+  </main>
 
 </body>
 </html>
