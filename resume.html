@@ -161,7 +161,7 @@ body {
    This page
    ========================================================= */
 
-.resume { max-width: 842px; margin: 0 auto; padding: var(--s8) 24px 0; }
+.resume { max-width: 842px; margin: 0 auto; padding: calc(var(--s8) - 1px) 24px 0; }
 /* Title + Download button stay pinned under the nav while the sheet scrolls */
 .resume__header {
   position: sticky; top: var(--nav-h); z-index: 5;
@@ -169,7 +169,16 @@ body {
   margin: 0 -24px var(--s4); padding: var(--s2) 24px;
   background: var(--bg);
 }
-.resume__header.is-stuck { border-bottom: 1px solid var(--rule); }
+/* Once scrolled, the pinned bar gets compact: smaller title, smaller button */
+.resume__header, .resume__title, .resume__header .btn {
+  transition: padding .25s ease, font-size .25s ease, border-color .25s ease;
+}
+.resume__header { border-bottom: 1px solid transparent; }
+.resume__header.is-stuck { padding-top: 10px; padding-bottom: 10px; border-bottom-color: var(--rule); }
+.resume__header.is-stuck .resume__title { font-size: var(--t-md); letter-spacing: -0.01em; }
+.resume__header.is-stuck .btn { padding: 8px 14px; font-size: 14px; }
+.resume__header.is-stuck .btn .icon { width: 16px; height: 16px; }
+.resume__sentinel { height: 1px; }
 .resume__title { font-size: var(--t-2xl); line-height: 1.1; font-weight: 700; letter-spacing: -0.025em; }
 
 /* The sheet keeps Inter so it matches resume.pdf exactly */
@@ -260,6 +269,7 @@ body {
   </header>
 
   <main class="resume" id="main">
+    <div class="resume__sentinel" aria-hidden="true"></div>
     <div class="resume__header">
       <h1 class="resume__title">Resume</h1>
       <a class="btn btn--primary" href="resume.pdf" download="Vagisha-Singh-Resume.pdf"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg> Download PDF <span class="visually-hidden">resume</span></a>
@@ -342,9 +352,11 @@ body {
   <script>
   (() => {
     const header = document.querySelector('.resume__header');
-    const nav = document.querySelector('.nav');
-    const update = () => header.classList.toggle('is-stuck', header.getBoundingClientRect().top <= nav.offsetHeight + 1 && scrollY > 0);
-    addEventListener('scroll', update, { passive: true }); update();
+    const sentinel = document.querySelector('.resume__sentinel');
+    const navH = document.querySelector('.nav').offsetHeight;
+    new IntersectionObserver(([entry]) => {
+      header.classList.toggle('is-stuck', !entry.isIntersecting && entry.boundingClientRect.top < navH);
+    }, { rootMargin: `-${navH}px 0px 0px 0px` }).observe(sentinel);
   })();
   </script>
 </body>
