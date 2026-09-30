@@ -7,7 +7,7 @@
   <meta name="description" content="Vagisha Singh is a product designer specializing in e-commerce checkout, pricing and campaign experiences for brands like Apple and Nissan." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <style>
 /* =========================================================
    Design system: shared by every page
@@ -27,8 +27,9 @@
   --accent-dark: #0a5646;
   --accent-soft: #e3f1ec;
 
-  /* type: one family, a 1.25 scale */
-  --font: "Schibsted Grotesk", system-ui, -apple-system, sans-serif;
+  /* type: a characterful display face for headlines, a crisp sans for reading; 1.25 scale */
+  --font-display: "Bricolage Grotesque", system-ui, -apple-system, sans-serif;
+  --font: "Instrument Sans", system-ui, -apple-system, sans-serif;
   --t-sm: 14px;
   --t-base: 17px;
   --t-md: 20px;
@@ -60,6 +61,13 @@ body {
   line-height: 1.6;
   font-feature-settings: "tnum" 1;   /* even numerals, like a price column */
   -webkit-font-smoothing: antialiased;
+}
+
+/* Headlines use the display face */
+.nav__name, .intro__title, .project__title, .story h2, .story .lead,
+.profile__name, .resume__title, .profile__photo {
+  font-family: var(--font-display);
+  font-optical-sizing: auto;
 }
 
 :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
@@ -151,13 +159,13 @@ body {
   display: grid;
   grid-template-columns: 320px minmax(0, 1fr);
   column-gap: var(--s8);
-  padding-top: var(--s8);
+  padding-top: var(--s4);
 }
 
 /* Pinned intro */
 .intro {
   position: sticky;
-  top: calc(var(--nav-h) + var(--s5));
+  top: calc(var(--nav-h) + var(--s4));
   align-self: start;
 }
 .intro__title {
@@ -192,67 +200,56 @@ body {
 .contact .icon { color: var(--muted); }
 
 /* Projects */
-.projects { display: flex; flex-direction: column; gap: var(--s4); }
-.projects__heading { font-size: var(--t-md); font-weight: 600; color: var(--muted); }
+.projects { display: flex; flex-direction: column; gap: var(--s2); }
+.projects__heading { font-size: 18px; font-weight: 600; color: var(--muted); }
 
 .project {
   display: grid;
-  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1fr);
   background: var(--surface);
   border: 1px solid var(--rule);
   border-radius: var(--radius-lg);
   overflow: hidden;
 }
+/* Compact on purpose: two projects fit above the fold on a laptop */
 .project__media {
-  display: flex; align-items: center; justify-content: center; gap: 28px;
-  min-height: 400px;
-  padding: var(--s5);
+  display: flex; align-items: center; justify-content: center; gap: 20px;
+  min-height: 270px;
+  padding: 20px;
   background: var(--well);
 }
-.media--laptop { width: 100%; max-width: 472px; }
-.media--banner { width: 100%; max-width: 440px; border-radius: 4px; box-shadow: 0 8px 24px rgba(28, 31, 38, 0.12); }
-
-.phone-crop {
-  position: relative;
-  width: 150px;
-  aspect-ratio: 160 / 306;
-  overflow: hidden;
-}
-.phone-crop img { position: absolute; top: 0; height: 100%; width: 432.53%; max-width: none; }
+.media--laptop { max-width: 100%; max-height: 230px; width: auto; }
+.media--banner { width: 100%; max-width: 400px; border-radius: 4px; box-shadow: 0 8px 24px rgba(28, 31, 38, 0.12); }
 
 .project__body {
   display: flex; flex-direction: column;
-  padding: var(--s5) var(--s5) var(--s4);
+  padding: 18px var(--s4);
 }
-.project__logo { height: 40px; width: auto; align-self: flex-start; }  /* logo files have padding built in */
-.project__logo--apple { margin-left: -19px; }
-.project__logo--nissan { margin-left: -14px; }
+.project__top { display: flex; align-items: center; justify-content: space-between; gap: var(--s2); }
+.project__logo { height: 26px; width: auto; }   /* logo files have padding built in */
+.project__logo--apple { margin-left: -12px; }
+.project__logo--nissan { margin-left: -9px; }
+.project__status {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 14px; color: var(--muted);
+}
+.project__status .icon { width: 16px; height: 16px; }
 
 .project__title {
-  margin-top: var(--s2);
-  font-size: var(--t-lg);
+  margin-top: 8px;
+  font-size: 22px;
   line-height: 1.25;
   font-weight: 700;
   letter-spacing: -0.015em;
 }
-.project__summary { margin-top: var(--s1); color: var(--muted); max-width: 44ch; }
+.project__summary { margin-top: 4px; font-size: 15.5px; line-height: 1.5; color: var(--muted); max-width: 46ch; }
 
 /* The order-summary line items */
-.lineitems { margin-top: auto; padding-top: var(--s4); font-size: 15px; }
-.lineitems div { display: flex; align-items: baseline; gap: 10px; padding: 5px 0; }
+.lineitems { margin-top: auto; padding-top: 12px; font-size: 14px; }
+.lineitems div { display: flex; align-items: baseline; gap: 10px; padding: 2px 0; }
 .lineitems dt { color: var(--muted); }
-.lineitems div::after { content: none; }
 .lineitems .leader { flex: 1; border-bottom: 1.5px dotted #c3c8d1; transform: translateY(-4px); }
 .lineitems dd { font-weight: 600; text-align: right; }
-
-.project__status {
-  display: flex; align-items: center; gap: 8px;
-  margin-top: var(--s3); padding-top: var(--s2);
-  border-top: 1px solid var(--rule);
-  font-size: 15px; color: var(--muted);
-}
-.project__status .icon { width: 18px; height: 18px; }
-
 
 /* ---------- Interactions ---------- */
 
@@ -273,54 +270,11 @@ body {
 .chip[aria-pressed="true"] .chip__count { color: #c3c8d1; }
 .project[hidden] { display: none; }
 
-/* Try-it demo: the monthly pricing pattern */
-.demo {
-  margin-top: var(--s3);
-  padding: var(--s2);
-  background: var(--bg);
-  border-radius: var(--radius-md);
-}
-.demo__hint { font-size: 14px; color: var(--muted); }
-.segmented {
-  display: grid; grid-template-columns: 1fr 1fr;
-  margin-top: var(--s1);
-  padding: 3px;
-  background: #e2e5ea;
-  border-radius: 999px;
-  position: relative;
-}
-.segmented::before {           /* the sliding thumb */
-  content: ""; position: absolute; top: 3px; bottom: 3px; left: 3px;
-  width: calc(50% - 3px);
-  background: var(--surface);
-  border-radius: 999px;
-  box-shadow: 0 1px 3px rgba(28, 31, 38, .15);
-  transition: transform .25s cubic-bezier(.3,.7,.2,1);
-}
-.segmented[data-mode="monthly"]::before { transform: translateX(100%); }
-.segmented button {
-  position: relative; z-index: 1;
-  padding: 8px 10px;
-  border: 0; background: none; border-radius: 999px;
-  font: inherit; font-size: 14px; font-weight: 600; color: var(--muted);
-  cursor: pointer;
-}
-.segmented button[aria-pressed="true"] { color: var(--ink); }
-.price { margin-top: var(--s2); min-height: 58px; }
-.price__main {
-  display: block;
-  font-size: var(--t-lg); line-height: 1.2; font-weight: 700; letter-spacing: -0.01em;
-}
-.price__sub { display: block; margin-top: 2px; font-size: 14.5px; color: var(--muted); }
-.price.is-changing .price__main,
-.price.is-changing .price__sub { animation: tick .3s cubic-bezier(.3,.7,.2,1); }
-@keyframes tick { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
-
 /* Tap-through prototype: pricing portal */
-.proto { display: flex; flex-direction: column; align-items: center; gap: var(--s2); }
+.proto { display: flex; flex-direction: column; align-items: center; gap: 10px; }
 .proto__row { display: flex; align-items: center; gap: var(--s2); }
 .proto__phone {
-  position: relative; width: 176px; aspect-ratio: 160 / 306; overflow: hidden;
+  position: relative; width: 106px; aspect-ratio: 160 / 306; overflow: hidden;
   border: 0; padding: 0; background: none; cursor: pointer;
 }
 .proto__phone img {
@@ -338,7 +292,7 @@ body {
 .proto__arrow:disabled { opacity: .35; cursor: default; }
 .proto__steps { display: flex; gap: 6px; flex-wrap: wrap; justify-content: center; }
 .proto__steps button {
-  padding: 5px 11px; border: 0; border-radius: 999px;
+  padding: 4px 10px; border: 0; border-radius: 999px;
   background: transparent; color: var(--muted);
   font: inherit; font-size: 13.5px; font-weight: 500; cursor: pointer;
 }
@@ -355,6 +309,8 @@ body {
   transition: color .15s ease, border-color .15s ease, background-color .15s ease;
 }
 .copy .icon { width: 16px; height: 16px; }
+.copy { padding: 8px; }
+
 .copy .icon-check, .copy.is-done .icon-copy { display: none; }
 .copy.is-done .icon-check { display: block; }
 .copy:hover { color: var(--ink); border-color: #c3c8d1; }
@@ -379,18 +335,17 @@ body {
 @media (max-width: 1100px) {
   .home { grid-template-columns: 260px minmax(0, 1fr); column-gap: var(--s5); }
   .project { grid-template-columns: 1fr; }
-  .project__media { min-height: 320px; }
+  .project__media { min-height: 260px; }
 }
 @media (max-width: 760px) {
   .home { grid-template-columns: 1fr; row-gap: var(--s6); padding-top: var(--s5); }
   .intro { position: static; }
   .intro__title { font-size: var(--t-lg); }
-  .project__media { min-height: 0; padding: var(--s4) var(--s3); gap: 16px; }
-  .proto__phone { width: 150px; }
-  .copy { padding: 8px; }
-  .copy__label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  .project__media { min-height: 230px; padding: var(--s3) var(--s2); gap: 16px; }
+  .proto__phone { width: 100px; }
   .contact a { overflow-wrap: normal; }
-  .project__body { padding: var(--s4) var(--s3) var(--s3); }
+  .project__body { padding: var(--s3); }
+  .project__top { flex-wrap: wrap; }
 }
 
   </style>
@@ -417,11 +372,12 @@ body {
         experiences, with 7+ years of checkout, pricing and campaign work for Apple and Nissan.
       </p>
       <p class="status">Open to new roles</p>
+      <p class="visually-hidden" id="copy-status" aria-live="polite"></p>
       <ul class="contact">
         <li>
           <a href="mailto:vagishasingh10@gmail.com"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg> vagishasingh10@gmail.com</a>
           <button type="button" class="copy" data-copy="vagishasingh10@gmail.com" aria-label="Copy email address">
-            <svg class="icon icon-copy" viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg><svg class="icon icon-check" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 5 5L20 7"/></svg><span class="copy__label" aria-live="polite">Copy</span>
+            <svg class="icon icon-copy" viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg><svg class="icon icon-check" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 5 5L20 7"/></svg>
           </button>
         </li>
         <li><a href="tel:+14125033357"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg> (412) 503 3357</a></li>
@@ -445,26 +401,17 @@ body {
             <img src="images/acmi.png" alt="Apple Card Monthly Installments checkout on a MacBook and iPhone" class="media--laptop" />
           </div>
           <div class="project__body">
-            <img src="images/apple.png" alt="Apple" class="project__logo project__logo--apple" />
+            <div class="project__top">
+              <img src="images/apple.png" alt="Apple" class="project__logo project__logo--apple" />
+              <p class="project__status"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg> Case study in progress</p>
+            </div>
             <h2 class="project__title">Monthly Price Integration</h2>
             <p class="project__summary">Brought Apple Card Monthly Installments into Apple.com checkout, so monthly pricing appears alongside full price from the bag to checkout.</p>
-            <div class="demo" data-demo="price">
-              <p class="demo__hint" id="demo-hint">Try the pattern: switch which price leads.</p>
-              <div class="segmented" data-mode="full" role="group" aria-labelledby="demo-hint">
-                <button type="button" data-mode="full" aria-pressed="true">Buy in full</button>
-                <button type="button" data-mode="monthly" aria-pressed="false">Pay monthly</button>
-              </div>
-              <p class="price" aria-live="polite">
-                <span class="price__main">$999.00</span>
-                <span class="price__sub">or $41.62/mo. for 24 mo. with Apple Card</span>
-              </p>
-            </div>
             <dl class="lineitems">
             <div><dt>Client</dt><span class="leader" aria-hidden="true"></span><dd>Apple</dd></div>
             <div><dt>Surfaces</dt><span class="leader" aria-hidden="true"></span><dd>Web &amp; app</dd></div>
             <div><dt>Focus</dt><span class="leader" aria-hidden="true"></span><dd>Checkout &amp; financing</dd></div>
             </dl>
-            <p class="project__status"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg> Case study in progress</p>
           </div>
         </article>
 
@@ -487,16 +434,17 @@ body {
             </div>
           </div>
           <div class="project__body">
-            <img src="images/apple.png" alt="Apple" class="project__logo project__logo--apple" />
+            <div class="project__top">
+              <img src="images/apple.png" alt="Apple" class="project__logo project__logo--apple" />
+              <p class="project__status"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg> Case study in progress</p>
+            </div>
             <h2 class="project__title">Pricing Portal</h2>
             <p class="project__summary">Redesigned Apple's in-store iPhone pricing portal at carrier retailers like Verizon, so customers can find the best offer quickly. Tap through the flow.</p>
-
             <dl class="lineitems">
             <div><dt>Client</dt><span class="leader" aria-hidden="true"></span><dd>Apple</dd></div>
             <div><dt>Surface</dt><span class="leader" aria-hidden="true"></span><dd>In-store portal</dd></div>
             <div><dt>Focus</dt><span class="leader" aria-hidden="true"></span><dd>Offers &amp; pricing</dd></div>
             </dl>
-            <p class="project__status"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg> Case study in progress</p>
           </div>
         </article>
 
@@ -505,16 +453,17 @@ body {
             <img src="images/MarchMadnessHero.jpg" alt="Nissan Road 2 The Final Four campaign banner" class="media--banner" />
           </div>
           <div class="project__body">
-            <img src="images/nissan.png" alt="Nissan" class="project__logo project__logo--nissan" />
+            <div class="project__top">
+              <img src="images/nissan.png" alt="Nissan" class="project__logo project__logo--nissan" />
+              <p class="project__status"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg> Case study in progress</p>
+            </div>
             <h2 class="project__title">Nissan Campaign</h2>
             <p class="project__summary">Designed conversion-focused campaign experiences for Nissan's &ldquo;Road 2 The Final Four&rdquo; during NCAA March Madness.</p>
-
             <dl class="lineitems">
             <div><dt>Client</dt><span class="leader" aria-hidden="true"></span><dd>Nissan</dd></div>
             <div><dt>Surface</dt><span class="leader" aria-hidden="true"></span><dd>Campaign web</dd></div>
             <div><dt>Focus</dt><span class="leader" aria-hidden="true"></span><dd>Conversion</dd></div>
             </dl>
-            <p class="project__status"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg> Case study in progress</p>
           </div>
         </article>
     </main>
@@ -550,25 +499,6 @@ body {
       });
     }));
 
-    /* Monthly pricing demo */
-    const PRICES = {
-      full:    { main: '$999.00',        sub: 'or $41.62/mo. for 24 mo. with Apple Card' },
-      monthly: { main: '$41.62/mo.',     sub: 'for 24 mo. with Apple Card, or $999.00 in full' },
-    };
-    document.querySelectorAll('[data-demo="price"]').forEach(demo => {
-      const seg = demo.querySelector('.segmented');
-      const price = demo.querySelector('.price');
-      seg.querySelectorAll('button').forEach(btn => btn.addEventListener('click', () => {
-        const mode = btn.dataset.mode;
-        if (seg.dataset.mode === mode) return;
-        seg.dataset.mode = mode;
-        seg.querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', String(b === btn)));
-        price.querySelector('.price__main').textContent = PRICES[mode].main;
-        price.querySelector('.price__sub').textContent = PRICES[mode].sub;
-        price.classList.remove('is-changing'); void price.offsetWidth; price.classList.add('is-changing');
-      }));
-    });
-
     /* Tap-through prototype */
     const NAMES = ['Home', 'Features', 'Pricing', 'Compare'];
     document.querySelectorAll('[data-proto]').forEach(proto => {
@@ -598,17 +528,16 @@ body {
 
     /* Copy email */
     document.querySelectorAll('.copy').forEach(btn => btn.addEventListener('click', async () => {
-      const label = btn.querySelector('.copy__label');
       try {
         await navigator.clipboard.writeText(btn.dataset.copy);
         btn.classList.add('is-done');
-        label.textContent = 'Copied';
+        document.getElementById('copy-status').textContent = 'Email address copied';
         setTimeout(() => {
           btn.classList.remove('is-done');
-          label.textContent = 'Copy';
+          document.getElementById('copy-status').textContent = '';
         }, 2000);
       } catch {
-        label.textContent = 'Copy failed';
+        document.getElementById('copy-status').textContent = 'Could not copy. Select the email address instead.';
       }
     }));
   })();

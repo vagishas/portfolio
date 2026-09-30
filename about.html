@@ -7,7 +7,7 @@
   <meta name="description" content="Vagisha Singh is a product designer with 7+ years designing e-commerce checkout, pricing and campaign experiences. This site was built entirely with AI." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <style>
 /* =========================================================
    Design system: shared by every page
@@ -27,8 +27,9 @@
   --accent-dark: #0a5646;
   --accent-soft: #e3f1ec;
 
-  /* type: one family, a 1.25 scale */
-  --font: "Schibsted Grotesk", system-ui, -apple-system, sans-serif;
+  /* type: a characterful display face for headlines, a crisp sans for reading; 1.25 scale */
+  --font-display: "Bricolage Grotesque", system-ui, -apple-system, sans-serif;
+  --font: "Instrument Sans", system-ui, -apple-system, sans-serif;
   --t-sm: 14px;
   --t-base: 17px;
   --t-md: 20px;
@@ -60,6 +61,13 @@ body {
   line-height: 1.6;
   font-feature-settings: "tnum" 1;   /* even numerals, like a price column */
   -webkit-font-smoothing: antialiased;
+}
+
+/* Headlines use the display face */
+.nav__name, .intro__title, .project__title, .story h2, .story .lead,
+.profile__name, .resume__title, .profile__photo {
+  font-family: var(--font-display);
+  font-optical-sizing: auto;
 }
 
 :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
