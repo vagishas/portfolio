@@ -4,336 +4,356 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Vagisha Singh — Product Designer</title>
-  <meta name="description" content="Product designer specializing in e-commerce and growth-driven marketing experiences." />
-
-  <!-- Inter, the font used in the Figma file -->
+  <meta name="description" content="Vagisha Singh is a product designer specializing in e-commerce checkout, pricing and campaign experiences for brands like Apple and Nissan." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet" />
-
+  <link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <style>
 /* =========================================================
-   Portfolio home — built from Figma frame "MacBook Pro 14' - 3"
-   Design width: 1512px. Values below come straight from Figma.
+   Design system: shared by every page
+   Idea: a designer of the moment people decide to buy.
+   Quiet, precise surfaces; one "approved" green used sparingly;
+   project details set like line items on an order summary.
    ========================================================= */
-
-/* ---------- Design tokens (change these once, updates everywhere) ---------- */
 :root {
-  --color-page: #f1f1f1;      /* page background */
-  --color-nav: #6f6f6f;       /* top bar */
-  --color-card: #ffffff;
-  --color-text: #000000;
-  --color-text-inverse: #ffffff;
+  /* color */
+  --bg: #f5f6f8;          /* page */
+  --surface: #ffffff;     /* cards, nav */
+  --well: #eceff3;        /* image backgrounds */
+  --ink: #1c1f26;         /* text */
+  --muted: #5a616e;       /* secondary text */
+  --rule: #e1e4ea;        /* borders, dividers */
+  --accent: #0e6b57;      /* "payment approved" green */
+  --accent-dark: #0a5646;
+  --accent-soft: #e3f1ec;
 
-  --font: "Inter", system-ui, -apple-system, sans-serif;
+  /* type: one family, a 1.25 scale */
+  --font: "Schibsted Grotesk", system-ui, -apple-system, sans-serif;
+  --t-sm: 14px;
+  --t-base: 17px;
+  --t-md: 20px;
+  --t-lg: 25px;
+  --t-xl: 31px;
+  --t-2xl: 39px;
 
-  --nav-height: 52px;
-  --card-radius: 5px;
-  --card-gap: 72px;            /* space between cards */
+  /* space: 8px grid */
+  --s1: 8px;  --s2: 16px; --s3: 24px; --s4: 32px;
+  --s5: 40px; --s6: 48px; --s8: 64px; --s10: 80px;
+
+  --nav-h: 64px;
+  --radius-lg: 16px;
+  --radius-md: 10px;
+  --gutter: 48px;
 }
 
-/* ---------- Reset ---------- */
 *, *::before, *::after { box-sizing: border-box; }
 html, body { margin: 0; }
 img { display: block; max-width: 100%; }
 a { color: inherit; }
+h1, h2, h3, h4, p, ul, ol, dl, dd { margin: 0; }
 
 body {
-  background: var(--color-page);
-  color: var(--color-text);
+  background: var(--bg);
+  color: var(--ink);
   font-family: var(--font);
+  font-size: var(--t-base);
+  line-height: 1.6;
+  font-feature-settings: "tnum" 1;   /* even numerals, like a price column */
   -webkit-font-smoothing: antialiased;
 }
 
-/* ---------- Top nav ---------- */
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+
+.skip {
+  position: absolute; left: -999px; top: 8px;
+  background: var(--ink); color: #fff; padding: 8px 12px; border-radius: 6px; z-index: 20;
+}
+.skip:focus { left: 8px; }
+
+.container { max-width: 1320px; margin: 0 auto; padding: 0 var(--gutter); }
+
+/* ---------- Nav ---------- */
 .nav {
-  position: sticky;
-  top: 0;
-  z-index: 10;
-  height: var(--nav-height);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 72px 0 27px;
-  background: var(--color-nav);
-  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  position: sticky; top: 0; z-index: 10;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: saturate(180%) blur(12px);
+  -webkit-backdrop-filter: saturate(180%) blur(12px);
+  border-bottom: 1px solid var(--rule);
 }
-
-.nav a { color: var(--color-text-inverse); text-decoration: none; }
-
-.nav__name {
-  font-size: 24px;
-  font-weight: 700;
+.nav .container {
+  height: var(--nav-h);
+  display: flex; align-items: center; justify-content: space-between;
 }
+.nav a { text-decoration: none; }
+.nav__name { font-size: 18px; font-weight: 700; letter-spacing: -0.01em; }
+.nav__links { display: flex; gap: var(--s4); font-size: 16px; font-weight: 500; }
+.nav__links a { color: var(--muted); padding: 6px 0; border-bottom: 2px solid transparent; }
+.nav__links a:hover { color: var(--ink); }
+.nav__links a[aria-current="page"] { color: var(--ink); border-bottom-color: var(--accent); }
 
-.nav__links {
-  display: flex;
-  gap: 62px;
-  font-size: 20px;
-  font-weight: 500;
-}
-
-.nav__links a:hover,
-.nav__name:hover { text-decoration: underline; text-underline-offset: 4px; }
-
-/* ---------- Page layout: left intro column + right project cards ---------- */
-.page {
-  max-width: 1512px;
-  margin: 0 auto;
-  padding: 66px 72px 120px 77px;
-  display: grid;
-  grid-template-columns: 334px minmax(0, 962px);
-  column-gap: 67px;
-}
-
-/* ---------- Left column ---------- */
-.intro {
-  position: sticky;              /* stays in view while cards scroll */
-  top: calc(var(--nav-height) + 22px);
-  align-self: start;
-  padding-top: 22px;
-  font-size: 20px;
-  font-weight: 500;
-  line-height: 40px;
-}
-
-.intro p { margin: 0; }
-
-.intro__monogram {
-  font-size: 40px;
-  font-weight: 700;
-  line-height: 40px;
-  margin-bottom: 15px !important;
-}
-
-.intro__text { max-width: 284px; }
-
-.intro__contact { margin-top: 15px !important; }
-
-.intro__contact a { text-decoration: none; }
-.intro__contact a:hover { text-decoration: underline; }
-
-/* Phone + email rows with icons */
-.contact-list {
-  list-style: none;
-  margin: 15px 0 0;
-  padding: 0;
-}
-
-.contact-list li {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.contact-list a { text-decoration: none; overflow-wrap: anywhere; }
-.contact-list a:hover { text-decoration: underline; }
-
-.contact-icon {
-  flex-shrink: 0;
-  width: 20px;
-  height: 20px;
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 2;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
-
-/* ---------- Project cards ---------- */
-.projects {
-  display: flex;
-  flex-direction: column;
-  gap: var(--card-gap);
-}
-
-.card {
-  display: grid;
-  grid-template-columns: 530px 1fr;   /* image area | text area */
-  min-height: 395px;
-  background: var(--color-card);
-  border-radius: var(--card-radius);
+/* ---------- Buttons ---------- */
+.btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 12px 20px;
+  border-radius: 999px;
+  font-size: 16px; font-weight: 600; line-height: 1;
   text-decoration: none;
-  transition: box-shadow 0.2s ease, transform 0.2s ease;
+  border: 1.5px solid transparent;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+.btn--primary { background: var(--accent); color: #fff; }
+.btn--primary:hover { background: var(--accent-dark); }
+.btn--secondary { border-color: var(--ink); color: var(--ink); }
+.btn--secondary:hover { background: var(--ink); color: #fff; }
+
+.icon {
+  width: 20px; height: 20px; flex-shrink: 0;
+  fill: none; stroke: currentColor; stroke-width: 1.8;
+  stroke-linecap: round; stroke-linejoin: round;
 }
 
-.card:hover {
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
-  transform: translateY(-2px);
+/* ---------- Footer ---------- */
+.footer { margin-top: var(--s10); border-top: 1px solid var(--rule); }
+.footer .container {
+  display: flex; flex-wrap: wrap; gap: var(--s2); justify-content: space-between;
+  padding-top: var(--s4); padding-bottom: var(--s6);
+  font-size: 15px; color: var(--muted);
 }
+.footer a { text-decoration: none; }
+.footer a:hover { color: var(--ink); text-decoration: underline; }
 
-.card__media {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 32px;
+/* orange = details still to fill in */
+.fill { color: #c25b00; }
+
+@media (max-width: 760px) {
+  :root { --gutter: 16px; }
+  .nav__name { font-size: 17px; }
+  .nav__links { gap: var(--s3); font-size: 15px; }
 }
-
-.media--laptop { width: 472px; aspect-ratio: 472 / 309; object-fit: cover; }
-.media--banner { width: 410px; aspect-ratio: 410 / 153; object-fit: cover; }
-
-/* Two phone screens cropped out of one wide image */
-.card__media--phones { gap: 34px; }
-
-.phone-crop {
-  position: relative;
-  width: 160px;
-  aspect-ratio: 160 / 306;
-  overflow: hidden;
+@media (max-width: 420px) {
+  .nav__name { font-size: 16px; }
+  .nav__links { gap: 16px; font-size: 14px; }
 }
-
-.phone-crop img {
-  position: absolute;
-  top: 0;
-  height: 100%;
-  width: 432.53%;               /* the full image is ~4.3x wider than one phone */
-  max-width: none;
-}
-
-.card__text {
-  padding: 53px 48px 40px 27px;
-}
-
-.card__logo { height: 58px; width: auto; }
-.card__logo--apple  { margin-left: -27px; }  /* logo PNG has built-in whitespace */
-.card__logo--nissan { margin-left: -19px; height: 60px; }
-
-.card__title {
-  margin: 13px 0 6px;
-  font-size: 24px;
-  font-weight: 700;
-  line-height: 40px;
-}
-
-.card__desc {
-  margin: 0;
-  max-width: 323px;
-  font-size: 16px;
-  font-weight: 400;
-  line-height: 30px;
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; }
 }
 
 /* =========================================================
-   Responsive — the Figma frame is desktop only,
-   so these are sensible fallbacks for smaller screens.
+   This page
    ========================================================= */
 
-/* Laptop: left column stays pinned, it just gets narrower,
-   and each card puts its image above its text */
-@media (max-width: 1200px) {
-  .page {
-    grid-template-columns: 260px minmax(0, 1fr);
-    column-gap: 40px;
-    padding: 66px 32px 96px;
-  }
-  .intro { font-size: 18px; line-height: 34px; }
-  .intro__text { max-width: none; }
-  .nav { padding: 0 32px 0 27px; }
-
-  .card { grid-template-columns: 1fr; min-height: 0; }
-  .card__media { padding: 32px 32px 0; }
-  .card__text { padding: 24px 32px 40px 59px; }
+.home {
+  display: grid;
+  grid-template-columns: 320px minmax(0, 1fr);
+  column-gap: var(--s8);
+  padding-top: var(--s8);
 }
 
-/* Phone: no room for two columns, so the intro sits on top */
+/* Pinned intro */
+.intro {
+  position: sticky;
+  top: calc(var(--nav-h) + var(--s5));
+  align-self: start;
+}
+.intro__title {
+  font-size: var(--t-xl);
+  line-height: 1.2;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+.intro__text { margin-top: var(--s3); color: var(--muted); }
+.status {
+  display: inline-flex; align-items: center; gap: 10px;
+  margin-top: var(--s3);
+  padding: 6px 14px 6px 12px;
+  background: var(--accent-soft);
+  color: var(--accent-dark);
+  border-radius: 999px;
+  font-size: 15px; font-weight: 600;
+}
+.status::before {
+  content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--accent);
+}
+.contact { list-style: none; padding: 0; margin-top: var(--s4); border-top: 1px solid var(--rule); }
+.contact li { border-bottom: 1px solid var(--rule); }
+.contact a {
+  display: flex; align-items: center; gap: 12px;
+  padding: 12px 0;
+  font-size: 16px; text-decoration: none;
+  overflow-wrap: anywhere;
+}
+.contact a:hover { color: var(--accent); }
+.contact .icon { color: var(--muted); }
+
+/* Projects */
+.projects { display: flex; flex-direction: column; gap: var(--s4); }
+.projects__heading { font-size: var(--t-md); font-weight: 600; color: var(--muted); }
+
+.project {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+.project__media {
+  display: flex; align-items: center; justify-content: center; gap: 28px;
+  min-height: 400px;
+  padding: var(--s5);
+  background: var(--well);
+}
+.media--laptop { width: 100%; max-width: 472px; }
+.media--banner { width: 100%; max-width: 440px; border-radius: 4px; box-shadow: 0 8px 24px rgba(28, 31, 38, 0.12); }
+
+.phone-crop {
+  position: relative;
+  width: 150px;
+  aspect-ratio: 160 / 306;
+  overflow: hidden;
+}
+.phone-crop img { position: absolute; top: 0; height: 100%; width: 432.53%; max-width: none; }
+
+.project__body {
+  display: flex; flex-direction: column;
+  padding: var(--s5) var(--s5) var(--s4);
+}
+.project__logo { height: 40px; width: auto; align-self: flex-start; }  /* logo files have padding built in */
+.project__logo--apple { margin-left: -19px; }
+.project__logo--nissan { margin-left: -14px; }
+
+.project__title {
+  margin-top: var(--s2);
+  font-size: var(--t-lg);
+  line-height: 1.25;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+}
+.project__summary { margin-top: var(--s1); color: var(--muted); max-width: 44ch; }
+
+/* The order-summary line items */
+.lineitems { margin-top: auto; padding-top: var(--s4); font-size: 15px; }
+.lineitems div { display: flex; align-items: baseline; gap: 10px; padding: 5px 0; }
+.lineitems dt { color: var(--muted); }
+.lineitems div::after { content: none; }
+.lineitems .leader { flex: 1; border-bottom: 1.5px dotted #c3c8d1; transform: translateY(-4px); }
+.lineitems dd { font-weight: 600; text-align: right; }
+
+.project__status {
+  display: flex; align-items: center; gap: 8px;
+  margin-top: var(--s3); padding-top: var(--s2);
+  border-top: 1px solid var(--rule);
+  font-size: 15px; color: var(--muted);
+}
+.project__status .icon { width: 18px; height: 18px; }
+
+@media (max-width: 1100px) {
+  .home { grid-template-columns: 260px minmax(0, 1fr); column-gap: var(--s5); }
+  .project { grid-template-columns: 1fr; }
+  .project__media { min-height: 320px; }
+}
 @media (max-width: 760px) {
-  :root { --card-gap: 32px; }
-
-  .page {
-    grid-template-columns: 1fr;
-    row-gap: 40px;
-    padding: 32px 16px 64px;
-  }
-  .intro { position: static; padding-top: 0; }
-  .nav { padding: 0 16px; }
-  .nav__name { font-size: 20px; }
-  .nav__links { gap: 24px; font-size: 16px; }
-
-  .intro { font-size: 18px; line-height: 32px; }
-
-  .card { grid-template-columns: 1fr; min-height: 0; }
-  .card__media { padding: 24px 16px 0; }
-  .card__media--phones { gap: 16px; }
-  .phone-crop { width: 42%; max-width: 160px; }
-  .card__text { padding: 16px 24px 32px 43px; }
+  .home { grid-template-columns: 1fr; row-gap: var(--s6); padding-top: var(--s5); }
+  .intro { position: static; }
+  .intro__title { font-size: var(--t-lg); }
+  .project__media { min-height: 0; padding: var(--s4) var(--s3); gap: 16px; }
+  .phone-crop { width: 42%; max-width: 150px; }
+  .project__body { padding: var(--s4) var(--s3) var(--s3); }
 }
 
   </style>
 </head>
 <body>
+  <a class="skip" href="#main">Skip to content</a>
 
-  <!-- ========== TOP NAV BAR (the grey bar) ========== -->
   <header class="nav">
-    <a class="nav__name" href="index.html">Vagisha Singh</a>
-    <nav class="nav__links">
-      <a href="about.html">About Me</a>
-      <a href="resume.html">Resume</a>
-    </nav>
+    <div class="container">
+      <a class="nav__name" href="index.html">Vagisha Singh</a>
+      <nav class="nav__links" aria-label="Main">
+        <a href="index.html" aria-current="page">Work</a>
+        <a href="about.html">About me</a>
+        <a href="resume.html">Resume</a>
+      </nav>
+    </div>
   </header>
 
-  <div class="page">
-
-    <!-- ========== LEFT COLUMN: intro + contact ========== -->
+  <div class="container home">
     <aside class="intro">
-      <p class="intro__monogram">VS</p>
+      <h1 class="intro__title">I design the moment people decide to buy.</h1>
       <p class="intro__text">
-        Hi, I'm Vagisha Singh, a product designer specializing in e-commerce and growth-driven marketing experiences.
+        Hi, I'm Vagisha Singh, a product designer specializing in e-commerce and growth-driven marketing
+        experiences, with 7+ years of checkout, pricing and campaign work for Apple and Nissan.
       </p>
-      <ul class="contact-list">
-        <li>
-          <svg class="contact-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg>
-          <a href="tel:+14125033357" aria-label="Phone">(412) 503 3357</a>
-        </li>
-        <li>
-          <svg class="contact-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg>
-          <a href="mailto:vagishasingh10@gmail.com" aria-label="Email">vagishasingh10@gmail.com</a>
-        </li>
+      <p class="status">Open to new roles</p>
+      <ul class="contact">
+        <li><a href="mailto:vagishasingh10@gmail.com"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg> vagishasingh10@gmail.com</a></li>
+        <li><a href="tel:+14125033357"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg> (412) 503 3357</a></li>
       </ul>
     </aside>
 
-    <!-- ========== RIGHT COLUMN: the three project cards ========== -->
-    <main class="projects">
+    <main class="projects" id="main">
+      <h2 class="projects__heading">Selected work</h2>
 
-      <!-- Card 1: Apple Card Monthly Installments -->
-      <a class="card" href="monthly-price-integration.html">
-        <div class="card__media">
-          <img src="images/acmi.png" alt="Apple Card Monthly Installments checkout on a MacBook and iPhone" class="media--laptop" />
-        </div>
-        <div class="card__text">
-          <img src="images/apple.png" alt="Apple" class="card__logo card__logo--apple" />
-          <h2 class="card__title">Monthly Price Integration</h2>
-          <p class="card__desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt</p>
-        </div>
-      </a>
+        <article class="project">
+          <div class="project__media">
+            <img src="images/acmi.png" alt="Apple Card Monthly Installments checkout on a MacBook and iPhone" class="media--laptop" />
+          </div>
+          <div class="project__body">
+            <img src="images/apple.png" alt="Apple" class="project__logo project__logo--apple" />
+            <h2 class="project__title">Monthly Price Integration</h2>
+            <p class="project__summary">Brought Apple Card Monthly Installments into Apple.com checkout, so monthly pricing appears alongside full price from the bag to checkout.</p>
+            <dl class="lineitems">
+            <div><dt>Client</dt><span class="leader" aria-hidden="true"></span><dd>Apple</dd></div>
+            <div><dt>Surfaces</dt><span class="leader" aria-hidden="true"></span><dd>Web &amp; app</dd></div>
+            <div><dt>Focus</dt><span class="leader" aria-hidden="true"></span><dd>Checkout &amp; financing</dd></div>
+            </dl>
+            <p class="project__status"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg> Case study in progress</p>
+          </div>
+        </article>
 
-      <!-- Card 2: Pricing Portal -->
-      <a class="card" href="pricing-portal.html">
-        <div class="card__media card__media--phones">
-          <!-- One wide image holding several phone screens; each frame shows a different slice of it -->
-          <div class="phone-crop"><img src="images/pricingportal.png" alt="Pricing portal welcome screen" style="left: 0%;" /></div>
-          <div class="phone-crop"><img src="images/pricingportal.png" alt="Pricing portal carrier plans screen" style="left: -221.94%;" /></div>
-        </div>
-        <div class="card__text">
-          <img src="images/apple.png" alt="Apple" class="card__logo card__logo--apple" />
-          <h2 class="card__title">Pricing Portal</h2>
-          <p class="card__desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt</p>
-        </div>
-      </a>
+        <article class="project">
+          <div class="project__media">
+            <div class="phone-crop"><img src="images/pricingportal.png" alt="Pricing portal welcome screen" style="left: 0%;" /></div>
+            <div class="phone-crop"><img src="images/pricingportal.png" alt="Pricing portal carrier plans screen" style="left: -221.94%;" /></div>
+          </div>
+          <div class="project__body">
+            <img src="images/apple.png" alt="Apple" class="project__logo project__logo--apple" />
+            <h2 class="project__title">Pricing Portal</h2>
+            <p class="project__summary">Redesigned Apple's in-store iPhone pricing portal at carrier retailers like Verizon, so customers can find the best offer quickly.</p>
+            <dl class="lineitems">
+            <div><dt>Client</dt><span class="leader" aria-hidden="true"></span><dd>Apple</dd></div>
+            <div><dt>Surface</dt><span class="leader" aria-hidden="true"></span><dd>In-store portal</dd></div>
+            <div><dt>Focus</dt><span class="leader" aria-hidden="true"></span><dd>Offers &amp; pricing</dd></div>
+            </dl>
+            <p class="project__status"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg> Case study in progress</p>
+          </div>
+        </article>
 
-      <!-- Card 3: Nissan Campaign -->
-      <a class="card" href="nissan-campaign.html">
-        <div class="card__media">
-          <img src="images/MarchMadnessHero.jpg" alt="Nissan Road 2 The Final Four campaign banner" class="media--banner" />
-        </div>
-        <div class="card__text">
-          <img src="images/nissan.png" alt="Nissan" class="card__logo card__logo--nissan" />
-          <h2 class="card__title">Nissan Campaign</h2>
-          <p class="card__desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt</p>
-        </div>
-      </a>
-
+        <article class="project">
+          <div class="project__media">
+            <img src="images/MarchMadnessHero.jpg" alt="Nissan Road 2 The Final Four campaign banner" class="media--banner" />
+          </div>
+          <div class="project__body">
+            <img src="images/nissan.png" alt="Nissan" class="project__logo project__logo--nissan" />
+            <h2 class="project__title">Nissan Campaign</h2>
+            <p class="project__summary">Designed conversion-focused campaign experiences for Nissan's &ldquo;Road 2 The Final Four&rdquo; during NCAA March Madness.</p>
+            <dl class="lineitems">
+            <div><dt>Client</dt><span class="leader" aria-hidden="true"></span><dd>Nissan</dd></div>
+            <div><dt>Surface</dt><span class="leader" aria-hidden="true"></span><dd>Campaign web</dd></div>
+            <div><dt>Focus</dt><span class="leader" aria-hidden="true"></span><dd>Conversion</dd></div>
+            </dl>
+            <p class="project__status"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg> Case study in progress</p>
+          </div>
+        </article>
     </main>
   </div>
 
+  <footer class="footer">
+    <div class="container">
+      <span>Designed in Figma by me, coded with AI.</span>
+      <a href="mailto:vagishasingh10@gmail.com">vagishasingh10@gmail.com</a>
+    </div>
+  </footer>
 </body>
 </html>

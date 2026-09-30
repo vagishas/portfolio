@@ -5,97 +5,153 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Resume — Vagisha Singh</title>
   <meta name="description" content="Resume of Vagisha Singh, product designer." />
-
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet" />
-
+  <link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <style>
-/* ---------- Same tokens as the homepage ---------- */
+/* =========================================================
+   Design system: shared by every page
+   Idea: a designer of the moment people decide to buy.
+   Quiet, precise surfaces; one "approved" green used sparingly;
+   project details set like line items on an order summary.
+   ========================================================= */
 :root {
-  --color-page: #f1f1f1;
-  --color-nav: #6f6f6f;
-  --color-card: #ffffff;
-  --color-text: #000000;
-  --color-text-inverse: #ffffff;
-  --font: "Inter", system-ui, -apple-system, sans-serif;
-  --nav-height: 52px;
-  --card-radius: 5px;
+  /* color */
+  --bg: #f5f6f8;          /* page */
+  --surface: #ffffff;     /* cards, nav */
+  --well: #eceff3;        /* image backgrounds */
+  --ink: #1c1f26;         /* text */
+  --muted: #5a616e;       /* secondary text */
+  --rule: #e1e4ea;        /* borders, dividers */
+  --accent: #0e6b57;      /* "payment approved" green */
+  --accent-dark: #0a5646;
+  --accent-soft: #e3f1ec;
+
+  /* type: one family, a 1.25 scale */
+  --font: "Schibsted Grotesk", system-ui, -apple-system, sans-serif;
+  --t-sm: 14px;
+  --t-base: 17px;
+  --t-md: 20px;
+  --t-lg: 25px;
+  --t-xl: 31px;
+  --t-2xl: 39px;
+
+  /* space: 8px grid */
+  --s1: 8px;  --s2: 16px; --s3: 24px; --s4: 32px;
+  --s5: 40px; --s6: 48px; --s8: 64px; --s10: 80px;
+
+  --nav-h: 64px;
+  --radius-lg: 16px;
+  --radius-md: 10px;
+  --gutter: 48px;
 }
 
 *, *::before, *::after { box-sizing: border-box; }
 html, body { margin: 0; }
+img { display: block; max-width: 100%; }
 a { color: inherit; }
+h1, h2, h3, h4, p, ul, ol, dl, dd { margin: 0; }
 
 body {
-  background: var(--color-page);
-  color: var(--color-text);
+  background: var(--bg);
+  color: var(--ink);
   font-family: var(--font);
+  font-size: var(--t-base);
+  line-height: 1.6;
+  font-feature-settings: "tnum" 1;   /* even numerals, like a price column */
   -webkit-font-smoothing: antialiased;
 }
 
-/* ---------- Top nav (identical to homepage) ---------- */
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+
+.skip {
+  position: absolute; left: -999px; top: 8px;
+  background: var(--ink); color: #fff; padding: 8px 12px; border-radius: 6px; z-index: 20;
+}
+.skip:focus { left: 8px; }
+
+.container { max-width: 1320px; margin: 0 auto; padding: 0 var(--gutter); }
+
+/* ---------- Nav ---------- */
 .nav {
-  position: sticky;
-  top: 0;
-  z-index: 10;
-  height: var(--nav-height);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 72px 0 27px;
-  background: var(--color-nav);
-  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  position: sticky; top: 0; z-index: 10;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: saturate(180%) blur(12px);
+  -webkit-backdrop-filter: saturate(180%) blur(12px);
+  border-bottom: 1px solid var(--rule);
 }
-.nav a { color: var(--color-text-inverse); text-decoration: none; }
-.nav__name { font-size: 24px; font-weight: 700; }
-.nav__links { display: flex; gap: 62px; font-size: 20px; font-weight: 500; }
-.nav__links a:hover,
-.nav__name:hover,
-.nav__links a[aria-current="page"] { text-decoration: underline; text-underline-offset: 4px; }
-
-/* ---------- Resume page ---------- */
-.resume {
-  max-width: 842px;               /* A4 width (794px) + breathing room */
-  margin: 0 auto;
-  padding: 56px 24px 96px;
+.nav .container {
+  height: var(--nav-h);
+  display: flex; align-items: center; justify-content: space-between;
 }
+.nav a { text-decoration: none; }
+.nav__name { font-size: 18px; font-weight: 700; letter-spacing: -0.01em; }
+.nav__links { display: flex; gap: var(--s4); font-size: 16px; font-weight: 500; }
+.nav__links a { color: var(--muted); padding: 6px 0; border-bottom: 2px solid transparent; }
+.nav__links a:hover { color: var(--ink); }
+.nav__links a[aria-current="page"] { color: var(--ink); border-bottom-color: var(--accent); }
 
-.resume__header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  margin-bottom: 24px;
-}
-
-.resume__title {
-  margin: 0;
-  font-size: 32px;
-  font-weight: 700;
-  line-height: 40px;
-}
-
-.btn-download {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
+/* ---------- Buttons ---------- */
+.btn {
+  display: inline-flex; align-items: center; gap: 8px;
   padding: 12px 20px;
-  background: #000;
-  color: #fff;
-  border-radius: var(--card-radius);
-  font-size: 16px;
-  font-weight: 500;
+  border-radius: 999px;
+  font-size: 16px; font-weight: 600; line-height: 1;
   text-decoration: none;
-  transition: background 0.2s ease;
+  border: 1.5px solid transparent;
+  transition: background-color 0.15s ease, color 0.15s ease;
 }
-.btn-download:hover { background: #333; }
-.btn-download svg {
-  width: 18px; height: 18px;
-  fill: none; stroke: currentColor; stroke-width: 2;
+.btn--primary { background: var(--accent); color: #fff; }
+.btn--primary:hover { background: var(--accent-dark); }
+.btn--secondary { border-color: var(--ink); color: var(--ink); }
+.btn--secondary:hover { background: var(--ink); color: #fff; }
+
+.icon {
+  width: 20px; height: 20px; flex-shrink: 0;
+  fill: none; stroke: currentColor; stroke-width: 1.8;
   stroke-linecap: round; stroke-linejoin: round;
 }
 
+/* ---------- Footer ---------- */
+.footer { margin-top: var(--s10); border-top: 1px solid var(--rule); }
+.footer .container {
+  display: flex; flex-wrap: wrap; gap: var(--s2); justify-content: space-between;
+  padding-top: var(--s4); padding-bottom: var(--s6);
+  font-size: 15px; color: var(--muted);
+}
+.footer a { text-decoration: none; }
+.footer a:hover { color: var(--ink); text-decoration: underline; }
+
+/* orange = details still to fill in */
+.fill { color: #c25b00; }
+
+@media (max-width: 760px) {
+  :root { --gutter: 16px; }
+  .nav__name { font-size: 17px; }
+  .nav__links { gap: var(--s3); font-size: 15px; }
+}
+@media (max-width: 420px) {
+  .nav__name { font-size: 16px; }
+  .nav__links { gap: 16px; font-size: 14px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; }
+}
+
+/* =========================================================
+   This page
+   ========================================================= */
+
+.resume { max-width: 842px; margin: 0 auto; padding: var(--s8) 24px 0; }
+.resume__header {
+  display: flex; align-items: flex-end; justify-content: space-between; gap: var(--s2);
+  margin-bottom: var(--s4);
+}
+.resume__title { font-size: var(--t-2xl); line-height: 1.1; font-weight: 700; letter-spacing: -0.025em; }
+.resume__note { margin-top: var(--s1); color: var(--muted); font-size: 16px; }
+
+/* The sheet keeps Inter so it matches resume.pdf exactly */
+.a4, .a4 * { font-family: "Inter", system-ui, sans-serif; font-feature-settings: normal; }
 /* The A4 sheet: 210mm × 297mm, laid out like resume.pdf */
 .a4 {
   width: 100%;
@@ -103,9 +159,10 @@ body {
   min-height: 1123px;             /* 297mm at 96dpi */
   margin: 0 auto;
   padding: 68px 68px 60px;        /* ~18mm margins */
-  background: var(--color-card);
+  background: var(--surface);
   border-radius: 2px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08), 0 12px 32px rgba(0, 0, 0, 0.10);
+  border: 1px solid var(--rule);
+  box-shadow: 0 1px 2px rgba(28, 31, 38, 0.04), 0 16px 40px rgba(28, 31, 38, 0.08);
   color: #111;
 }
 
@@ -118,7 +175,7 @@ body {
 .cv__contact a:hover { text-decoration: underline; }
 
 .cv__section { margin-top: 22px; }
-.cv__label {
+.cv .cv__label {
   padding-bottom: 6px;
   margin-bottom: 11px !important;
   border-bottom: 1px solid #d4d4d4;
@@ -150,36 +207,42 @@ body {
 /* orange = details still to fill in */
 .fill { color: #c25b00; }
 
+
+.cv .cv__project { margin-top: 14px; }
+.cv .cv__list { margin-top: 3px; }
+
 @media (max-width: 760px) {
-  .nav { padding: 0 16px; }
-  .nav__name { font-size: 20px; }
-  .nav__links { gap: 24px; font-size: 16px; }
-  .resume { padding: 32px 16px 64px; }
-  .resume__title { font-size: 24px; }
-  .btn-download { padding: 10px 14px; font-size: 14px; }
+  .resume { padding: var(--s5) 16px 0; }
+  .resume__header { flex-direction: column; align-items: flex-start; }
+  .resume__title { font-size: var(--t-xl); }
   .a4 { min-height: 0; padding: 32px 22px; }
   .cv__name { font-size: 28px; line-height: 34px; }
   .cv__row { flex-direction: column; gap: 0; }
 }
+
   </style>
 </head>
 <body>
+  <a class="skip" href="#main">Skip to content</a>
 
   <header class="nav">
-    <a class="nav__name" href="index.html">Vagisha Singh</a>
-    <nav class="nav__links">
-      <a href="about.html">About Me</a>
-      <a href="resume.html" aria-current="page">Resume</a>
-    </nav>
+    <div class="container">
+      <a class="nav__name" href="index.html">Vagisha Singh</a>
+      <nav class="nav__links" aria-label="Main">
+        <a href="index.html">Work</a>
+        <a href="about.html">About me</a>
+        <a href="resume.html" aria-current="page">Resume</a>
+      </nav>
+    </div>
   </header>
 
-  <main class="resume">
+  <main class="resume" id="main">
     <div class="resume__header">
-      <h1 class="resume__title">Resume</h1>
-      <a class="btn-download" href="resume.pdf" download="Vagisha-Singh-Resume.pdf">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>
-        Download PDF
-      </a>
+      <div>
+        <h1 class="resume__title">Resume</h1>
+        <p class="resume__note">One page, A4. Download it as a PDF to keep.</p>
+      </div>
+      <a class="btn btn--primary" href="resume.pdf" download="Vagisha-Singh-Resume.pdf"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg> Download PDF</a>
     </div>
 
     <!-- Resume, shown on an A4-sized sheet. Keep this in sync with resume.pdf -->
@@ -247,7 +310,13 @@ body {
         <p class="cv__body"><b>Tools:</b> Figma, Framer, <span class="fill">[add more]</span></p>
       </section>
     </article>
-  </main>
+    </main>
 
+  <footer class="footer">
+    <div class="container">
+      <span>Designed in Figma by me, coded with AI.</span>
+      <a href="mailto:vagishasingh10@gmail.com">vagishasingh10@gmail.com</a>
+    </div>
+  </footer>
 </body>
 </html>
