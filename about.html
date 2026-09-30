@@ -49,6 +49,7 @@
 
 *, *::before, *::after { box-sizing: border-box; }
 html, body { margin: 0; }
+html { scroll-padding-top: calc(var(--nav-h) + 16px); }
 img { display: block; max-width: 100%; }
 a { color: inherit; }
 h1, h2, h3, h4, p, ul, ol, dl, dd { margin: 0; }
@@ -136,7 +137,7 @@ body {
 .footer a:hover { color: var(--ink); text-decoration: underline; }
 
 /* orange = details still to fill in */
-.fill { color: #c25b00; }
+.fill { color: #a34a00; }
 
 @media (max-width: 760px) {
   :root { --gutter: 16px; }
@@ -149,6 +150,11 @@ body {
 }
 @media (prefers-reduced-motion: reduce) {
   * { transition: none !important; }
+}
+@media (forced-colors: active) {
+  .btn, .chip, .copy, .proto__arrow { border: 1px solid ButtonText; }
+  .chip[aria-pressed="true"], .proto__steps button[aria-current="step"] { outline: 2px solid Highlight; }
+  .status::before { background: CanvasText; }
 }
 
 /* =========================================================
@@ -235,6 +241,16 @@ body {
 .takeaway p { margin-top: var(--s1); font-size: 16px; line-height: 1.65; color: #333844; max-width: 66ch; }
 .takeaway p + p { margin-top: var(--s2); }
 
+/* Accessibility checklist */
+.checks { list-style: none; padding: 0; margin-top: var(--s4); display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s3) var(--s5); }
+.checks li { display: flex; gap: 12px; align-items: flex-start; font-size: 16px; line-height: 1.6; color: var(--muted); }
+.checks strong { color: var(--ink); font-weight: 600; }
+.checks .icon {
+  width: 24px; height: 24px; padding: 4px; margin-top: 1px;
+  border-radius: 50%; background: var(--accent-soft); color: var(--accent);
+  stroke-width: 2.4;
+}
+
 /* How I work: four strengths, not a sequence */
 .principles { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s5) var(--s6); margin-top: var(--s5); }
 .principle { padding-top: var(--s2); border-top: 2px solid var(--ink); }
@@ -249,7 +265,7 @@ body {
   border: 0; border-radius: 20px;
 }
 .cta .body { color: #d9ede6; }
-.cta .fill { color: #ffc58f; }
+.cta .fill { color: #ffe0c2; }
 .cta .btn--primary { background: #fff; color: var(--accent-dark); }
 .cta .btn--primary:hover { background: #e9f4f0; }
 .cta .btn--secondary { border-color: #fff; color: #fff; }
@@ -259,6 +275,7 @@ body {
   .about { grid-template-columns: 240px minmax(0, 1fr); column-gap: var(--s5); }
   .reasons { grid-template-columns: 1fr; gap: var(--s4); }
   .principles { grid-template-columns: 1fr; }
+  .checks { grid-template-columns: 1fr; }
   .story .lead { font-size: var(--t-xl); }
 }
 @media (max-width: 760px) {
@@ -285,11 +302,11 @@ body {
     </div>
   </header>
 
-  <div class="container about">
-    <aside class="profile">
+  <main class="container about" id="main">
+    <section class="profile" aria-label="Profile">
       <!-- To add your photo: save it as images/headshot.jpg, then replace "VS" below with
            <img src="images/headshot.jpg" alt="Vagisha Singh" /> -->
-      <div class="profile__photo">VS</div>
+      <div class="profile__photo" aria-hidden="true">VS</div>
       <h1 class="profile__name">Vagisha Singh</h1>
       <p class="profile__role">Product Designer | UX Designer</p>
       <ul class="facts">
@@ -301,9 +318,9 @@ body {
         <a class="btn btn--primary" href="mailto:vagishasingh10@gmail.com">Email me</a>
         <a class="btn btn--secondary" href="resume.html">Resume</a>
       </div>
-    </aside>
+    </section>
 
-    <main class="story" id="main">
+    <div class="story">
 
       <section>
         <p class="lead">I love building things, learning as I go, and watching people use what I've made.</p>
@@ -352,6 +369,7 @@ body {
           <li><strong>Iterating in real time.</strong> I refined the layout, pinned the sidebar, swapped labels for icons and edited copy by describing what I wanted and checking the result.</li>
           <li><strong>Debugging.</strong> When images didn't show up, I learned how file paths and folders work and fixed them.</li>
           <li><strong>Resume and content.</strong> I built an A4 resume that applicant tracking systems can read, plus this page.</li>
+          <li><strong>Making it accessible.</strong> I audited every page against WCAG 2.2 AA and fixed what it found, from contrast to keyboard focus.</li>
           <li><strong>Shipping it.</strong> I put the code on GitHub and deployed it live on Vercel.</li>
         </ol>
         <div class="takeaway">
@@ -361,8 +379,24 @@ body {
         </div>
       </section>
 
-      <section>
-        <h2>What I bring to a team</h2>
+      <section aria-labelledby="a11y-title">
+        <h2 id="a11y-title">Built to be accessible</h2>
+        <p class="body">
+          I wanted this site to work for everyone who visits, however they browse. So I treated accessibility as part
+          of the design, not a final check.
+        </p>
+        <ul class="checks">
+          <li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 5 5L20 7"/></svg><span><strong>Meets WCAG 2.2 AA in automated testing.</strong> Every page passes an axe-core audit with zero issues, on desktop and mobile.</span></li>
+          <li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 5 5L20 7"/></svg><span><strong>Works with just a keyboard.</strong> Every link, filter and prototype control can be reached with Tab, with a visible focus ring and a "Skip to content" link.</span></li>
+          <li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 5 5L20 7"/></svg><span><strong>Makes sense to screen readers.</strong> Clear headings and page regions, descriptive labels, and spoken updates when you filter projects or tap through the prototype.</span></li>
+          <li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 5 5L20 7"/></svg><span><strong>Readable contrast.</strong> All text meets AA contrast ratios, including small labels.</span></li>
+          <li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 5 5L20 7"/></svg><span><strong>Holds up when zoomed.</strong> Pages reflow down to 320px wide, so nothing breaks at 400% zoom.</span></li>
+          <li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 5 5L20 7"/></svg><span><strong>Respects motion and contrast settings.</strong> Animations turn off if you've asked your device to reduce motion, and controls stay visible in high contrast mode.</span></li>
+        </ul>
+      </section>
+
+      <section aria-labelledby="team-title">
+        <h2 id="team-title">What I bring to a team</h2>
         <div class="principles">
           <div class="principle">
             <h3>Clarity at the point of decision</h3>
@@ -393,12 +427,12 @@ body {
         <div class="lead-actions">
           <a class="btn btn--primary" href="mailto:vagishasingh10@gmail.com">Email me</a>
           <a class="btn btn--secondary" href="tel:+14125033357">(412) 503 3357</a>
-          <a class="btn btn--secondary" href="resume.pdf" download="Vagisha-Singh-Resume.pdf">Download resume</a>
+          <a class="btn btn--secondary" href="resume.pdf" download="Vagisha-Singh-Resume.pdf">Download resume <span class="visually-hidden">(PDF)</span></a>
         </div>
       </section>
 
-    </main>
-  </div>
+    </div>
+  </main>
 
   <footer class="footer">
     <div class="container">
