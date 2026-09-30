@@ -49,6 +49,7 @@
 
 *, *::before, *::after { box-sizing: border-box; }
 html, body { margin: 0; }
+html { scroll-padding-top: calc(var(--nav-h) + 16px); }
 img { display: block; max-width: 100%; }
 a { color: inherit; }
 h1, h2, h3, h4, p, ul, ol, dl, dd { margin: 0; }
@@ -136,7 +137,7 @@ body {
 .footer a:hover { color: var(--ink); text-decoration: underline; }
 
 /* orange = details still to fill in */
-.fill { color: #c25b00; }
+.fill { color: #a34a00; }
 
 @media (max-width: 760px) {
   :root { --gutter: 16px; }
@@ -150,6 +151,11 @@ body {
 @media (prefers-reduced-motion: reduce) {
   * { transition: none !important; }
 }
+@media (forced-colors: active) {
+  .btn, .copy, .proto__arrow { border: 1px solid ButtonText; }
+  .proto__steps button[aria-current="step"] { outline: 2px solid Highlight; }
+  .status::before { background: CanvasText; }
+}
 
 /* =========================================================
    This page
@@ -157,11 +163,10 @@ body {
 
 .resume { max-width: 842px; margin: 0 auto; padding: var(--s8) 24px 0; }
 .resume__header {
-  display: flex; align-items: flex-end; justify-content: space-between; gap: var(--s2);
+  display: flex; align-items: center; justify-content: space-between; gap: var(--s2);
   margin-bottom: var(--s4);
 }
 .resume__title { font-size: var(--t-2xl); line-height: 1.1; font-weight: 700; letter-spacing: -0.025em; }
-.resume__note { margin-top: var(--s1); color: var(--muted); font-size: 16px; }
 
 /* The sheet keeps Inter so it matches resume.pdf exactly */
 .a4, .a4 * { font-family: "Inter", system-ui, sans-serif; font-feature-settings: normal; }
@@ -218,7 +223,7 @@ body {
 .cv__skills p + p { margin-top: 5px; }
 
 /* orange = details still to fill in */
-.fill { color: #c25b00; }
+.fill { color: #a34a00; }
 
 
 .cv .cv__project { margin-top: 14px; }
@@ -251,11 +256,8 @@ body {
 
   <main class="resume" id="main">
     <div class="resume__header">
-      <div>
-        <h1 class="resume__title">Resume</h1>
-        <p class="resume__note">One page, A4. Download it as a PDF to keep.</p>
-      </div>
-      <a class="btn btn--primary" href="resume.pdf" download="Vagisha-Singh-Resume.pdf"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg> Download PDF</a>
+      <h1 class="resume__title">Resume</h1>
+      <a class="btn btn--primary" href="resume.pdf" download="Vagisha-Singh-Resume.pdf"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg> Download PDF <span class="visually-hidden">resume</span></a>
     </div>
 
     <!-- Resume, shown on an A4-sized sheet. Keep this in sync with resume.pdf -->

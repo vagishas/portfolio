@@ -152,8 +152,8 @@ body {
   * { transition: none !important; }
 }
 @media (forced-colors: active) {
-  .btn, .chip, .copy, .proto__arrow { border: 1px solid ButtonText; }
-  .chip[aria-pressed="true"], .proto__steps button[aria-current="step"] { outline: 2px solid Highlight; }
+  .btn, .copy, .proto__arrow { border: 1px solid ButtonText; }
+  .proto__steps button[aria-current="step"] { outline: 2px solid Highlight; }
   .status::before { background: CanvasText; }
 }
 
@@ -206,7 +206,7 @@ body {
 .contact .icon { color: var(--muted); }
 
 /* Projects */
-.projects { display: flex; flex-direction: column; gap: var(--s2); }
+.projects { display: flex; flex-direction: column; gap: var(--s3); }
 .projects__heading { font-size: 18px; font-weight: 600; color: var(--muted); }
 
 .project {
@@ -220,16 +220,16 @@ body {
 /* Compact on purpose: two projects fit above the fold on a laptop */
 .project__media {
   display: flex; align-items: center; justify-content: center; gap: 20px;
-  min-height: 270px;
-  padding: 20px;
+  min-height: 290px;
+  padding: var(--s4);
   background: var(--well);
 }
-.media--laptop { max-width: 100%; max-height: 230px; width: auto; }
-.media--banner { width: 100%; max-width: 400px; border-radius: 4px; box-shadow: 0 8px 24px rgba(28, 31, 38, 0.12); }
+.media--laptop { max-width: 88%; max-height: 200px; width: auto; }
+.media--banner { width: 88%; max-width: 360px; border-radius: 4px; box-shadow: 0 8px 24px rgba(28, 31, 38, 0.12); }
 
 .project__body {
   display: flex; flex-direction: column;
-  padding: 18px var(--s4);
+  padding: var(--s4) var(--s5);
 }
 .project__status {
   display: flex; align-items: center; gap: 6px;
@@ -238,57 +238,40 @@ body {
 .project__status .icon { width: 16px; height: 16px; }
 
 .project__title {
-  margin-top: 8px;
+  margin-top: 0;
   font-size: 22px;
   line-height: 1.25;
   font-weight: 700;
   letter-spacing: -0.015em;
 }
-.project__summary { margin-top: 4px; font-size: 15.5px; line-height: 1.5; color: var(--muted); max-width: 46ch; }
+.project__summary { margin-top: var(--s1); font-size: 16px; line-height: 1.6; color: var(--muted); max-width: 46ch; }
 
 /* Project details: Client / Platform / Focus in three columns */
 .meta {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr) minmax(0, 1fr);
   gap: var(--s3);
   margin-top: auto;
   padding-top: var(--s3);
 }
 .meta dt {
-  font-size: 14px; font-weight: 700; line-height: 1.3;
+  font-size: 12.5px; font-weight: 700; line-height: 1.3; color: var(--muted);
   text-transform: uppercase; letter-spacing: 0.02em;
 }
-.meta dd { margin-top: 6px; font-size: 15.5px; line-height: 1.4; }
+.meta dd { margin-top: 6px; font-size: 15px; line-height: 1.4; }
 .meta__client { display: inline-flex; align-items: center; gap: 2px; }
 /* logo files have lots of built-in padding, so pull them in */
-.meta__logo { height: 32px; width: auto; flex-shrink: 0; }
-.meta__logo--apple  { margin: -4px -12px -4px -14px; }
-.meta__logo--nissan { margin: -4px -8px -4px -11px; }
+.meta__logo { height: 28px; width: auto; flex-shrink: 0; }
+.meta__logo--apple  { margin: -4px -10px -4px -12px; }
+.meta__logo--nissan { margin: -4px -7px -4px -10px; }
 
 /* ---------- Interactions ---------- */
-
-/* Filters */
-.projects__top { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--s2); }
-.filters { display: flex; flex-wrap: wrap; gap: var(--s1); }
-.chip {
-  display: inline-flex; align-items: center; gap: 8px;
-  padding: 8px 14px;
-  border: 1px solid var(--rule); border-radius: 999px;
-  background: var(--surface); color: var(--ink);
-  font: inherit; font-size: 15px; font-weight: 500; cursor: pointer;
-  transition: background-color .15s ease, border-color .15s ease, color .15s ease;
-}
-.chip:hover { border-color: #c3c8d1; }
-.chip[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: #fff; }
-.chip__count { font-size: 13px; color: var(--muted); }
-.chip[aria-pressed="true"] .chip__count { color: #c3c8d1; }
-.project[hidden] { display: none; }
 
 /* Tap-through prototype: pricing portal */
 .proto { display: flex; flex-direction: column; align-items: center; gap: 10px; }
 .proto__row { display: flex; align-items: center; gap: var(--s2); }
 .proto__phone {
-  position: relative; width: 106px; aspect-ratio: 160 / 306; overflow: hidden;
+  position: relative; width: 100px; aspect-ratio: 160 / 306; overflow: hidden;
   border: 0; padding: 0; background: none; cursor: pointer;
 }
 .proto__phone img {
@@ -399,25 +382,15 @@ body {
     </section>
 
     <section class="projects" aria-labelledby="work-title">
-      <div class="projects__top">
-        <h2 class="projects__heading" id="work-title">Selected work</h2>
-        <div class="filters" role="group" aria-label="Filter projects">
-          <button type="button" class="chip" data-filter="all" aria-pressed="true">All work <span class="chip__count"><span class="visually-hidden">(</span>3<span class="visually-hidden"> projects)</span></span></button>
-          <button type="button" class="chip" data-filter="checkout" aria-pressed="false">Checkout <span class="chip__count"><span class="visually-hidden">(</span>1<span class="visually-hidden"> project)</span></span></button>
-          <button type="button" class="chip" data-filter="pricing" aria-pressed="false">Pricing <span class="chip__count"><span class="visually-hidden">(</span>2<span class="visually-hidden"> projects)</span></span></button>
-          <button type="button" class="chip" data-filter="campaigns" aria-pressed="false">Campaigns <span class="chip__count"><span class="visually-hidden">(</span>1<span class="visually-hidden"> project)</span></span></button>
-        </div>
-      </div>
-      <p class="visually-hidden" id="filter-status" aria-live="polite"></p>
+      <h2 class="projects__heading" id="work-title">Selected work</h2>
 
         <article class="project" data-tags="checkout pricing">
           <div class="project__media">
             <img src="images/acmi.png" alt="Apple Card Monthly Installments checkout on a MacBook and iPhone" class="media--laptop" />
           </div>
           <div class="project__body">
-            <p class="project__status"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg> Case study in progress</p>
             <h3 class="project__title">Monthly Price Integration</h3>
-            <p class="project__summary">Brought Apple Card Monthly Installments into Apple.com checkout, so monthly pricing appears alongside full price from the bag to checkout.</p>
+            <p class="project__summary">Brought monthly pricing into Apple.com checkout, shown alongside full price from the bag to checkout.</p>
             <dl class="meta">
               <div><dt>Client</dt><dd><span class="meta__client"><img src="images/apple.png" alt="" class="meta__logo meta__logo--apple" /><span>Apple</span></span></dd></div>
               <div><dt>Platform</dt><dd>Web, Mobile, Native App</dd></div>
@@ -446,9 +419,8 @@ body {
             </div>
           </div>
           <div class="project__body">
-            <p class="project__status"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg> Case study in progress</p>
             <h3 class="project__title">Pricing Portal</h3>
-            <p class="project__summary">Redesigned Apple's in-store iPhone pricing portal at carrier retailers like Verizon, so customers can find the best offer quickly. Tap through the flow.</p>
+            <p class="project__summary">Redesigned Apple's in-store iPhone pricing portal so shoppers at carriers like Verizon find the best offer fast.</p>
             <dl class="meta">
               <div><dt>Client</dt><dd><span class="meta__client"><img src="images/apple.png" alt="" class="meta__logo meta__logo--apple" /><span>Apple</span></span></dd></div>
               <div><dt>Platform</dt><dd>In-store portal</dd></div>
@@ -462,9 +434,8 @@ body {
             <img src="images/MarchMadnessHero.jpg" alt="Nissan Road 2 The Final Four campaign banner" class="media--banner" />
           </div>
           <div class="project__body">
-            <p class="project__status"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg> Case study in progress</p>
             <h3 class="project__title">Nissan Campaign</h3>
-            <p class="project__summary">Designed conversion-focused campaign experiences for Nissan's &ldquo;Road 2 The Final Four&rdquo; during NCAA March Madness.</p>
+            <p class="project__summary">Conversion-focused campaign experiences for Nissan's &ldquo;Road 2 The Final Four&rdquo; during March Madness.</p>
             <dl class="meta">
               <div><dt>Client</dt><dd><span class="meta__client"><img src="images/nissan.png" alt="" class="meta__logo meta__logo--nissan" /><span>Nissan</span></span></dd></div>
               <div><dt>Platform</dt><dd>Mobile-first, Web</dd></div>
@@ -485,25 +456,6 @@ body {
   <script>
   (() => {
     const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const animate = (fn) => (!reduce && document.startViewTransition) ? document.startViewTransition(fn) : fn();
-
-    /* Filters */
-    const chips = document.querySelectorAll('.chip');
-    const cards = document.querySelectorAll('.project');
-    const status = document.getElementById('filter-status');
-    chips.forEach(chip => chip.addEventListener('click', () => {
-      const f = chip.dataset.filter;
-      animate(() => {
-        chips.forEach(c => c.setAttribute('aria-pressed', String(c === chip)));
-        let shown = 0;
-        cards.forEach(card => {
-          const match = f === 'all' || card.dataset.tags.split(' ').includes(f);
-          card.hidden = !match;
-          if (match) shown++;
-        });
-        status.textContent = `Showing ${shown} project${shown === 1 ? '' : 's'}`;
-      });
-    }));
 
     /* Tap-through prototype */
     const NAMES = ['Home', 'Features', 'Pricing', 'Compare'];

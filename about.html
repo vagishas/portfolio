@@ -152,8 +152,8 @@ body {
   * { transition: none !important; }
 }
 @media (forced-colors: active) {
-  .btn, .chip, .copy, .proto__arrow { border: 1px solid ButtonText; }
-  .chip[aria-pressed="true"], .proto__steps button[aria-current="step"] { outline: 2px solid Highlight; }
+  .btn, .copy, .proto__arrow { border: 1px solid ButtonText; }
+  .proto__steps button[aria-current="step"] { outline: 2px solid Highlight; }
   .status::before { background: CanvasText; }
 }
 
@@ -387,8 +387,8 @@ body {
         </p>
         <ul class="checks">
           <li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 5 5L20 7"/></svg><span><strong>Meets WCAG 2.2 AA in automated testing.</strong> Every page passes an axe-core audit with zero issues, on desktop and mobile.</span></li>
-          <li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 5 5L20 7"/></svg><span><strong>Works with just a keyboard.</strong> Every link, filter and prototype control can be reached with Tab, with a visible focus ring and a "Skip to content" link.</span></li>
-          <li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 5 5L20 7"/></svg><span><strong>Makes sense to screen readers.</strong> Clear headings and page regions, descriptive labels, and spoken updates when you filter projects or tap through the prototype.</span></li>
+          <li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 5 5L20 7"/></svg><span><strong>Works with just a keyboard.</strong> Every link, button and prototype control can be reached with Tab, with a visible focus ring and a "Skip to content" link.</span></li>
+          <li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 5 5L20 7"/></svg><span><strong>Makes sense to screen readers.</strong> Clear headings and page regions, descriptive labels, and spoken updates as you tap through the prototype.</span></li>
           <li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 5 5L20 7"/></svg><span><strong>Readable contrast.</strong> All text meets AA contrast ratios, including small labels.</span></li>
           <li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 5 5L20 7"/></svg><span><strong>Holds up when zoomed.</strong> Pages reflow down to 320px wide, so nothing breaks at 400% zoom.</span></li>
           <li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 5 5L20 7"/></svg><span><strong>Respects motion and contrast settings.</strong> Animations turn off if you've asked your device to reduce motion, and controls stay visible in high contrast mode.</span></li>
