@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Password required — Vagisha Singh</title>
+  <meta name="description" content="Enter the password to view this case study." />
+  <meta name="robots" content="noindex" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+/* =========================================================
+   Design system: shared by every page
+   Idea: a designer of the moment people decide to buy.
+   Quiet, precise surfaces; one "approved" green used sparingly;
+   project details set like line items on an order summary.
+   ========================================================= */
+:root {
+  /* color */
+  --bg: #f5f6f8;          /* page */
+  --surface: #ffffff;     /* cards, nav */
+  --well: #eceff3;        /* image backgrounds */
+  --ink: #1c1f26;         /* text */
+  --muted: #5a616e;       /* secondary text */
+  --rule: #e1e4ea;        /* borders, dividers */
+  --accent: #0e6b57;      /* "payment approved" green */
+  --accent-dark: #0a5646;
+  --accent-soft: #e3f1ec;
+
+  /* type: a characterful display face for headlines, a crisp sans for reading; 1.25 scale */
+  --font-display: "Bricolage Grotesque", system-ui, -apple-system, sans-serif;
+  --font: "Instrument Sans", system-ui, -apple-system, sans-serif;
+  --t-sm: 14px;
+  --t-base: 17px;
+  --t-md: 20px;
+  --t-lg: 25px;
+  --t-xl: 31px;
+  --t-2xl: 39px;
+
+  /* space: 8px grid */
+  --s1: 8px;  --s2: 16px; --s3: 24px; --s4: 32px;
+  --s5: 40px; --s6: 48px; --s8: 64px; --s10: 80px;
+
+  --nav-h: 64px;
+  --radius-lg: 16px;
+  --radius-md: 10px;
+  --gutter: 48px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; }
+html { scroll-padding-top: calc(var(--nav-h) + 16px); }
+img { display: block; max-width: 100%; }
+a { color: inherit; }
+h1, h2, h3, h4, p, ul, ol, dl, dd { margin: 0; }
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font);
+  font-size: var(--t-base);
+  line-height: 1.6;
+  font-feature-settings: "tnum" 1;   /* even numerals, like a price column */
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Headlines use the display face */
+.nav__name, .intro__title, .project__title, .story h2, .story .lead,
+.profile__name, .resume__title, .profile__photo {
+  font-family: var(--font-display);
+  font-optical-sizing: auto;
+}
+
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+
+.skip {
+  position: absolute; left: -999px; top: 8px;
+  background: var(--ink); color: #fff; padding: 8px 12px; border-radius: 6px; z-index: 20;
+}
+.skip:focus { left: 8px; }
+
+.visually-hidden {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+
+.container { max-width: 1320px; margin: 0 auto; padding: 0 var(--gutter); }
+
+/* ---------- Nav ---------- */
+.nav {
+  position: sticky; top: 0; z-index: 10;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: saturate(180%) blur(12px);
+  -webkit-backdrop-filter: saturate(180%) blur(12px);
+  border-bottom: 1px solid var(--rule);
+}
+.nav .container {
+  height: var(--nav-h);
+  display: flex; align-items: center; justify-content: space-between;
+}
+.nav a { text-decoration: none; }
+.nav__name { font-size: 18px; font-weight: 700; letter-spacing: -0.01em; }
+.nav__links { display: flex; gap: var(--s4); font-size: 16px; font-weight: 500; }
+.nav__links a { color: var(--muted); padding: 6px 0; border-bottom: 2px solid transparent; }
+.nav__links a:hover { color: var(--ink); }
+.nav__links a[aria-current="page"] { color: var(--ink); border-bottom-color: var(--accent); }
+
+/* ---------- Buttons ---------- */
+.btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 12px 20px;
+  border-radius: 999px;
+  font-family: inherit; font-size: 16px; font-weight: 600; line-height: 1;
+  text-decoration: none;
+  border: 1.5px solid transparent;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+.btn--primary { background: var(--accent); color: #fff; }
+.btn--primary:hover { background: var(--accent-dark); }
+.btn--secondary { border-color: var(--ink); color: var(--ink); }
+.btn--secondary:hover { background: var(--ink); color: #fff; }
+
+.icon {
+  width: 20px; height: 20px; flex-shrink: 0;
+  fill: none; stroke: currentColor; stroke-width: 1.8;
+  stroke-linecap: round; stroke-linejoin: round;
+}
+
+/* ---------- Footer ---------- */
+.footer { margin-top: var(--s10); border-top: 1px solid var(--rule); }
+.footer .container {
+  display: flex; flex-wrap: wrap; gap: var(--s2); justify-content: space-between;
+  padding-top: var(--s4); padding-bottom: var(--s6);
+  font-size: 15px; color: var(--muted);
+}
+.footer a { text-decoration: none; }
+.footer a:hover { color: var(--ink); text-decoration: underline; }
+
+/* orange = details still to fill in */
+.fill { color: #a34a00; }
+
+@media (max-width: 760px) {
+  :root { --gutter: 16px; }
+  .nav__name { font-size: 17px; }
+  .nav__links { gap: var(--s3); font-size: 15px; }
+}
+@media (max-width: 420px) {
+  .nav__name { font-size: 16px; }
+  .nav__links { gap: 16px; font-size: 14px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; }
+}
+@media (forced-colors: active) {
+  .btn, .copy, .proto__arrow { border: 1px solid ButtonText; }
+  .proto__steps button[aria-current="step"] { outline: 2px solid Highlight; }
+  .status::before { background: CanvasText; }
+}
+
+/* =========================================================
+   This page
+   ========================================================= */
+
+.unlock { max-width: 480px; margin: 0 auto; padding: var(--s10) 24px 0; }
+.unlock__icon {
+  width: 56px; height: 56px; border-radius: 50%;
+  background: var(--accent-soft); color: var(--accent);
+  display: grid; place-items: center;
+}
+.unlock__icon .icon { width: 26px; height: 26px; }
+.unlock h1 {
+  margin-top: var(--s3);
+  font-family: var(--font-display);
+  font-size: var(--t-xl); line-height: 1.2; font-weight: 700; letter-spacing: -0.02em;
+}
+.unlock__lead { margin-top: var(--s2); color: var(--muted); }
+.unlock form { margin-top: var(--s4); }
+.unlock label { display: block; font-weight: 600; font-size: 16px; }
+.unlock input[type="password"] {
+  display: block; width: 100%;
+  margin-top: var(--s1);
+  padding: 12px 14px;
+  font: inherit; font-size: 17px;
+  color: var(--ink); background: var(--surface);
+  border: 1.5px solid #9aa1ad; border-radius: var(--radius-md);
+}
+.unlock input[type="password"]:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-color: var(--accent); }
+.unlock input[aria-invalid="true"] { border-color: #b3261e; }
+.unlock__error {
+  display: flex; gap: 8px; align-items: flex-start;
+  margin-top: var(--s1); color: #b3261e; font-size: 15px;
+}
+.unlock__error[hidden] { display: none; }
+.unlock__error .icon { width: 18px; height: 18px; margin-top: 2px; }
+.unlock button[type="submit"] { margin-top: var(--s3); width: 100%; justify-content: center; padding: 14px 20px; cursor: pointer; }
+.unlock__help { margin-top: var(--s4); padding-top: var(--s3); border-top: 1px solid var(--rule); font-size: 16px; color: var(--muted); }
+.unlock__help a { color: var(--accent-dark); font-weight: 600; }
+
+  </style>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="nav">
+    <div class="container">
+      <a class="nav__name" href="index.html">Vagisha Singh</a>
+      <nav class="nav__links" aria-label="Main">
+        <a href="index.html">Work</a>
+        <a href="about.html">About me</a>
+        <a href="resume.html">Resume</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="unlock" id="main">
+    <div class="unlock__icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></div>
+    <h1>This case study is password protected</h1>
+    <p class="unlock__lead">Some of my work is covered by client confidentiality, so I share the details with people I'm talking to about roles.</p>
+
+    <form method="post" action="/unlock" novalidate>
+      <input type="hidden" name="next" id="next" value="/index.html" />
+      <label for="password">Password</label>
+      <input type="password" id="password" name="password" autocomplete="current-password" required aria-describedby="password-error" />
+      <p class="unlock__error" id="password-error" role="alert" hidden><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8v5"/><path d="M12 16h.01"/></svg><span></span></p>
+      <button type="submit" class="btn btn--primary">View case study</button>
+    </form>
+
+    <p class="unlock__help">Don't have the password? <a href="mailto:vagishasingh10@gmail.com?subject=Portfolio%20case%20study%20access">Email me for access</a> and I'll send it over.</p>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <span>Designed in Figma by me, coded with AI.</span>
+      <a href="mailto:vagishasingh10@gmail.com">vagishasingh10@gmail.com</a>
+    </div>
+  </footer>
+
+  <script>
+  (() => {
+    const params = new URLSearchParams(location.search);
+    const next = params.get('next');
+    if (next && next.startsWith('/work/')) document.getElementById('next').value = next;
+
+    const input = document.getElementById('password');
+    const error = document.getElementById('password-error');
+    const show = (msg) => {
+      error.querySelector('span').textContent = msg;
+      error.hidden = false;
+      input.setAttribute('aria-invalid', 'true');
+    };
+    const messages = {
+      wrong: "That password didn't work. Check it and try again.",
+      setup: "Case studies aren't open yet. Email me and I'll share them with you.",
+    };
+    if (messages[params.get('error')]) show(messages[params.get('error')]);
+    input.focus();
+
+    document.querySelector('form').addEventListener('submit', (e) => {
+      if (!input.value.trim()) { e.preventDefault(); show('Enter the password to continue.'); input.focus(); }
+    });
+    input.addEventListener('input', () => { error.hidden = true; input.removeAttribute('aria-invalid'); });
+  })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Monthly Price Integration — Vagisha Singh</title>
+  <meta name="description" content="Case study: Apple Card Monthly Installments in Apple.com checkout." />
+  <meta name="robots" content="noindex" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+/* =========================================================
+   Design system: shared by every page
+   Idea: a designer of the moment people decide to buy.
+   Quiet, precise surfaces; one "approved" green used sparingly;
+   project details set like line items on an order summary.
+   ========================================================= */
+:root {
+  /* color */
+  --bg: #f5f6f8;          /* page */
+  --surface: #ffffff;     /* cards, nav */
+  --well: #eceff3;        /* image backgrounds */
+  --ink: #1c1f26;         /* text */
+  --muted: #5a616e;       /* secondary text */
+  --rule: #e1e4ea;        /* borders, dividers */
+  --accent: #0e6b57;      /* "payment approved" green */
+  --accent-dark: #0a5646;
+  --accent-soft: #e3f1ec;
+
+  /* type: a characterful display face for headlines, a crisp sans for reading; 1.25 scale */
+  --font-display: "Bricolage Grotesque", system-ui, -apple-system, sans-serif;
+  --font: "Instrument Sans", system-ui, -apple-system, sans-serif;
+  --t-sm: 14px;
+  --t-base: 17px;
+  --t-md: 20px;
+  --t-lg: 25px;
+  --t-xl: 31px;
+  --t-2xl: 39px;
+
+  /* space: 8px grid */
+  --s1: 8px;  --s2: 16px; --s3: 24px; --s4: 32px;
+  --s5: 40px; --s6: 48px; --s8: 64px; --s10: 80px;
+
+  --nav-h: 64px;
+  --radius-lg: 16px;
+  --radius-md: 10px;
+  --gutter: 48px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; }
+html { scroll-padding-top: calc(var(--nav-h) + 16px); }
+img { display: block; max-width: 100%; }
+a { color: inherit; }
+h1, h2, h3, h4, p, ul, ol, dl, dd { margin: 0; }
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font);
+  font-size: var(--t-base);
+  line-height: 1.6;
+  font-feature-settings: "tnum" 1;   /* even numerals, like a price column */
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Headlines use the display face */
+.nav__name, .intro__title, .project__title, .story h2, .story .lead,
+.profile__name, .resume__title, .profile__photo {
+  font-family: var(--font-display);
+  font-optical-sizing: auto;
+}
+
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+
+.skip {
+  position: absolute; left: -999px; top: 8px;
+  background: var(--ink); color: #fff; padding: 8px 12px; border-radius: 6px; z-index: 20;
+}
+.skip:focus { left: 8px; }
+
+.visually-hidden {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+
+.container { max-width: 1320px; margin: 0 auto; padding: 0 var(--gutter); }
+
+/* ---------- Nav ---------- */
+.nav {
+  position: sticky; top: 0; z-index: 10;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: saturate(180%) blur(12px);
+  -webkit-backdrop-filter: saturate(180%) blur(12px);
+  border-bottom: 1px solid var(--rule);
+}
+.nav .container {
+  height: var(--nav-h);
+  display: flex; align-items: center; justify-content: space-between;
+}
+.nav a { text-decoration: none; }
+.nav__name { font-size: 18px; font-weight: 700; letter-spacing: -0.01em; }
+.nav__links { display: flex; gap: var(--s4); font-size: 16px; font-weight: 500; }
+.nav__links a { color: var(--muted); padding: 6px 0; border-bottom: 2px solid transparent; }
+.nav__links a:hover { color: var(--ink); }
+.nav__links a[aria-current="page"] { color: var(--ink); border-bottom-color: var(--accent); }
+
+/* ---------- Buttons ---------- */
+.btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 12px 20px;
+  border-radius: 999px;
+  font-family: inherit; font-size: 16px; font-weight: 600; line-height: 1;
+  text-decoration: none;
+  border: 1.5px solid transparent;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+.btn--primary { background: var(--accent); color: #fff; }
+.btn--primary:hover { background: var(--accent-dark); }
+.btn--secondary { border-color: var(--ink); color: var(--ink); }
+.btn--secondary:hover { background: var(--ink); color: #fff; }
+
+.icon {
+  width: 20px; height: 20px; flex-shrink: 0;
+  fill: none; stroke: currentColor; stroke-width: 1.8;
+  stroke-linecap: round; stroke-linejoin: round;
+}
+
+/* ---------- Footer ---------- */
+.footer { margin-top: var(--s10); border-top: 1px solid var(--rule); }
+.footer .container {
+  display: flex; flex-wrap: wrap; gap: var(--s2); justify-content: space-between;
+  padding-top: var(--s4); padding-bottom: var(--s6);
+  font-size: 15px; color: var(--muted);
+}
+.footer a { text-decoration: none; }
+.footer a:hover { color: var(--ink); text-decoration: underline; }
+
+/* orange = details still to fill in */
+.fill { color: #a34a00; }
+
+@media (max-width: 760px) {
+  :root { --gutter: 16px; }
+  .nav__name { font-size: 17px; }
+  .nav__links { gap: var(--s3); font-size: 15px; }
+}
+@media (max-width: 420px) {
+  .nav__name { font-size: 16px; }
+  .nav__links { gap: 16px; font-size: 14px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; }
+}
+@media (forced-colors: active) {
+  .btn, .copy, .proto__arrow { border: 1px solid ButtonText; }
+  .proto__steps button[aria-current="step"] { outline: 2px solid Highlight; }
+  .status::before { background: CanvasText; }
+}
+
+/* =========================================================
+   This page
+   ========================================================= */
+
+.cs { max-width: 760px; margin: 0 auto; padding: var(--s8) 24px 0; }
+.cs h1 { font-family: var(--font-display); font-size: var(--t-2xl); line-height: 1.15; font-weight: 700; letter-spacing: -0.025em; }
+.cs p { margin-top: var(--s2); color: var(--muted); max-width: 62ch; }
+.cs .btn { margin-top: var(--s4); }
+
+  </style>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="nav">
+    <div class="container">
+      <a class="nav__name" href="../index.html">Vagisha Singh</a>
+      <nav class="nav__links" aria-label="Main">
+        <a href="../index.html" aria-current="page">Work</a>
+        <a href="../about.html">About me</a>
+        <a href="../resume.html">Resume</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="cs" id="main">
+    <h1>Monthly Price Integration</h1>
+    <p>You're in. This page is only visible after entering the case study password. The full case study goes here.</p>
+    <a class="btn btn--secondary" href="../index.html">Back to all work</a>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <span>Designed in Figma by me, coded with AI.</span>
+      <a href="mailto:vagishasingh10@gmail.com">vagishasingh10@gmail.com</a>
+    </div>
+  </footer>
+
+</body>
+</html>
