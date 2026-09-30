@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Resume — Vagisha Singh</title>
+  <meta name="description" content="Resume of Vagisha Singh, product designer." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet" />
+
+  <style>
+/* ---------- Same tokens as the homepage ---------- */
+:root {
+  --color-page: #f1f1f1;
+  --color-nav: #6f6f6f;
+  --color-card: #ffffff;
+  --color-text: #000000;
+  --color-text-inverse: #ffffff;
+  --font: "Inter", system-ui, -apple-system, sans-serif;
+  --nav-height: 52px;
+  --card-radius: 5px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; }
+a { color: inherit; }
+
+body {
+  background: var(--color-page);
+  color: var(--color-text);
+  font-family: var(--font);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ---------- Top nav (identical to homepage) ---------- */
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  height: var(--nav-height);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 72px 0 27px;
+  background: var(--color-nav);
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+}
+.nav a { color: var(--color-text-inverse); text-decoration: none; }
+.nav__name { font-size: 24px; font-weight: 700; }
+.nav__links { display: flex; gap: 62px; font-size: 20px; font-weight: 500; }
+.nav__links a:hover,
+.nav__name:hover,
+.nav__links a[aria-current="page"] { text-decoration: underline; text-underline-offset: 4px; }
+
+/* ---------- Resume page ---------- */
+.resume {
+  max-width: 842px;               /* A4 width (794px) + breathing room */
+  margin: 0 auto;
+  padding: 56px 24px 96px;
+}
+
+.resume__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.resume__title {
+  margin: 0;
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 40px;
+}
+
+.btn-download {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 20px;
+  background: #000;
+  color: #fff;
+  border-radius: var(--card-radius);
+  font-size: 16px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: background 0.2s ease;
+}
+.btn-download:hover { background: #333; }
+.btn-download svg {
+  width: 18px; height: 18px;
+  fill: none; stroke: currentColor; stroke-width: 2;
+  stroke-linecap: round; stroke-linejoin: round;
+}
+
+/* The A4 sheet: 210mm × 297mm, laid out like resume.pdf */
+.a4 {
+  width: 100%;
+  max-width: 794px;               /* 210mm at 96dpi */
+  min-height: 1123px;             /* 297mm at 96dpi */
+  margin: 0 auto;
+  padding: 68px 68px 60px;        /* ~18mm margins */
+  background: var(--color-card);
+  border-radius: 2px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08), 0 12px 32px rgba(0, 0, 0, 0.10);
+  color: #111;
+}
+
+.cv p, .cv h2, .cv h3, .cv h4, .cv ul { margin: 0; }
+
+.cv__name { font-size: 35px; font-weight: 700; line-height: 40px; }
+.cv__role { margin-top: 2px !important; font-size: 17px; font-weight: 500; line-height: 23px; color: #5f5f5f; }
+.cv__contact { margin-top: 10px !important; font-size: 12px; line-height: 18px; color: #5f5f5f; }
+.cv__contact a { text-decoration: none; }
+.cv__contact a:hover { text-decoration: underline; }
+
+.cv__section { margin-top: 22px; }
+.cv__label {
+  padding-bottom: 6px;
+  margin-bottom: 11px !important;
+  border-bottom: 1px solid #d4d4d4;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: #5f5f5f;
+}
+
+.cv__body, .cv__list li { font-size: 13px; line-height: 20px; }
+
+.cv__row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+}
+.cv__org { font-size: 15px; font-weight: 700; line-height: 20px; }
+.cv__date { flex-shrink: 0; font-size: 12px; color: #5f5f5f; }
+.cv__meta { font-size: 12px; line-height: 18px; color: #5f5f5f; }
+
+.cv__project { margin-top: 12px; font-size: 13.5px; font-weight: 600; line-height: 20px; }
+.cv__list { margin-top: 3px !important; padding-left: 15px; }
+.cv__list li::marker { color: #5f5f5f; }
+
+.cv__skills p + p { margin-top: 5px; }
+
+/* orange = details still to fill in */
+.fill { color: #c25b00; }
+
+@media (max-width: 760px) {
+  .nav { padding: 0 16px; }
+  .nav__name { font-size: 20px; }
+  .nav__links { gap: 24px; font-size: 16px; }
+  .resume { padding: 32px 16px 64px; }
+  .resume__title { font-size: 24px; }
+  .btn-download { padding: 10px 14px; font-size: 14px; }
+  .a4 { min-height: 0; padding: 32px 22px; }
+  .cv__name { font-size: 28px; line-height: 34px; }
+  .cv__row { flex-direction: column; gap: 0; }
+}
+  </style>
+</head>
+<body>
+
+  <header class="nav">
+    <a class="nav__name" href="index.html">Vagisha Singh</a>
+    <nav class="nav__links">
+      <a href="about.html">About Me</a>
+      <a href="resume.html" aria-current="page">Resume</a>
+    </nav>
+  </header>
+
+  <main class="resume">
+    <div class="resume__header">
+      <h1 class="resume__title">Resume</h1>
+      <a class="btn-download" href="resume.pdf" download="Vagisha-Singh-Resume.pdf">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>
+        Download PDF
+      </a>
+    </div>
+
+    <!-- Resume, shown on an A4-sized sheet. Keep this in sync with resume.pdf -->
+    <article class="a4 cv" aria-label="Resume">
+      <header>
+        <h2 class="cv__name">Vagisha Singh</h2>
+        <p class="cv__role">Product Designer | UX Designer</p>
+        <p class="cv__contact">
+          Raleigh, NC &nbsp;|&nbsp; <a href="tel:+14125033357">(412) 503 3357</a> &nbsp;|&nbsp;
+          <a href="mailto:vagishasingh10@gmail.com">vagishasingh10@gmail.com</a> &nbsp;|&nbsp;
+          <span class="fill">[portfolio URL]</span>
+        </p>
+      </header>
+
+      <section class="cv__section">
+        <h3 class="cv__label">Summary</h3>
+        <p class="cv__body">
+          Product designer with 7+ years designing e-commerce experiences across web and app. I specialize in
+          checkout, pricing and growth-driven marketing work: making complex offers easy to understand at the
+          moment people decide to buy.
+        </p>
+      </section>
+
+      <section class="cv__section">
+        <h3 class="cv__label">Experience</h3>
+        <div class="cv__row">
+          <h4 class="cv__org"><span class="fill">[Job title, e.g. Senior UX Designer]</span></h4>
+          <p class="cv__date"><span class="fill">[Mon YYYY]</span> – <span class="fill">[Present]</span></p>
+        </div>
+        <p class="cv__meta">Critical Mass &nbsp;|&nbsp; Design agency, e-commerce experiences across web and app</p>
+
+        <p class="cv__project">Client: Apple | Apple Card Monthly Installments (embedded in-house)</p>
+        <ul class="cv__list">
+          <li>Core team member redesigning Apple.com checkout to add Apple Card Monthly Installments across desktop, mobile web and the Apple Store app.</li>
+          <li>Designed how monthly pricing showed up alongside full price throughout the buy flow, from the bag to checkout.</li>
+          <li>Owned complex edge cases, including trade-in credits and bags mixing products with different installment terms.</li>
+          <li>Partnered with copywriters on financing modals that explained the terms in plain language.</li>
+          <li>Shipped across most of Apple's online storefronts and stayed live until Apple.com's next redesign.</li>
+        </ul>
+
+        <p class="cv__project">Client: Apple | In-store iPhone pricing portal</p>
+        <ul class="cv__list">
+          <li>Redesigned Apple's customer-facing iPhone pricing portal used at carrier retailers such as Verizon.</li>
+          <li>Focused the redesign on surfacing offers so customers could see the best deal quickly.</li>
+        </ul>
+
+        <p class="cv__project">Client: Nissan | NCAA March Madness campaign</p>
+        <ul class="cv__list">
+          <li>Designed conversion-focused campaign experiences for Nissan's "Road 2 The Final Four" March Madness campaign.</li>
+        </ul>
+      </section>
+
+      <section class="cv__section">
+        <h3 class="cv__label">Education</h3>
+        <div class="cv__row">
+          <h4 class="cv__org">Carnegie Mellon University</h4>
+          <p class="cv__date"><span class="fill">[Year]</span></p>
+        </div>
+        <p class="cv__meta">Master's degree, Integrated Innovation for Products and Services</p>
+      </section>
+
+      <section class="cv__section cv__skills">
+        <h3 class="cv__label">Skills</h3>
+        <p class="cv__body"><b>Design:</b> Product design, UX design, Interaction design, E-commerce and checkout design, Pricing and offer presentation, Conversion-focused campaign design, Responsive web design, Native app design</p>
+        <p class="cv__body"><b>Tools:</b> Figma, Framer, <span class="fill">[add more]</span></p>
+      </section>
+    </article>
+  </main>
+
+</body>
+</html>
