@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About — Vagisha Singh</title>
+  <meta name="description" content="Vagisha Singh is a product designer with 7+ years designing e-commerce checkout, pricing and campaign experiences for brands like Apple and Nissan." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+/* ---------- Same tokens as the rest of the site ---------- */
+:root {
+  --color-page: #f1f1f1;
+  --color-nav: #6f6f6f;
+  --color-card: #ffffff;
+  --color-text: #000000;
+  --color-muted: #5f5f5f;
+  --color-rule: #e2e2e2;
+  --color-text-inverse: #ffffff;
+  --font: "Inter", system-ui, -apple-system, sans-serif;
+  --nav-height: 52px;
+  --card-radius: 5px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; }
+img { display: block; max-width: 100%; }
+a { color: inherit; }
+
+body {
+  background: var(--color-page);
+  color: var(--color-text);
+  font-family: var(--font);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ---------- Top nav (identical to other pages) ---------- */
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  height: var(--nav-height);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 72px 0 27px;
+  background: var(--color-nav);
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+}
+.nav a { color: var(--color-text-inverse); text-decoration: none; }
+.nav__name { font-size: 24px; font-weight: 700; }
+.nav__links { display: flex; gap: 62px; font-size: 20px; font-weight: 500; }
+.nav__links a:hover,
+.nav__name:hover,
+.nav__links a[aria-current="page"] { text-decoration: underline; text-underline-offset: 4px; }
+
+/* ---------- Page layout: sticky profile on the left, story on the right ---------- */
+.page {
+  max-width: 1512px;
+  margin: 0 auto;
+  padding: 66px 72px 120px 77px;
+  display: grid;
+  grid-template-columns: 334px minmax(0, 962px);
+  column-gap: 67px;
+}
+
+/* ---------- Left column: photo + quick facts ---------- */
+.profile {
+  position: sticky;
+  top: calc(var(--nav-height) + 22px);
+  align-self: start;
+  padding-top: 22px;
+}
+
+.profile__photo {
+  width: 160px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: #d9d9d9;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  font-size: 44px;
+  font-weight: 700;
+  color: #fff;
+}
+.profile__photo img { width: 100%; height: 100%; object-fit: cover; }
+
+.profile__name { margin: 24px 0 0; font-size: 28px; font-weight: 700; line-height: 36px; }
+.profile__role { margin: 4px 0 0; font-size: 18px; font-weight: 500; line-height: 26px; color: var(--color-muted); }
+
+.facts { list-style: none; margin: 28px 0 0; padding: 0; }
+.facts li {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  padding: 12px 0;
+  border-top: 1px solid #dcdcdc;
+  font-size: 16px;
+  line-height: 24px;
+}
+.facts li:last-child { border-bottom: 1px solid #dcdcdc; }
+.facts svg { flex-shrink: 0; margin-top: 2px; }
+
+.profile__actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 20px;
+  border-radius: var(--card-radius);
+  font-size: 16px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+.btn--primary { background: #000; color: #fff; }
+.btn--primary:hover { background: #333; }
+.btn--secondary { border: 1.5px solid #000; }
+.btn--secondary:hover { background: #000; color: #fff; }
+
+.icon {
+  width: 20px; height: 20px;
+  fill: none; stroke: currentColor; stroke-width: 2;
+  stroke-linecap: round; stroke-linejoin: round;
+}
+
+/* ---------- Right column: white cards like the homepage ---------- */
+.story { display: flex; flex-direction: column; gap: 32px; }
+
+.block {
+  background: var(--color-card);
+  border-radius: var(--card-radius);
+  padding: 48px 56px;
+}
+
+.eyebrow {
+  margin: 0 0 12px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+.lead {
+  margin: 0;
+  font-size: 36px;
+  font-weight: 700;
+  line-height: 46px;
+  max-width: 720px;
+}
+
+.block h2 { margin: 0 0 20px; font-size: 24px; font-weight: 700; line-height: 32px; }
+
+.body { margin: 0; font-size: 17px; line-height: 30px; max-width: 720px; }
+.body + .body { margin-top: 16px; }
+.lead + .body { margin-top: 24px; }
+
+/* Selected work: three rows */
+.work { list-style: none; margin: 0; padding: 0; }
+.work li { border-top: 1px solid var(--color-rule); }
+.work li:last-child { border-bottom: 1px solid var(--color-rule); }
+.work a {
+  display: grid;
+  grid-template-columns: 140px 1fr auto;
+  gap: 24px;
+  align-items: baseline;
+  padding: 20px 0;
+  text-decoration: none;
+}
+.work a:hover .work__title { text-decoration: underline; text-underline-offset: 4px; }
+.work__client { font-size: 14px; font-weight: 600; color: var(--color-muted); text-transform: uppercase; letter-spacing: 0.04em; }
+.work__title { font-size: 18px; font-weight: 700; line-height: 26px; }
+.work__desc { margin-top: 4px; font-size: 15px; line-height: 24px; color: #333; }
+.work__arrow { font-size: 20px; color: var(--color-muted); }
+
+/* How I work: 2x2 grid */
+.principles {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 28px 40px;
+}
+.principle h3 { margin: 0 0 8px; font-size: 18px; font-weight: 700; line-height: 26px; }
+.principle p { margin: 0; font-size: 15.5px; line-height: 26px; color: #333; }
+.principle__num { display: block; margin-bottom: 10px; font-size: 13px; font-weight: 600; color: var(--color-muted); }
+
+/* Background: timeline rows */
+.timeline { list-style: none; margin: 0; padding: 0; }
+.timeline li {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 4px 24px;
+  padding: 18px 0;
+  border-top: 1px solid var(--color-rule);
+}
+.timeline li:last-child { border-bottom: 1px solid var(--color-rule); }
+.timeline__what { font-size: 17px; font-weight: 700; line-height: 26px; }
+.timeline__where { grid-column: 1; font-size: 15px; line-height: 24px; color: #333; }
+.timeline__when { grid-row: 1; grid-column: 2; font-size: 15px; color: var(--color-muted); white-space: nowrap; }
+
+/* Closing call to action */
+.block--cta { background: #111; color: #fff; }
+.block--cta .eyebrow { color: #b5b5b5; }
+.block--cta .body { color: #e8e8e8; }
+.block--cta .btn--primary { background: #fff; color: #000; }
+.block--cta .btn--primary:hover { background: #e6e6e6; }
+.block--cta .btn--secondary { border-color: #fff; color: #fff; }
+.block--cta .btn--secondary:hover { background: #fff; color: #000; }
+.cta__actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+
+/* orange = details still to fill in */
+.fill { color: #c25b00; }
+.block--cta .fill { color: #ffb070; }
+
+/* Why I design: three columns */
+.reasons {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 32px;
+}
+.reason h3 { margin: 0 0 10px; font-size: 20px; font-weight: 700; line-height: 28px; }
+.reason p { margin: 0; font-size: 15.5px; line-height: 26px; color: #333; }
+.reason__icon {
+  width: 44px; height: 44px;
+  margin-bottom: 16px;
+  border-radius: 50%;
+  background: #f1f1f1;
+  display: grid; place-items: center;
+}
+
+/* Built with AI */
+.block--ai { border: 2px solid #000; }
+.steps { list-style: none; margin: 28px 0 0; padding: 0; counter-reset: step; }
+.steps li {
+  position: relative;
+  padding: 0 0 22px 44px;
+  font-size: 15.5px;
+  line-height: 26px;
+  color: #333;
+}
+.steps li::before {
+  counter-increment: step;
+  content: counter(step);
+  position: absolute; left: 0; top: 0;
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  background: #000; color: #fff;
+  display: grid; place-items: center;
+  font-size: 13px; font-weight: 600;
+}
+.steps li:not(:last-child)::after {
+  content: "";
+  position: absolute; left: 13.5px; top: 32px; bottom: 4px;
+  width: 1px; background: #d4d4d4;
+}
+.steps strong { color: #000; }
+.learned {
+  margin-top: 8px;
+  padding: 24px 28px;
+  background: #f6f6f6;
+  border-radius: var(--card-radius);
+}
+.learned h3 { margin: 0 0 8px; font-size: 17px; font-weight: 700; }
+.learned p { margin: 0; font-size: 15.5px; line-height: 26px; color: #333; }
+.learned p + p { margin-top: 12px; }
+
+.text-link { font-weight: 600; text-underline-offset: 4px; }
+.lead-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 1200px) {
+  .page { grid-template-columns: 260px minmax(0, 1fr); column-gap: 40px; padding: 66px 32px 96px; }
+  .nav { padding: 0 32px 0 27px; }
+  .block { padding: 40px; }
+  .lead { font-size: 30px; line-height: 40px; }
+  .principles { grid-template-columns: 1fr; }
+  .reasons { grid-template-columns: 1fr; gap: 24px; }
+  .work a { grid-template-columns: 1fr auto; }
+  .work__client { grid-column: 1 / -1; }
+}
+
+@media (max-width: 760px) {
+  .nav { padding: 0 16px; }
+  .nav__name { font-size: 20px; }
+  .nav__links { gap: 24px; font-size: 16px; }
+
+  .page { grid-template-columns: 1fr; row-gap: 32px; padding: 32px 16px 64px; }
+  .profile { position: static; padding-top: 0; }
+  .profile__photo { width: 120px; font-size: 34px; }
+  .story { gap: 20px; }
+  .block { padding: 28px 22px; }
+  .lead { font-size: 26px; line-height: 34px; }
+  .body { font-size: 16px; line-height: 27px; }
+  .timeline li { grid-template-columns: 1fr; }
+  .timeline__when { grid-row: auto; grid-column: 1; }
+}
+  </style>
+</head>
+<body>
+
+  <header class="nav">
+    <a class="nav__name" href="index.html">Vagisha Singh</a>
+    <nav class="nav__links">
+      <a href="about.html" aria-current="page">About Me</a>
+      <a href="resume.html">Resume</a>
+    </nav>
+  </header>
+
+  <div class="page">
+
+    <!-- ========== LEFT: who, where, quick facts ========== -->
+    <aside class="profile">
+      <!-- To add your photo: save it as images/headshot.jpg, then replace "VS" below with
+           <img src="images/headshot.jpg" alt="Vagisha Singh" /> -->
+      <div class="profile__photo">VS</div>
+
+      <h1 class="profile__name">Vagisha Singh</h1>
+      <p class="profile__role">Product Designer | UX Designer</p>
+
+      <ul class="facts">
+        <li>
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          <span>Raleigh, NC · <span class="fill">[open to remote / hybrid / relocation]</span></span>
+        </li>
+        <li>
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
+          <span>7+ years in e-commerce design at Critical Mass</span>
+        </li>
+        <li>
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 10 12 5 2 10l10 5 10-5z"/><path d="M6 12v5c3 2 9 2 12 0v-5"/></svg>
+          <span>Master's, Carnegie Mellon University</span>
+        </li>
+        <li>
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m9 12 2 2 4-4"/></svg>
+          <span>Open to new roles</span>
+        </li>
+      </ul>
+
+      <div class="profile__actions">
+        <a class="btn btn--primary" href="mailto:vagishasingh10@gmail.com">
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg>
+          Email me
+        </a>
+        <a class="btn btn--secondary" href="resume.html">Resume</a>
+      </div>
+    </aside>
+
+    <!-- ========== RIGHT: the story ========== -->
+    <main class="story">
+
+      <!-- 1. The headline -->
+      <section class="block">
+        <p class="eyebrow">About me</p>
+        <p class="lead">I love building things, learning as I go, and watching people use what I've made.</p>
+        <p class="body">
+          I'm a product designer with 7+ years designing e-commerce experiences across web and app, most of it at
+          the moment people decide to buy: checkout, pricing and offers. At Critical Mass I was embedded in-house
+          at Apple, where I helped bring Apple Card Monthly Installments into Apple.com checkout, and I've designed
+          for Apple's in-store pricing portal and Nissan's March Madness campaign.
+        </p>
+        <div class="lead-actions">
+          <a class="btn btn--primary" href="index.html">See my work</a>
+          <a class="btn btn--secondary" href="resume.html">Full resume</a>
+        </div>
+      </section>
+
+      <!-- 2. Why I design: her three drivers -->
+      <section class="block">
+        <p class="eyebrow">Why I design</p>
+        <h2>What keeps me doing this work</h2>
+        <div class="reasons">
+          <div class="reason">
+            <div class="reason__icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.8-3.8a6 6 0 0 1-7.9 7.9l-6.9 6.9a2.1 2.1 0 0 1-3-3l6.9-6.9a6 6 0 0 1 7.9-7.9z"/></svg></div>
+            <h3>I love building</h3>
+            <p>
+              My favorite part of design is turning a rough idea into something real. I like working through the
+              details that make a product actually work: the edge case nobody planned for, the sentence that has to
+              fit on a small screen, the moment a messy flow finally feels simple.
+            </p>
+          </div>
+          <div class="reason">
+            <div class="reason__icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 4h6a4 4 0 0 1 4 4v13a3 3 0 0 0-3-3H2z"/><path d="M22 4h-6a4 4 0 0 0-4 4v13a3 3 0 0 1 3-3h7z"/></svg></div>
+            <h3>I love learning</h3>
+            <p>
+              Every project has pulled me into something new, from financing terms and carrier pricing to sports
+              marketing. That curiosity is what drew me to Carnegie Mellon's program, where design, business and
+              engineering meet. Lately it's led me to code and AI, which is how this site exists.
+            </p>
+          </div>
+          <div class="reason">
+            <div class="reason__icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.9"/><path d="M16 3.1a4 4 0 0 1 0 7.8"/></svg></div>
+            <h3>I love seeing it used</h3>
+            <p>
+              Nothing beats seeing real people use what I designed. Someone checking out on Apple.com or comparing
+              iPhone deals at a Verizon store moved through screens I worked on. That's what makes the work
+              meaningful to me, and why I care so much about getting the details right.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3. How this site was made -->
+      <section class="block block--ai">
+        <p class="eyebrow">How I built this site</p>
+        <h2>This website was built entirely with AI</h2>
+        <p class="body">
+          I'm a designer, not an engineer, and I had never coded a website before. I designed this site in Figma,
+          then built every page by working with AI (Claude). Every line of code here was written that way, and I
+          learned how it all works along the way.
+        </p>
+        <ol class="steps">
+          <li><strong>Design to code.</strong> I gave the AI my Figma design and it turned it into HTML and CSS, then I reviewed it against the design and asked for changes, the same way I'd work with an engineer.</li>
+          <li><strong>Iterating in real time.</strong> I refined the layout, pinned the sidebar, swapped labels for icons and edited copy by describing what I wanted and checking the result.</li>
+          <li><strong>Debugging.</strong> When images didn't show up, I learned how file paths and folders work and fixed them.</li>
+          <li><strong>Resume and content.</strong> I built an A4 resume that's readable by applicant tracking systems, plus this page.</li>
+          <li><strong>Shipping it.</strong> I put the code on GitHub and deployed it live on Vercel.</li>
+        </ol>
+        <div class="learned">
+          <h3>What I took away</h3>
+          <p>
+            I now understand how a website is structured, how HTML and CSS fit together, and how code goes from my
+            computer to a live URL. More importantly, I learned how to work with AI as a real collaborator: giving
+            clear direction, reviewing its output with a designer's eye, and pushing back when something isn't right.
+          </p>
+          <p>
+            AI lets designers go from idea to working product much faster. That's something I'm excited to bring to
+            my next team, whether that's prototyping ideas quickly or working more closely with engineers.
+          </p>
+        </div>
+      </section>
+
+      <!-- 4. How I work -->
+      <section class="block">
+        <p class="eyebrow">How I work</p>
+        <h2>What I bring to a team</h2>
+        <div class="principles">
+          <div class="principle">
+            <span class="principle__num">01</span>
+            <h3>Clarity at the point of decision</h3>
+            <p>Pricing and financing are where trust is won or lost. I make complex terms read simply, right where people need them.</p>
+          </div>
+          <div class="principle">
+            <span class="principle__num">02</span>
+            <h3>Designing for the messy cases</h3>
+            <p>A flow is only as good as its hardest edge case. I design the happy path and then make sure it holds up for everything around it, like trade-ins and mixed carts.</p>
+          </div>
+          <div class="principle">
+            <span class="principle__num">03</span>
+            <h3>Working within real constraints</h3>
+            <p>Legal wording, brand standards, tiny mobile screens. I treat constraints as the brief and partner closely with copywriters and cross-functional teams to meet them.</p>
+          </div>
+          <div class="principle">
+            <span class="principle__num">04</span>
+            <h3>Design that moves the business</h3>
+            <p>From checkout to campaigns, I design with conversion in mind, so the work helps people decide and helps the business grow.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 5. What's next + contact -->
+      <section class="block block--cta">
+        <p class="eyebrow">What I'm looking for</p>
+        <h2>Let's talk</h2>
+        <p class="body">
+          I'm looking for a <span class="fill">[Senior Product Designer]</span> role on a team that cares about
+          commerce, growth or complex product experiences, and that's excited about how AI is changing the way we
+          build. If that sounds like your team, I'd love to hear from you.
+        </p>
+        <div class="cta__actions">
+          <a class="btn btn--primary" href="mailto:vagishasingh10@gmail.com">vagishasingh10@gmail.com</a>
+          <a class="btn btn--secondary" href="tel:+14125033357">(412) 503 3357</a>
+          <a class="btn btn--secondary" href="resume.html">View resume</a>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+</body>
+</html>
