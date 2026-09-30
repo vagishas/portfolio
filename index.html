@@ -246,6 +246,16 @@ body {
 }
 .project__summary { margin-top: var(--s1); font-size: 16px; line-height: 1.6; color: var(--muted); max-width: 46ch; }
 
+/* Whole card is clickable via the title link */
+.project { position: relative; transition: border-color .15s ease, box-shadow .15s ease; }
+.project:hover { border-color: #c3c8d1; box-shadow: 0 8px 24px rgba(28, 31, 38, 0.08); }
+.project:hover .project__title { text-decoration: underline; text-underline-offset: 4px; text-decoration-thickness: 2px; }
+.project__link { color: inherit; text-decoration: none; }
+.project__link::after { content: ""; position: absolute; inset: 0; border-radius: var(--radius-lg); }
+.project__link:focus-visible { outline: none; }
+.project__link:focus-visible::after { outline: 2px solid var(--accent); outline-offset: 3px; }
+.proto { position: relative; z-index: 1; }   /* prototype stays usable above the card link */
+
 /* Project details: Client / Platform / Focus in three columns */
 .meta {
   display: grid;
@@ -389,7 +399,7 @@ body {
             <img src="images/acmi.png" alt="Apple Card Monthly Installments checkout on a MacBook and iPhone" class="media--laptop" />
           </div>
           <div class="project__body">
-            <h3 class="project__title">Monthly Price Integration</h3>
+            <h3 class="project__title"><a class="project__link" href="work/monthly-price-integration.html">Monthly Price Integration<span class="visually-hidden"> case study (password protected)</span></a></h3>
             <p class="project__summary">Brought monthly pricing into Apple.com checkout, shown alongside full price from the bag to checkout.</p>
             <dl class="meta">
               <div><dt>Client</dt><dd><span class="meta__client"><img src="images/apple.png" alt="" class="meta__logo meta__logo--apple" /><span>Apple</span></span></dd></div>
@@ -419,7 +429,7 @@ body {
             </div>
           </div>
           <div class="project__body">
-            <h3 class="project__title">Pricing Portal</h3>
+            <h3 class="project__title"><a class="project__link" href="work/pricing-portal.html">Pricing Portal<span class="visually-hidden"> case study (password protected)</span></a></h3>
             <p class="project__summary">Redesigned Apple's in-store iPhone pricing portal so shoppers at carriers like Verizon find the best offer fast.</p>
             <dl class="meta">
               <div><dt>Client</dt><dd><span class="meta__client"><img src="images/apple.png" alt="" class="meta__logo meta__logo--apple" /><span>Apple</span></span></dd></div>
@@ -434,7 +444,7 @@ body {
             <img src="images/MarchMadnessHero.jpg" alt="Nissan Road 2 The Final Four campaign banner" class="media--banner" />
           </div>
           <div class="project__body">
-            <h3 class="project__title">Nissan Campaign</h3>
+            <h3 class="project__title"><a class="project__link" href="work/nissan-campaign.html">Nissan Campaign<span class="visually-hidden"> case study (password protected)</span></a></h3>
             <p class="project__summary">Conversion-focused campaign experiences for Nissan's &ldquo;Road 2 The Final Four&rdquo; during March Madness.</p>
             <dl class="meta">
               <div><dt>Client</dt><dd><span class="meta__client"><img src="images/nissan.png" alt="" class="meta__logo meta__logo--nissan" /><span>Nissan</span></span></dd></div>

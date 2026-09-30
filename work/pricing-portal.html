@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Monthly Price Integration — Vagisha Singh</title>
-  <meta name="description" content="Bringing Apple Card Monthly Installments into Apple.com checkout, so monthly pricing sits alongside full price from the bag to checkout." />
+  <title>Pricing Portal — Vagisha Singh</title>
+  <meta name="description" content="Redesigning Apple's in-store iPhone pricing portal at carriers like Verizon, so shoppers find the best offer fast." />
   <meta name="robots" content="noindex" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -311,15 +311,15 @@ figcaption { margin-top: 10px; font-size: 15px; line-height: 1.5; color: var(--m
   <main class="container" id="main">
     <header class="cs-hero">
       <a class="cs-back" href="../index.html"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg> All work</a>
-      <h1>Monthly Price Integration</h1>
-      <p class="cs-hero__lead">Bringing Apple Card Monthly Installments into Apple.com checkout, so monthly pricing sits alongside full price from the bag to checkout.</p>
+      <h1>Pricing Portal</h1>
+      <p class="cs-hero__lead">Redesigning Apple's in-store iPhone pricing portal at carriers like Verizon, so shoppers find the best offer fast.</p>
       <dl class="cs-meta">
         <div><dt>Client</dt><dd><span class="meta__client"><img src="../images/apple.png" alt="" class="meta__logo meta__logo--apple" /><span>Apple</span></span></dd></div>
-        <div><dt>Platform</dt><dd>Web, Mobile, Native App</dd></div>
-        <div><dt>Role</dt><dd>Product designer, core team</dd></div>
-        <div><dt>Timeframe</dt><dd><span class="fill">[e.g. 2020]</span></dd></div>
+        <div><dt>Platform</dt><dd>In-store portal</dd></div>
+        <div><dt>Role</dt><dd><span class="fill">[Your role]</span></dd></div>
+        <div><dt>Timeframe</dt><dd><span class="fill">[Year]</span></dd></div>
       </dl>
-      <div class="cs-cover"><img src="../images/acmi.png" alt="Apple Card Monthly Installments on a MacBook and iPhone" /></div>
+      <div class="cs-cover cs-cover--phones"><img src="../images/work/portal-home.png" alt="Pricing portal home screen" /><img src="../images/work/portal-pricing.png" alt="Pricing portal carrier plans screen" /><img src="../images/work/portal-compare.png" alt="Pricing portal compare screen" /></div>
     </header>
 
     <div class="cs-body">
@@ -329,11 +329,8 @@ figcaption { margin-top: 10px; font-size: 15px; line-height: 1.5; color: var(--m
           <li><a href="#overview">Overview</a></li>
           <li><a href="#challenge">The challenge</a></li>
           <li><a href="#role">My role</a></li>
-          <li><a href="#merchandising">Making Apple Card visible, without overpowering</a></li>
-          <li><a href="#pricing">Showing two prices at once</a></li>
-          <li><a href="#details">Explaining the terms in plain language</a></li>
-          <li><a href="#edge-cases">Designing for the messy cases</a></li>
-          <li><a href="#repetition">Keeping information close, on purpose</a></li>
+          <li><a href="#flow">The flow</a></li>
+          <li><a href="#decisions">Key decisions</a></li>
           <li><a href="#outcome">Outcome</a></li>
           <li><a href="#learnings">What I learned</a></li>
         </ol>
@@ -342,103 +339,46 @@ figcaption { margin-top: 10px; font-size: 15px; line-height: 1.5; color: var(--m
       <article class="cs-content">
       <section id="overview" aria-labelledby="overview-h">
         <h2 id="overview-h">Overview</h2>
-        <p>Apple Card Monthly Installments (ACMI) lets people pay for Apple products monthly with Apple Card, interest-free. It launched on iPhone. Our team's job was to bring it into the Apple.com buy flow for more products, from the product page to the bag to checkout.</p>
-        <p class="pullquote">By the end, financing wasn't a payment option people stumbled on at checkout. It was part of how price was shown across the whole flow.</p>
-        <p>The project was broad, with dozens of screens and states. Rather than walk through all of it, this case study focuses on the decisions that shaped the experience, and the messy cases that tested it hardest.</p>
+        <p>At carrier stores like Verizon, customers shopping for an iPhone use an Apple pricing portal to explore models and see what they'd pay. I redesigned this customer-facing portal with one priority: <strong>surfacing offers</strong>, so people could find the best deal quickly.</p>
+        <p><span class="fill">[One or two sentences on why this mattered: what was going wrong for shoppers or for Apple before the redesign]</span></p>
       </section>
       <section id="challenge" aria-labelledby="challenge-h">
         <h2 id="challenge-h">The challenge</h2>
-        <p>Apple Card is a credit card, and credit cards come with terms and conditions that aren't easy to digest. The challenge was to keep people fully informed without burying them in jargon, and to make applying for a card feel as simple as the rest of Apple's buy flow.</p>
-        <ul class="constraints">
-          <li><strong>Every word carried weight</strong>Legal and financial wording near a price couldn't simply be cut.</li>
-          <li><strong>Very little space</strong>On a phone, price, terms and trade-in details all had to fit in a small area.</li>
-          <li><strong>Prices that change</strong>Configuration, trade-in credit and payment terms all changed the monthly price.</li>
-          <li><strong>Two kinds of customer</strong>The same flow had to work for existing cardholders and people hearing about Apple Card for the first time.</li>
-        </ul>
-        <figure>
-          <div class="fig-frame"><img src="../images/work/acmi-platforms.jpg" alt="The same product page shown on desktop, mobile web and the Apple Store app" loading="lazy" /></div>
-          <figcaption>One system across desktop, mobile web and the Apple Store app, for Mac, iPad, Apple Watch, AirPods and accessories.</figcaption>
-        </figure>
+        <p><span class="fill">[What made this hard? For example: carrier plans and Apple pricing side by side, offers that change often, shoppers standing in a busy store, staff and customers using the same screen]</span></p>
       </section>
       <section id="role" aria-labelledby="role-h">
         <h2 id="role-h">My role</h2>
-        <p>I was a <strong>core member of the design team</strong>, embedded in-house at Apple through Critical Mass. I worked across Apple.com on desktop and mobile web, and the Apple Store app. <span class="fill">[Timeframe, e.g. Q3–Q4 FY2020]</span></p>
-        <ul>
-          <li>Designed the financing details modal, in close partnership with copywriters.</li>
-          <li>Owned the edge cases: trade-in credits, products with different installment terms, and bags mixing financed and full-price items.</li>
-          <li>Helped extend monthly pricing and Apple Card messaging across the relevant pages of the buy flow.</li>
-          <li>Worked with <span class="fill">[product, legal, engineering and research partners you worked with]</span>.</li>
-        </ul>
+        <p><span class="fill">[Your role and who you worked with, e.g. lead designer at Critical Mass, working with Apple retail and carrier partners]</span></p>
       </section>
-      <section id="merchandising" aria-labelledby="merchandising-h">
-        <h2 id="merchandising-h">Making Apple Card visible, without overpowering</h2>
-        <p>Apple Card was still new, so people needed a reason to learn more. We explored where the Apple Card message should live and how loud it should be. Some versions were easy to miss. Others overpowered the product information, or blended into it so people couldn't tell product details from financing details.</p>
-        <p>We placed a short banner and low monthly prices at the moments people were already making decisions: choosing a configuration, and reviewing their bag. In testing, people clicked a link that called out <strong>0% APR</strong> far more often than a plain "Learn more", so the copy led with that value.</p>
+      <section id="flow" aria-labelledby="flow-h">
+        <h2 id="flow-h">The flow</h2>
+        <p>The portal guides shoppers through four steps, from discovering the latest iPhone to comparing models and pricing.</p>
         <figure>
-          <div class="fig-frame"><img src="../images/work/acmi-merchandising.jpg" alt="Four banner placements in the bag, annotated: not visible, overpowering, confused with product info, and the selected design" loading="lazy" /></div>
-          <figcaption>Banner explorations in the bag, from too quiet to too loud, and the version we chose.</figcaption>
-        </figure>
-      </section>
-      <section id="pricing" aria-labelledby="pricing-h">
-        <h2 id="pricing-h">Showing two prices at once</h2>
-        <p>The bag is where people check what they're paying for: products, taxes, shipping, trade-in credit. Adding a second way to pay could easily make it confusing.</p>
-        <p>We explored several ways to show pricing and tested them with users. In the final design, the bag total shows <strong>both the monthly and the full price side by side</strong> at the bottom of the page, so people can compare their options right where they decide how to pay.</p>
-        <p>The button wording mattered as much as the layout. In testing, people hesitated to click anything close to "Apply", because they worried about a hit to their credit score. "Check Out with Apple Card Monthly Installments" felt safer, because it set the right expectation: they'd see the details before committing.</p>
-        <figure>
-          <div class="fig-frame"><img src="../images/work/acmi-checkout-choice.jpg" alt="Checkout choice: Pay Monthly with Apple Card at $222.61 per month at 0% APR, or Pay in Full at $3,046.00" loading="lazy" /></div>
-          <figcaption>The final checkout choice: monthly and full price side by side, each with a clear next step.</figcaption>
+          <div class="fig-frame fig-frame--phones"><img src="../images/work/portal-home.png" alt="Home screen: Meet iPhone 15, with options to compare models or see pricing" loading="lazy" /><img src="../images/work/portal-features.png" alt="Features screen: 5 things to discover about iPhone 15" loading="lazy" /></div>
+          <figcaption>Home and Features: shoppers start with the phone, then learn what's new.</figcaption>
         </figure>
         <figure>
-          <div class="fig-frame"><img src="../images/work/acmi-bag.jpg" alt="The Apple.com bag with an Apple Card Monthly Installments banner and a monthly price under each item" loading="lazy" /></div>
-          <figcaption>The bag, with the monthly price shown alongside the full price for each item.</figcaption>
+          <div class="fig-frame fig-frame--phones"><img src="../images/work/portal-pricing.png" alt="Pricing screen: carrier plans with monthly prices" loading="lazy" /><img src="../images/work/portal-compare.png" alt="Compare screen: iPhone 15 and iPhone 15 Plus side by side with colors, storage and monthly price" loading="lazy" /></div>
+          <figcaption>Pricing and Compare: carrier plans and models side by side, with the monthly price up front.</figcaption>
         </figure>
       </section>
-      <section id="details" aria-labelledby="details-h">
-        <h2 id="details-h">Explaining the terms in plain language</h2>
-        <p>With full-price and monthly items in the same bag, there wasn't room to explain everything inline. So choosing Apple Card Monthly Installments opens a <strong>payment details modal</strong>.</p>
-        <p>It's a modal rather than a new page on purpose: it feels like an extension of the bag, so people understand their payments before they commit. Working with our copywriters, I focused the content on two distinctions people cared about most: <strong>full price vs. monthly price</strong>, and <strong>what's due today vs. the total over time</strong>.</p>
-        <figure>
-          <div class="fig-frame"><img src="../images/work/acmi-payment-details.jpg" alt="Two versions of the Apple Card Monthly Installments payment details modal, listing monthly payments and what is due today" loading="lazy" /></div>
-          <figcaption>The payment details modal, separating monthly payments from what's due today.</figcaption>
-        </figure>
-      </section>
-      <section id="edge-cases" aria-labelledby="edge-cases-h">
-        <h2 id="edge-cases-h">Designing for the messy cases</h2>
-        <p>The happy path, one iPhone paid monthly, was the easy part. The system only worked if it held up for real carts, and those were the cases I owned:</p>
-        <ul>
-          <li><strong>Mixed bags.</strong> Some items could be paid monthly and some couldn't. The bag total still had to make sense at a glance.</li>
-          <li><strong>Different installment terms.</strong> Products could have different terms, for example 12 months and 6 months, in the same order.</li>
-          <li><strong>Trade-in credit.</strong> A trade-in lowers the amount being financed, so every monthly price had to reflect it.</li>
-        </ul>
-        <p><span class="fill">[Add one example: a specific mixed-bag or trade-in case, what made it hard, and how you solved it]</span></p>
-      </section>
-      <section id="repetition" aria-labelledby="repetition-h">
-        <h2 id="repetition-h">Keeping information close, on purpose</h2>
-        <p>One usability finding was that the Apple Card information felt repetitive. We made a conscious decision to keep it. People went back and forth between product details and pricing before deciding, and many nuances of a credit product are easy to overlook. Keeping the key details and links close at hand at each step supported that back-and-forth instead of fighting it.</p>
-        <figure>
-          <div class="fig-frame"><img src="../images/work/acmi-info-handy.jpg" alt="Screens across the buy flow, each with Apple Card information and links highlighted" loading="lazy" /></div>
-          <figcaption>Apple Card details kept within reach across the flow.</figcaption>
-        </figure>
+      <section id="decisions" aria-labelledby="decisions-h">
+        <h2 id="decisions-h">Key decisions</h2>
+        <h3><span class="fill">[Decision 1, e.g. leading with the monthly price]</span></h3>
+        <p><span class="fill">[What you decided, what you considered instead, and why]</span></p>
+        <h3><span class="fill">[Decision 2, e.g. how offers are shown on each plan]</span></h3>
+        <p><span class="fill">[What you decided, what you considered instead, and why]</span></p>
       </section>
       <section id="outcome" aria-labelledby="outcome-h">
         <h2 id="outcome-h">Outcome</h2>
-        <p>By the end of the project, Apple Card Monthly Installments had become part of how price was communicated. Monthly pricing appeared alongside full price wherever price appeared. A merchandising banner in the bag and checkout led people to it, and a clear payment choice at checkout let them commit without leaving the flow.</p>
-        <ul>
-          <li><strong>Scale:</strong> shipped across most of Apple's online storefronts.</li>
-          <li><strong>Longevity:</strong> stayed live until Apple.com's next redesign, and parts of the approach carried into the new design.</li>
-        </ul>
-        <p>I moved on before post-launch data was available, so I can't share numbers.</p>
+        <p><span class="fill">[What changed because of the redesign: where it shipped, how long it ran, any feedback or results]</span></p>
       </section>
       <section id="learnings" aria-labelledby="learnings-h">
         <h2 id="learnings-h">What I learned</h2>
-        <ul>
-          <li><strong>People are wary of credit.</strong> Past experiences with hidden fees and high interest make people cautious, so every button has to say exactly what happens next.</li>
-          <li><strong>Decisions aren't linear.</strong> People move back and forth to compare, so each detail needs to be purposeful and easy to find again.</li>
-          <li><strong>The total matters most.</strong> People want to know how much they'll pay in total, and they decide based on that.</li>
-        </ul>
+        <p><span class="fill">[One or two takeaways about designing for in-store, assisted shopping]</span></p>
       </section>
-        <a class="next" href="pricing-portal.html">
-          <span><span class="next__label">Next case study</span><span class="next__title">Pricing Portal</span></span>
+        <a class="next" href="nissan-campaign.html">
+          <span><span class="next__label">Next case study</span><span class="next__title">Nissan Campaign</span></span>
           <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
         </a>
       </article>
