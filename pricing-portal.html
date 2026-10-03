@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Making Sense of Pricing In-Store — Vagisha Singh</title>
+  <meta name="description" content="Redesigning how pricing and offers surface in Apple’s in-store Digital Catalog, so shoppers see affordability from the first screen." />
+  <meta name="robots" content="noindex" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+/* =========================================================
+   Design system: shared by every page
+   Idea: a designer of the moment people decide to buy.
+   Quiet, precise surfaces; one "approved" green used sparingly;
+   project details set like line items on an order summary.
+   ========================================================= */
+:root {
+  /* color */
+  --bg: #f5f6f8;          /* page */
+  --surface: #ffffff;     /* cards, nav */
+  --well: #eceff3;        /* image backgrounds */
+  --ink: #1c1f26;         /* text */
+  --muted: #5a616e;       /* secondary text */
+  --rule: #e1e4ea;        /* borders, dividers */
+  --accent: #0e6b57;      /* "payment approved" green */
+  --accent-dark: #0a5646;
+  --accent-soft: #e3f1ec;
+
+  /* type: a characterful display face for headlines, a crisp sans for reading; 1.25 scale */
+  --font-display: "Bricolage Grotesque", system-ui, -apple-system, sans-serif;
+  --font: "Instrument Sans", system-ui, -apple-system, sans-serif;
+  --t-sm: 14px;
+  --t-base: 17px;
+  --t-md: 20px;
+  --t-lg: 25px;
+  --t-xl: 31px;
+  --t-2xl: 39px;
+
+  /* space: 8px grid */
+  --s1: 8px;  --s2: 16px; --s3: 24px; --s4: 32px;
+  --s5: 40px; --s6: 48px; --s8: 64px; --s10: 80px;
+
+  --nav-h: 64px;
+  --radius-lg: 16px;
+  --radius-md: 10px;
+  --gutter: 48px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; }
+html { scroll-padding-top: calc(var(--nav-h) + 16px); }
+img { display: block; max-width: 100%; }
+a { color: inherit; }
+h1, h2, h3, h4, p, ul, ol, dl, dd { margin: 0; }
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font);
+  font-size: var(--t-base);
+  line-height: 1.6;
+  font-feature-settings: "tnum" 1;   /* even numerals, like a price column */
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Headlines use the display face */
+.nav__name, .intro__title, .project__title, .story h2, .story .lead,
+.profile__name, .resume__title, .profile__photo {
+  font-family: var(--font-display);
+  font-optical-sizing: auto;
+}
+
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+
+.skip {
+  position: absolute; left: -999px; top: 8px;
+  background: var(--ink); color: #fff; padding: 8px 12px; border-radius: 6px; z-index: 20;
+}
+.skip:focus { left: 8px; }
+
+.visually-hidden {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+
+.container { max-width: 1320px; margin: 0 auto; padding: 0 var(--gutter); }
+
+/* ---------- Nav ---------- */
+.nav {
+  position: sticky; top: 0; z-index: 10;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: saturate(180%) blur(12px);
+  -webkit-backdrop-filter: saturate(180%) blur(12px);
+  border-bottom: 1px solid var(--rule);
+}
+.nav .container {
+  height: var(--nav-h);
+  display: flex; align-items: center; justify-content: space-between;
+}
+.nav a { text-decoration: none; }
+.nav__name { font-size: 18px; font-weight: 700; letter-spacing: -0.01em; }
+.nav__links { display: flex; gap: var(--s4); font-size: 16px; font-weight: 500; }
+.nav__links a { color: var(--muted); padding: 6px 0; border-bottom: 2px solid transparent; }
+.nav__links a:hover { color: var(--ink); }
+.nav__links a[aria-current="page"] { color: var(--ink); border-bottom-color: var(--accent); }
+
+/* ---------- Buttons ---------- */
+.btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 12px 20px;
+  border-radius: 999px;
+  font-family: inherit; font-size: 16px; font-weight: 600; line-height: 1;
+  text-decoration: none;
+  border: 1.5px solid transparent;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+.btn--primary { background: var(--accent); color: #fff; }
+.btn--primary:hover { background: var(--accent-dark); }
+.btn--secondary { border-color: var(--ink); color: var(--ink); }
+.btn--secondary:hover { background: var(--ink); color: #fff; }
+
+.icon {
+  width: 20px; height: 20px; flex-shrink: 0;
+  fill: none; stroke: currentColor; stroke-width: 1.8;
+  stroke-linecap: round; stroke-linejoin: round;
+}
+
+/* ---------- Footer ---------- */
+.footer { margin-top: var(--s10); border-top: 1px solid var(--rule); }
+.footer .container {
+  display: flex; flex-wrap: wrap; gap: var(--s2); justify-content: space-between;
+  padding-top: var(--s4); padding-bottom: var(--s6);
+  font-size: 15px; color: var(--muted);
+}
+.footer a { text-decoration: none; }
+.footer a:hover { color: var(--ink); text-decoration: underline; }
+
+/* orange = details still to fill in */
+.fill { color: #a34a00; }
+
+@media (max-width: 760px) {
+  :root { --gutter: 16px; }
+  .nav__name { font-size: 17px; }
+  .nav__links { gap: var(--s3); font-size: 15px; }
+}
+@media (max-width: 420px) {
+  .nav__name { font-size: 16px; }
+  .nav__links { gap: 16px; font-size: 14px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; }
+}
+@media (forced-colors: active) {
+  .btn, .copy, .proto__arrow { border: 1px solid ButtonText; }
+  .proto__steps button[aria-current="step"] { outline: 2px solid Highlight; }
+  .status::before { background: CanvasText; }
+}
+
+/* =========================================================
+   This page
+   ========================================================= */
+
+.meta__logo { height: 28px; width: auto; flex-shrink: 0; }
+.meta__logo--apple  { margin: -4px -10px -4px -12px; }
+.meta__logo--nissan { margin: -4px -7px -4px -10px; }
+
+/* ---------- Case study layout ---------- */
+.cs-hero { padding-top: var(--s6); }
+.cs-back {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 15px; font-weight: 500; color: var(--muted); text-decoration: none;
+}
+.cs-back:hover { color: var(--ink); text-decoration: underline; text-underline-offset: 4px; }
+.cs-back .icon { width: 18px; height: 18px; }
+.cs-hero h1 {
+  margin-top: var(--s3);
+  font-family: var(--font-display);
+  font-size: var(--t-2xl); line-height: 1.12; font-weight: 700; letter-spacing: -0.025em;
+  max-width: 22ch; text-wrap: balance;
+}
+.cs-hero__lead { margin-top: var(--s2); font-size: 20px; line-height: 1.55; color: #333844; max-width: 60ch; }
+
+.cs-meta {
+  display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--s3);
+  margin-top: var(--s5); padding-top: var(--s3); border-top: 1px solid var(--rule);
+}
+.cs-meta dt { font-size: 12.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.02em; color: var(--muted); }
+.cs-meta dd { margin-top: 6px; font-size: 16px; line-height: 1.45; }
+.cs-meta .meta__client { display: inline-flex; align-items: center; gap: 2px; }
+
+.cs-cover {
+  margin-top: var(--s5);
+  display: flex; align-items: center; justify-content: center; gap: var(--s4);
+  padding: var(--s6) var(--s4);
+  background: var(--well); border-radius: var(--radius-lg);
+}
+.cs-cover img { max-height: 380px; width: auto; }
+.cs-cover--phones img { max-height: 420px; }
+
+/* Body: pinned section nav + reading column */
+.cs-body {
+  display: grid; grid-template-columns: 220px minmax(0, 1fr);
+  column-gap: var(--s8);
+  margin-top: var(--s8);
+}
+.toc { position: sticky; top: calc(var(--nav-h) + var(--s4)); align-self: start; }
+.toc__title { font-size: 14px; font-weight: 600; color: var(--muted); }
+.toc ol { list-style: none; padding: 0; margin-top: var(--s2); border-left: 1px solid var(--rule); }
+.toc a {
+  display: block; margin-left: -1px; padding: 6px 0 6px 14px;
+  border-left: 2px solid transparent;
+  font-size: 15px; line-height: 1.4; color: var(--muted); text-decoration: none;
+}
+.toc a:hover { color: var(--ink); }
+.toc a[aria-current="true"] { color: var(--ink); font-weight: 600; border-left-color: var(--accent); }
+
+.cs-content { max-width: 720px; }
+.cs-content > section { padding-bottom: var(--s8); }
+.cs-content > section + section { padding-top: var(--s2); }
+.cs-content h2 {
+  font-family: var(--font-display);
+  font-size: var(--t-xl); line-height: 1.2; font-weight: 700; letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+.cs-content h3 { margin-top: var(--s5); font-size: var(--t-md); line-height: 1.35; font-weight: 700; }
+.cs-content p { margin-top: var(--s2); font-size: 18px; line-height: 1.7; color: #333844; }
+.cs-content ul { margin-top: var(--s2); padding-left: 1.2em; }
+.cs-content li { margin-top: 8px; font-size: 18px; line-height: 1.65; color: #333844; }
+.cs-content li::marker { color: var(--accent); }
+.cs-content strong { color: var(--ink); font-weight: 600; }
+
+.pullquote {
+  margin: var(--s4) 0 0; padding: var(--s3) var(--s4);
+  background: var(--accent-soft); border-radius: var(--radius-md);
+  font-family: var(--font-display); font-size: 22px; line-height: 1.4; font-weight: 600; color: var(--accent-dark);
+}
+
+figure { margin: var(--s4) 0 0; }
+.fig-frame {
+  display: flex; align-items: center; justify-content: center; gap: var(--s3);
+  padding: var(--s4); background: var(--well); border-radius: var(--radius-lg);
+}
+.fig-frame img { max-height: 520px; width: auto; border-radius: 6px; }
+.fig-frame--phones img { max-height: 440px; }
+figcaption { margin-top: 10px; font-size: 15px; line-height: 1.5; color: var(--muted); }
+
+.constraints { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s2); margin-top: var(--s3); padding: 0; list-style: none; }
+.constraints li {
+  margin: 0; padding: var(--s2) var(--s3);
+  background: var(--surface); border: 1px solid var(--rule); border-radius: var(--radius-md);
+  font-size: 16px; line-height: 1.5;
+}
+.constraints li strong { display: block; margin-bottom: 2px; }
+
+/* Next project: a compact link, not a big card */
+.next {
+  display: inline-flex; align-items: center; gap: var(--s2);
+  margin-top: var(--s1); padding: 12px 18px;
+  background: var(--surface); border: 1px solid var(--rule); border-radius: var(--radius-md);
+  text-decoration: none;
+}
+.next:hover { border-color: #c3c8d1; }
+.next:hover .next__title { text-decoration: underline; text-underline-offset: 3px; }
+.next__label { display: block; font-size: 13px; font-weight: 600; color: var(--muted); }
+.next__title { display: block; margin-top: 2px; font-family: var(--font-display); font-size: 18px; font-weight: 700; letter-spacing: -0.01em; }
+.next .icon { width: 20px; height: 20px; color: var(--accent); }
+
+@media (max-width: 1100px) {
+  .cs-body { grid-template-columns: 180px minmax(0, 1fr); column-gap: var(--s5); }
+}
+@media (max-width: 860px) {
+  .cs-body { grid-template-columns: 1fr; margin-top: var(--s6); }
+  .toc { position: static; margin-bottom: var(--s5); padding: var(--s2) var(--s3); background: var(--surface); border: 1px solid var(--rule); border-radius: var(--radius-md); }
+  .toc ol { border-left: 0; margin-top: var(--s1); }
+  .toc a { padding-left: 0; border-left: 0; }
+  .toc a[aria-current="true"] { border-left: 0; }
+  .cs-meta { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 760px) {
+  .cs-hero h1 { font-size: var(--t-xl); }
+  .cs-hero__lead { font-size: 18px; }
+  .cs-cover { padding: var(--s4) var(--s2); gap: var(--s2); }
+  .cs-cover img { max-height: 240px; }
+  .cs-cover--phones img { max-height: 260px; width: 30%; height: auto; object-fit: contain; }
+  .fig-frame { padding: var(--s2); }
+  .fig-frame--phones { gap: var(--s1); }
+  .fig-frame--phones img { width: 47%; height: auto; }
+  .constraints { grid-template-columns: 1fr; }
+  .cs-content p, .cs-content li { font-size: 17px; }
+}
+
+
+/* stats + tall scrolling screenshots (pricing portal) */
+.stat-row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s2); margin-top: var(--s4); }
+.stat { display: flex; flex-direction: column; gap: 6px; padding: var(--s3); background: var(--surface); border: 1px solid var(--rule); border-radius: var(--radius-md); font-size: 16px; line-height: 1.5; color: #333844; }
+.stat__num { font-family: var(--font-display); font-size: var(--t-2xl); font-weight: 800; line-height: 1; color: var(--accent); letter-spacing: -0.02em; }
+.fig-frame--tall { align-items: flex-start; }
+.fig-frame--tall .tall { width: 220px; max-height: 480px; overflow-y: auto; border-radius: 8px; background: var(--surface); }
+.fig-frame--tall .tall img { max-height: none; width: 100%; height: auto; border-radius: 0; }
+@media (max-width: 760px) {
+  .stat-row { grid-template-columns: 1fr; }
+  .fig-frame--tall .tall { width: 47%; max-height: 360px; }
+}
+  </style>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="nav">
+    <div class="container">
+      <a class="nav__name" href="../index.html">Vagisha Singh</a>
+      <nav class="nav__links" aria-label="Main">
+        <a href="../index.html" aria-current="page">Work</a>
+        <a href="../about.html">About me</a>
+        <a href="../resume.html">Resume</a>
+      </nav>
+    </div>
+  </header>
+
+    <main class="container" id="main">
+    <header class="cs-hero">
+      <a class="cs-back" href="../index.html"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg> All work</a>
+      <h1>Making sense of pricing in-store</h1>
+      <p class="cs-hero__lead">In carrier stores, Apple’s Digital Catalog hid real savings, so iPhones felt more expensive than they were. I redesigned how offers are signaled and structured, so customers see affordability from the first screen.</p>
+      <dl class="cs-meta">
+        <div><dt>Client</dt><dd><span class="meta__client"><img src="../images/apple.png" alt="" class="meta__logo meta__logo--apple" /><span>Apple</span></span></dd></div>
+        <div><dt>Platform</dt><dd>In-store Digital Catalog</dd></div>
+        <div><dt>Role</dt><dd>UX &amp; interaction design, visual design and dev support</dd></div>
+        <div><dt>Timeframe</dt><dd>Mar – Nov 2024</dd></div>
+      </dl>
+      <div class="cs-cover cs-cover--phones"><img src="../images/work/pricing-portal/01-hero-phone.png" alt="Digital Catalog on iPhone with the new offers entry point" /><img src="../images/work/pricing-portal/17-final-screens.png" alt="Final pricing page, special offers modal, offer details and pricing details" /></div>
+    </header>
+
+    <div class="cs-body">
+      <nav class="toc" aria-label="On this page">
+        <p class="toc__title">On this page</p>
+        <ol>
+          <li><a href="#overview">Overview</a></li>
+          <li><a href="#system">The system</a></li>
+          <li><a href="#problem">The problem</a></li>
+          <li><a href="#goals">Constraint &amp; goals</a></li>
+          <li><a href="#solution">The solution</a></li>
+          <li><a href="#exploration">How I got there</a></li>
+          <li><a href="#outcome">Outcome</a></li>
+        </ol>
+      </nav>
+
+      <article class="cs-content">
+      <section id="overview" aria-labelledby="overview-h">
+        <h2 id="overview-h">Overview</h2>
+        <p>At carrier stores like Verizon and AT&amp;T, shoppers explore iPhones on Apple’s Digital Catalog. As promotions grew more complex, the catalog didn’t keep up, so iPhones looked <strong>more expensive than they really were</strong>.</p>
+        <figure>
+          <div class="fig-frame"><img src="../images/work/pricing-portal/02-intro-catalog-flow.png" alt="Four catalog screens from screensaver to pricing page" loading="lazy" /></div>
+          <figcaption>The Digital Catalog at the start of the project, from screensaver to Pricing Page.</figcaption>
+        </figure>
+      </section>
+
+      <section id="system" aria-labelledby="system-h">
+        <h2 id="system-h">The system</h2>
+        <p>Partners enter all pricing and offers in a backend Pricing Portal that Apple doesn’t control. Apple can only shape <strong>how that content is presented</strong> in-store.</p>
+        <figure>
+          <div class="fig-frame"><img src="../images/work/pricing-portal/13-opportunity-c.png" alt="Focus areas: Landing, Pricing, Compare and Compare All Pricing screens" loading="lazy" /></div>
+          <figcaption>Focus areas: where pricing and offers appear across the catalog.</figcaption>
+        </figure>
+      </section>
+
+      <section id="problem" aria-labelledby="problem-h">
+        <h2 id="problem-h">The problem</h2>
+        <ul>
+          <li><strong>Every offer looked the same.</strong> Installments, trade-ins, discounts and bundles shared one card template.</li>
+          <li><strong>Key info got skipped.</strong> “Reasons to Buy” read like legal fine print.</li>
+          <li><strong>Nothing signaled offers existed</strong> until shoppers reached pricing.</li>
+        </ul>
+        <div class="stat-row">
+          <div class="stat"><span class="stat__num">83%</span><span>of smartphone shoppers left without buying, mostly “waiting for a better deal” or needing “more time to research.”</span></div>
+          <div class="stat"><span class="stat__num">#1</span><span>most requested info in-store: promotions and special offers.</span></div>
+        </div>
+        <figure>
+          <div class="fig-frame"><img src="../images/work/pricing-portal/11-opportunity-a.png" alt="Customer journey showing where affordability communication breaks down, from seeing an ad outside the store to abandoning the purchase" loading="lazy" /></div>
+          <figcaption>Where the journey broke down: an ad promises “$0/month,” but the catalog can’t back it up.</figcaption>
+        </figure>
+      </section>
+
+      <section id="goals" aria-labelledby="goals-h">
+        <h2 id="goals-h">Constraint &amp; goals</h2>
+        <p class="pullquote">I couldn’t change the content, so I changed how it reads.</p>
+        <p>Character limits, regional legal rules and global scale all applied. Within that, I set three goals:</p>
+        <ul class="constraints">
+          <li><strong>1. Awareness</strong>Show that offers exist before anyone goes looking.</li>
+          <li><strong>2. Visibility</strong>Make offers stand out on the Pricing Page.</li>
+          <li><strong>3. Flexibility</strong>Support every offer type within existing templates.</li>
+        </ul>
+        <figure>
+          <div class="fig-frame"><img src="../images/work/pricing-portal/12-opportunity-b.png" alt="Six offer types partners promote: installments, discounts, attach, spot trade-in, forward trade-in and combinations" loading="lazy" /></div>
+          <figcaption>The six offer types the templates had to support.</figcaption>
+        </figure>
+      </section>
+
+      <section id="solution" aria-labelledby="solution-h">
+        <h2 id="solution-h">The solution</h2>
+        <h3>Separate cost from value</h3>
+        <p>Price stays anchored on the page. Offers get their own space, with a shared visual language.</p>
+        <h3>A persistent offers entry point</h3>
+        <p>It flashes blue to catch the eye, then settles to grey. It reuses Apple’s existing bar patterns, so there’s nothing new to learn.</p>
+        <figure>
+          <div class="fig-frame"><img src="../images/work/pricing-portal/18-final-entry-point.png" alt="Offers entry point in its blue and grey states" loading="lazy" /></div>
+        </figure>
+        <h3>Offers stay in view at the point of decision</h3>
+        <p>The same entry point sits on the Pricing Page and opens a modal, so offers stay visible while shoppers compare costs.</p>
+        <figure>
+          <div class="fig-frame"><img src="../images/work/pricing-portal/17-final-screens.png" alt="Pricing page, special offers modal, offer details and pricing details" loading="lazy" /></div>
+          <figcaption>Pricing Page → Special offers → Offer and pricing details.</figcaption>
+        </figure>
+        <h3>Edge cases covered</h3>
+        <ul>
+          <li><strong>No offer entered:</strong> the familiar “refer to store” card shows.</li>
+          <li><strong>Offers on only some configurations:</strong> other offers fill the space.</li>
+          <li><strong>France:</strong> the required DAS overlay appears on page load.</li>
+        </ul>
+      </section>
+
+      <section id="exploration" aria-labelledby="exploration-h">
+        <h2 id="exploration-h">How I got there</h2>
+        <p>I tested how much visibility offers needed, from a subtle ribbon to elevated “featured deals” with a distinct template per offer type, then landed on the <strong>lightest signal that still drives awareness</strong>.</p>
+        <figure>
+          <div class="fig-frame"><img src="../images/work/pricing-portal/19-explore-awareness.png" alt="Range of awareness entry points explored" loading="lazy" /></div>
+          <figcaption>Awareness explorations, from subtle cues to explicit signals.</figcaption>
+        </figure>
+        <figure>
+          <div class="fig-frame fig-frame--tall"><div class="tall"><img src="../images/work/pricing-portal/23-option-a-full.png" alt="Direction A: deals ribbon at the top of the page" loading="lazy" /></div><div class="tall"><img src="../images/work/pricing-portal/25-option-b-full.png" alt="Direction B: featured deals elevated with distinct templates" loading="lazy" /></div></div>
+          <figcaption>Direction A (deals ribbon) vs. Direction B (featured deals).</figcaption>
+        </figure>
+      </section>
+
+      <section id="outcome" aria-labelledby="outcome-h">
+        <h2 id="outcome-h">Outcome</h2>
+        <p><span class="fill">[Add 1–2 results: where it shipped, partner adoption, engagement with offers, or feedback]</span></p>
+      </section>
+        <a class="next" href="nissan-campaign.html">
+          <span><span class="next__label">Next case study</span><span class="next__title">Nissan Campaign</span></span>
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
+        </a>
+      </article>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <span>Designed in Figma by me, coded with AI.</span>
+      <a href="mailto:vagishasingh10@gmail.com">vagishasingh10@gmail.com</a>
+    </div>
+  </footer>
+
+  <script>
+  (() => {
+    /* Highlight the section you're reading in the pinned "On this page" list */
+    const links = [...document.querySelectorAll('.toc a')];
+    const sections = links.map(a => document.querySelector(a.getAttribute('href')));
+    const setCurrent = (id) => links.forEach(a => a.getAttribute('href') === '#' + id
+      ? a.setAttribute('aria-current', 'true') : a.removeAttribute('aria-current'));
+    // The current section is the last one whose heading has scrolled past the top bar
+    let ticking = false;
+    const update = () => {
+      const line = document.querySelector('.nav').offsetHeight + 40;
+      let current = sections[0];
+      for (const s of sections) if (s && s.getBoundingClientRect().top <= line) current = s;
+      // at the very bottom of the page, the last section is current
+      if (innerHeight + scrollY >= document.documentElement.scrollHeight - 4) current = sections[sections.length - 1];
+      setCurrent(current.id);
+      ticking = false;
+    };
+    addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
+    addEventListener('resize', update);
+    update();
+  })();
+  </script>
+</body>
+</html>
