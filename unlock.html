@@ -197,6 +197,33 @@ body {
 .unlock__help { margin-top: var(--s4); padding-top: var(--s3); border-top: 1px solid var(--rule); font-size: 16px; color: var(--muted); }
 .unlock__help a { color: var(--accent-dark); font-weight: 600; }
 
+  
+/* =========================================================
+   Polish: three small interactions (no custom animation)
+   1. Buttons answer hover, press and focus
+   2. Project cards + "Next case study" respond as one unit
+   3. Nav divider appears once content scrolls under it
+   ========================================================= */
+/* 1. Buttons */
+.btn { transition: background-color .15s ease-out, color .15s ease-out, border-color .15s ease-out, transform .1s ease-out; }
+.btn:active { transform: translateY(1px); }
+
+/* 2. Cards + next link */
+.project, .next { transition: border-color .15s ease-out; }
+.project:hover, .project:focus-within, .next:hover, .next:focus-visible { border-color: #c3c8d1; }
+.project__arrow { width: 20px; height: 20px; margin-left: 6px; vertical-align: -3px; color: var(--accent); }
+.project__arrow, .next .icon { transition: transform .15s ease-out; }
+.project:hover .project__arrow, .project:focus-within .project__arrow,
+.next:hover .icon, .next:focus-visible .icon { transform: translateX(3px); }
+
+/* 3. Nav divider: hidden at the top of the page, fades in once scrolled */
+.nav { transition: border-color .2s ease-out; }
+.nav.has-scroll-state:not(.is-scrolled) { border-bottom-color: transparent; }
+.nav-sentinel { position: absolute; top: 0; left: 0; width: 1px; height: 8px; pointer-events: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .btn, .project, .next, .next .icon, .project__arrow, .nav { transition: none; }
+}
   </style>
 </head>
 <body>
@@ -260,6 +287,18 @@ body {
       if (!input.value.trim()) { e.preventDefault(); show('Enter the password to continue.'); input.focus(); }
     });
     input.addEventListener('input', () => { error.hidden = true; input.removeAttribute('aria-invalid'); });
+  })();
+  </script>
+  <script>
+  /* Polish #3: show the nav divider only after content scrolls under it */
+  (() => {
+    const nav = document.querySelector('.nav');
+    if (!nav || !('IntersectionObserver' in window)) return;
+    const s = document.createElement('div');
+    s.className = 'nav-sentinel'; s.setAttribute('aria-hidden', 'true');
+    document.body.prepend(s);
+    nav.classList.add('has-scroll-state');
+    new IntersectionObserver(([e]) => nav.classList.toggle('is-scrolled', !e.isIntersecting)).observe(s);
   })();
   </script>
 </body>

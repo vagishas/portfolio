@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Making Sense of Pricing In-Store — Vagisha Singh</title>
-  <meta name="description" content="Redesigning how pricing and offers surface in Apple’s in-store Digital Catalog, so shoppers see affordability from the first screen." />
+  <title>Nissan Campaign — Vagisha Singh</title>
+  <meta name="description" content="Conversion-focused, mobile-first campaign experiences for Nissan's “Road 2 The Final Four” during March Madness." />
   <meta name="robots" content="noindex" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -291,18 +291,6 @@ figcaption { margin-top: 10px; font-size: 15px; line-height: 1.5; color: var(--m
   .cs-content p, .cs-content li { font-size: 17px; }
 }
 
-
-/* stats + tall scrolling screenshots (pricing portal) */
-.stat-row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s2); margin-top: var(--s4); }
-.stat { display: flex; flex-direction: column; gap: 6px; padding: var(--s3); background: var(--surface); border: 1px solid var(--rule); border-radius: var(--radius-md); font-size: 16px; line-height: 1.5; color: #333844; }
-.stat__num { font-family: var(--font-display); font-size: var(--t-2xl); font-weight: 800; line-height: 1; color: var(--accent); letter-spacing: -0.02em; }
-.fig-frame--tall { align-items: flex-start; }
-.fig-frame--tall .tall { width: 220px; max-height: 480px; overflow-y: auto; border-radius: 8px; background: var(--surface); }
-.fig-frame--tall .tall img { max-height: none; width: 100%; height: auto; border-radius: 0; }
-@media (max-width: 760px) {
-  .stat-row { grid-template-columns: 1fr; }
-  .fig-frame--tall .tall { width: 47%; max-height: 360px; }
-}
   
 /* =========================================================
    Polish: three small interactions (no custom animation)
@@ -346,18 +334,18 @@ figcaption { margin-top: 10px; font-size: 15px; line-height: 1.5; color: var(--m
     </div>
   </header>
 
-    <main class="container" id="main">
+  <main class="container" id="main">
     <header class="cs-hero">
       <a class="cs-back" href="../index.html"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg> All work</a>
-      <h1>Making sense of pricing in-store</h1>
-      <p class="cs-hero__lead">In carrier stores, Apple’s Digital Catalog hid real savings, so iPhones felt more expensive than they were. I redesigned how offers are signaled and structured, so customers see affordability from the first screen.</p>
+      <h1>Nissan Campaign</h1>
+      <p class="cs-hero__lead">Conversion-focused, mobile-first campaign experiences for Nissan's “Road 2 The Final Four” during March Madness.</p>
       <dl class="cs-meta">
-        <div><dt>Client</dt><dd><span class="meta__client"><img src="../images/apple.png" alt="" class="meta__logo meta__logo--apple" /><span>Apple</span></span></dd></div>
-        <div><dt>Platform</dt><dd>In-store Digital Catalog</dd></div>
-        <div><dt>Role</dt><dd>UX &amp; interaction design, visual design and dev support</dd></div>
-        <div><dt>Timeframe</dt><dd>Mar – Nov 2024</dd></div>
+        <div><dt>Client</dt><dd><span class="meta__client"><img src="../images/nissan.png" alt="" class="meta__logo meta__logo--nissan" /><span>Nissan</span></span></dd></div>
+        <div><dt>Platform</dt><dd>Mobile-first, Web</dd></div>
+        <div><dt>Role</dt><dd><span class="fill">[Your role]</span></dd></div>
+        <div><dt>Timeframe</dt><dd><span class="fill">[Year]</span></dd></div>
       </dl>
-      <div class="cs-cover cs-cover--phones"><img src="../images/work/pricing-portal/01-hero-phone.png" alt="Digital Catalog on iPhone with the new offers entry point" /><img src="../images/work/pricing-portal/17-final-screens.png" alt="Final pricing page, special offers modal, offer details and pricing details" /></div>
+      <div class="cs-cover"><img src="../images/MarchMadnessHero.jpg" alt="Nissan Road 2 The Final Four campaign banner" /></div>
     </header>
 
     <div class="cs-body">
@@ -365,108 +353,55 @@ figcaption { margin-top: 10px; font-size: 15px; line-height: 1.5; color: var(--m
         <p class="toc__title">On this page</p>
         <ol>
           <li><a href="#overview">Overview</a></li>
-          <li><a href="#system">The system</a></li>
-          <li><a href="#problem">The problem</a></li>
-          <li><a href="#goals">Constraint &amp; goals</a></li>
-          <li><a href="#solution">The solution</a></li>
-          <li><a href="#exploration">How I got there</a></li>
+          <li><a href="#challenge">The challenge</a></li>
+          <li><a href="#role">My role</a></li>
+          <li><a href="#design">The design</a></li>
+          <li><a href="#decisions">Key decisions</a></li>
           <li><a href="#outcome">Outcome</a></li>
+          <li><a href="#learnings">What I learned</a></li>
         </ol>
       </nav>
 
       <article class="cs-content">
       <section id="overview" aria-labelledby="overview-h">
         <h2 id="overview-h">Overview</h2>
-        <p>At carrier stores like Verizon and AT&amp;T, shoppers explore iPhones on Apple’s Digital Catalog. As promotions grew more complex, the catalog didn’t keep up, so iPhones looked <strong>more expensive than they really were</strong>.</p>
-        <figure>
-          <div class="fig-frame"><img src="../images/work/pricing-portal/02-intro-catalog-flow.png" alt="Four catalog screens from screensaver to pricing page" loading="lazy" /></div>
-          <figcaption>The Digital Catalog at the start of the project, from screensaver to Pricing Page.</figcaption>
-        </figure>
+        <p>For NCAA March Madness, Nissan ran its &ldquo;Road 2 The Final Four&rdquo; campaign. I designed conversion-focused campaign experiences for it, <strong>mobile-first</strong> and extended to web.</p>
+        <p><span class="fill">[One or two sentences on the goal: what Nissan wanted fans to do, e.g. explore vehicles, sign up, or find a dealer]</span></p>
       </section>
-
-      <section id="system" aria-labelledby="system-h">
-        <h2 id="system-h">The system</h2>
-        <p>Partners enter all pricing and offers in a backend Pricing Portal that Apple doesn’t control. Apple can only shape <strong>how that content is presented</strong> in-store.</p>
-        <figure>
-          <div class="fig-frame"><img src="../images/work/pricing-portal/13-opportunity-c.png" alt="Focus areas: Landing, Pricing, Compare and Compare All Pricing screens" loading="lazy" /></div>
-          <figcaption>Focus areas: where pricing and offers appear across the catalog.</figcaption>
-        </figure>
+      <section id="challenge" aria-labelledby="challenge-h">
+        <h2 id="challenge-h">The challenge</h2>
+        <p><span class="fill">[What made this hard? For example: short campaign window, fans arriving from social and sports content on their phones, turning excitement into a real action]</span></p>
       </section>
-
-      <section id="problem" aria-labelledby="problem-h">
-        <h2 id="problem-h">The problem</h2>
-        <ul>
-          <li><strong>Every offer looked the same.</strong> Installments, trade-ins, discounts and bundles shared one card template.</li>
-          <li><strong>Key info got skipped.</strong> “Reasons to Buy” read like legal fine print.</li>
-          <li><strong>Nothing signaled offers existed</strong> until shoppers reached pricing.</li>
-        </ul>
-        <div class="stat-row">
-          <div class="stat"><span class="stat__num">83%</span><span>of smartphone shoppers left without buying, mostly “waiting for a better deal” or needing “more time to research.”</span></div>
-          <div class="stat"><span class="stat__num">#1</span><span>most requested info in-store: promotions and special offers.</span></div>
-        </div>
-        <figure>
-          <div class="fig-frame"><img src="../images/work/pricing-portal/11-opportunity-a.png" alt="Customer journey showing where affordability communication breaks down, from seeing an ad outside the store to abandoning the purchase" loading="lazy" /></div>
-          <figcaption>Where the journey broke down: an ad promises “$0/month,” but the catalog can’t back it up.</figcaption>
-        </figure>
+      <section id="role" aria-labelledby="role-h">
+        <h2 id="role-h">My role</h2>
+        <p><span class="fill">[Your role and team, e.g. UX designer at Critical Mass, working with creative, copy and development]</span></p>
       </section>
-
-      <section id="goals" aria-labelledby="goals-h">
-        <h2 id="goals-h">Constraint &amp; goals</h2>
-        <p class="pullquote">I couldn’t change the content, so I changed how it reads.</p>
-        <p>Character limits, regional legal rules and global scale all applied. Within that, I set three goals:</p>
-        <ul class="constraints">
-          <li><strong>1. Awareness</strong>Show that offers exist before anyone goes looking.</li>
-          <li><strong>2. Visibility</strong>Make offers stand out on the Pricing Page.</li>
-          <li><strong>3. Flexibility</strong>Support every offer type within existing templates.</li>
-        </ul>
+      <section id="design" aria-labelledby="design-h">
+        <h2 id="design-h">The design</h2>
+        <p><span class="fill">[Walk through the experience: where people landed, what they saw first, and the main action you designed for]</span></p>
         <figure>
-          <div class="fig-frame"><img src="../images/work/pricing-portal/12-opportunity-b.png" alt="Six offer types partners promote: installments, discounts, attach, spot trade-in, forward trade-in and combinations" loading="lazy" /></div>
-          <figcaption>The six offer types the templates had to support.</figcaption>
+          <div class="fig-frame"><img src="../images/work/../MarchMadnessHero.jpg" alt="Nissan Road 2 The Final Four campaign banner with Nissan vehicles and the Road 2 badge" loading="lazy" /></div>
+          <figcaption>The campaign's hero: Nissan's lineup on the Road 2 The Final Four.</figcaption>
         </figure>
+        <p><span class="fill">[Add screens of the mobile experience here]</span></p>
       </section>
-
-      <section id="solution" aria-labelledby="solution-h">
-        <h2 id="solution-h">The solution</h2>
-        <h3>Separate cost from value</h3>
-        <p>Price stays anchored on the page. Offers get their own space, with a shared visual language.</p>
-        <h3>A persistent offers entry point</h3>
-        <p>It flashes blue to catch the eye, then settles to grey. It reuses Apple’s existing bar patterns, so there’s nothing new to learn.</p>
-        <figure>
-          <div class="fig-frame"><img src="../images/work/pricing-portal/18-final-entry-point.png" alt="Offers entry point in its blue and grey states" loading="lazy" /></div>
-        </figure>
-        <h3>Offers stay in view at the point of decision</h3>
-        <p>The same entry point sits on the Pricing Page and opens a modal, so offers stay visible while shoppers compare costs.</p>
-        <figure>
-          <div class="fig-frame"><img src="../images/work/pricing-portal/17-final-screens.png" alt="Pricing page, special offers modal, offer details and pricing details" loading="lazy" /></div>
-          <figcaption>Pricing Page → Special offers → Offer and pricing details.</figcaption>
-        </figure>
-        <h3>Edge cases covered</h3>
-        <ul>
-          <li><strong>No offer entered:</strong> the familiar “refer to store” card shows.</li>
-          <li><strong>Offers on only some configurations:</strong> other offers fill the space.</li>
-          <li><strong>France:</strong> the required DAS overlay appears on page load.</li>
-        </ul>
+      <section id="decisions" aria-labelledby="decisions-h">
+        <h2 id="decisions-h">Key decisions</h2>
+        <h3><span class="fill">[Decision 1, e.g. designing mobile-first for fans on the go]</span></h3>
+        <p><span class="fill">[What you decided and why]</span></p>
+        <h3><span class="fill">[Decision 2, e.g. the main call to action]</span></h3>
+        <p><span class="fill">[What you decided and why]</span></p>
       </section>
-
-      <section id="exploration" aria-labelledby="exploration-h">
-        <h2 id="exploration-h">How I got there</h2>
-        <p>I tested how much visibility offers needed, from a subtle ribbon to elevated “featured deals” with a distinct template per offer type, then landed on the <strong>lightest signal that still drives awareness</strong>.</p>
-        <figure>
-          <div class="fig-frame"><img src="../images/work/pricing-portal/19-explore-awareness.png" alt="Range of awareness entry points explored" loading="lazy" /></div>
-          <figcaption>Awareness explorations, from subtle cues to explicit signals.</figcaption>
-        </figure>
-        <figure>
-          <div class="fig-frame fig-frame--tall"><div class="tall"><img src="../images/work/pricing-portal/23-option-a-full.png" alt="Direction A: deals ribbon at the top of the page" loading="lazy" /></div><div class="tall"><img src="../images/work/pricing-portal/25-option-b-full.png" alt="Direction B: featured deals elevated with distinct templates" loading="lazy" /></div></div>
-          <figcaption>Direction A (deals ribbon) vs. Direction B (featured deals).</figcaption>
-        </figure>
-      </section>
-
       <section id="outcome" aria-labelledby="outcome-h">
         <h2 id="outcome-h">Outcome</h2>
-        <p><span class="fill">[Add 1–2 results: where it shipped, partner adoption, engagement with offers, or feedback]</span></p>
+        <p><span class="fill">[Results or reach, if you have them; otherwise what shipped and where it ran]</span></p>
       </section>
-        <a class="next" href="nissan-campaign.html">
-          <span><span class="next__label">Next case study</span><span class="next__title">Nissan Campaign</span></span>
+      <section id="learnings" aria-labelledby="learnings-h">
+        <h2 id="learnings-h">What I learned</h2>
+        <p><span class="fill">[One or two takeaways about designing campaigns for conversion]</span></p>
+      </section>
+        <a class="next" href="monthly-price-integration.html">
+          <span><span class="next__label">Next case study</span><span class="next__title">Monthly Price Integration</span></span>
           <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
         </a>
       </article>

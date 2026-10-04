@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Apple Card Monthly Installments — Vagisha Singh</title>
+  <meta name="description" content="Scaling Apple Card Monthly Installments from iPhone to every Apple product line, across web, mobile web and the Apple Store app." />
+  <meta name="robots" content="noindex" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+/* =========================================================
+   Same system as the rest of the site: quiet surfaces, one
+   "payment approved" green, details set like an order summary.
+   ========================================================= */
+:root {
+  --bg: #f5f6f8;
+  --surface: #ffffff;
+  --well: #eceff3;
+  --ink: #1c1f26;
+  --muted: #5a616e;
+  --rule: #e1e4ea;
+  --accent: #0e6b57;
+  --accent-dark: #0a5646;
+  --accent-soft: #e3f1ec;
+  --stop: #a3352b;
+  --stop-soft: #f8e9e7;
+
+  --font-display: "Bricolage Grotesque", system-ui, -apple-system, sans-serif;
+  --font: "Instrument Sans", system-ui, -apple-system, sans-serif;
+  --t-sm: 14px; --t-base: 17px; --t-md: 20px; --t-lg: 25px; --t-xl: 31px; --t-2xl: 39px;
+
+  --s1: 8px; --s2: 16px; --s3: 24px; --s4: 32px; --s5: 40px; --s6: 48px; --s8: 64px; --s10: 80px;
+  --nav-h: 64px;
+  --radius-lg: 16px;
+  --radius-md: 10px;
+  --gutter: 48px;
+}
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; }
+html { scroll-behavior: smooth; scroll-padding-top: calc(var(--nav-h) + 16px); }
+img { display: block; max-width: 100%; height: auto; }
+a { color: inherit; }
+h1, h2, h3, h4, p, ul, ol, dl, dd, blockquote { margin: 0; }
+body {
+  background: var(--bg); color: var(--ink);
+  font-family: var(--font); font-size: var(--t-base); line-height: 1.6;
+  font-feature-settings: "tnum" 1; -webkit-font-smoothing: antialiased;
+}
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+.skip { position: absolute; left: -999px; top: 8px; background: var(--ink); color: #fff; padding: 8px 12px; border-radius: 6px; z-index: 20; }
+.skip:focus { left: 8px; }
+.container { max-width: 1320px; margin: 0 auto; padding: 0 var(--gutter); }
+.visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* ---------- Nav ---------- */
+.nav {
+  position: sticky; top: 0; z-index: 10;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: saturate(180%) blur(12px); -webkit-backdrop-filter: saturate(180%) blur(12px);
+  border-bottom: 1px solid var(--rule);
+}
+.nav .container { height: var(--nav-h); display: flex; align-items: center; justify-content: space-between; }
+.nav a { text-decoration: none; }
+.nav__name { font-family: var(--font-display); font-size: 18px; font-weight: 700; letter-spacing: -0.01em; }
+.nav__links { display: flex; gap: var(--s4); list-style: none; padding: 0; font-size: 16px; font-weight: 500; }
+.nav__links a { color: var(--muted); }
+.nav__links a:hover, .nav__links a[aria-current="page"] { color: var(--ink); }
+
+/* ---------- Case study header ---------- */
+.cs-hero { padding-top: var(--s6); }
+.cs-back { display: inline-flex; align-items: center; gap: 6px; font-size: 15px; font-weight: 500; color: var(--muted); text-decoration: none; }
+.cs-back:hover { color: var(--ink); text-decoration: underline; text-underline-offset: 4px; }
+.icon { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.cs-eyebrow { margin-top: var(--s3); font-size: 15px; font-weight: 600; color: var(--accent); }
+.cs-hero h1 {
+  margin-top: 6px; font-family: var(--font-display);
+  font-size: var(--t-2xl); line-height: 1.12; font-weight: 700; letter-spacing: -0.025em;
+  max-width: 22ch; text-wrap: balance;
+}
+.cs-hero__lead { margin-top: var(--s2); font-size: 20px; line-height: 1.55; color: #333844; max-width: 60ch; }
+.cs-meta {
+  display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--s3);
+  margin-top: var(--s5); padding-top: var(--s3); border-top: 1px solid var(--rule);
+}
+.cs-meta dt { font-size: 12.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.02em; color: var(--muted); }
+.cs-meta dd { margin-top: 6px; font-size: 16px; line-height: 1.45; }
+.meta__client { display: inline-flex; align-items: center; gap: 2px; }
+.meta__logo { height: 28px; width: auto; flex-shrink: 0; margin: -4px -10px -4px -12px; }
+.cs-cover { margin-top: var(--s5); display: flex; align-items: center; justify-content: center; padding: var(--s6) var(--s4); background: var(--well); border-radius: var(--radius-lg); }
+.cs-cover img { max-height: 420px; width: auto; }
+
+/* ---------- Body: pinned section nav + reading column ---------- */
+.cs-body { display: grid; grid-template-columns: 220px minmax(0, 1fr); column-gap: var(--s8); margin-top: var(--s8); }
+.toc { position: sticky; top: calc(var(--nav-h) + var(--s4)); align-self: start; }
+.toc__title { font-size: 14px; font-weight: 600; color: var(--muted); }
+.toc ol { list-style: none; padding: 0; margin-top: var(--s2); border-left: 1px solid var(--rule); }
+.toc a { display: block; margin-left: -1px; padding: 6px 0 6px 14px; border-left: 2px solid transparent; font-size: 15px; line-height: 1.4; color: var(--muted); text-decoration: none; }
+.toc a:hover { color: var(--ink); }
+.toc a[aria-current="true"] { color: var(--ink); font-weight: 600; border-left-color: var(--accent); }
+
+.cs-content { max-width: 760px; min-width: 0; }
+.cs-content > section { padding-bottom: var(--s8); }
+.cs-content > section + section { padding-top: var(--s2); }
+.kicker { font-size: 14px; font-weight: 600; color: var(--accent); margin-bottom: 6px; }
+.cs-content h2 { font-family: var(--font-display); font-size: var(--t-xl); line-height: 1.2; font-weight: 700; letter-spacing: -0.02em; text-wrap: balance; }
+.cs-content h3 { margin-top: var(--s5); font-size: var(--t-md); line-height: 1.35; font-weight: 700; }
+.cs-content p { margin-top: var(--s2); font-size: 18px; line-height: 1.7; color: #333844; }
+.cs-content ul { margin-top: var(--s2); padding-left: 1.2em; }
+.cs-content li { margin-top: 8px; font-size: 18px; line-height: 1.65; color: #333844; }
+.cs-content li::marker { color: var(--accent); }
+.cs-content strong { color: var(--ink); font-weight: 600; }
+
+.pullquote {
+  margin-top: var(--s4); padding: var(--s3) var(--s4);
+  background: var(--accent-soft); border-radius: var(--radius-md);
+  font-family: var(--font-display); font-size: 22px; line-height: 1.4; font-weight: 600; color: var(--accent-dark);
+}
+.pullquote cite { display: block; margin-top: 10px; font-family: var(--font); font-style: normal; font-size: 15px; font-weight: 500; color: var(--accent-dark); opacity: .85; }
+
+/* figures */
+figure { margin: var(--s4) 0 0; }
+.fig-frame { display: flex; align-items: center; justify-content: center; gap: var(--s3); padding: var(--s4); background: var(--well); border-radius: var(--radius-lg); }
+.fig-frame img { max-height: 520px; width: auto; border-radius: 6px; }
+.fig-frame--wide { padding: var(--s3); }
+.fig-frame--wide img { width: 100%; max-height: none; }
+.fig-frame--phone img { max-height: 460px; }
+.fig-pair { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s2); }
+.fig-pair .fig-frame { height: 100%; padding: var(--s3); }
+figcaption { margin-top: 10px; font-size: 15px; line-height: 1.5; color: var(--muted); }
+.zoom { cursor: zoom-in; }
+
+/* cards */
+.constraints { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s2); margin-top: var(--s3); padding: 0; list-style: none; }
+.constraints li { margin: 0; padding: var(--s2) var(--s3); background: var(--surface); border: 1px solid var(--rule); border-radius: var(--radius-md); font-size: 16px; line-height: 1.5; }
+.constraints li strong { display: block; margin-bottom: 2px; }
+
+.problems { list-style: none; padding: 0; margin-top: var(--s3); display: grid; gap: var(--s2); }
+.problems > li { margin: 0; display: grid; grid-template-columns: 44px 1fr; gap: var(--s2); padding: var(--s3); background: var(--surface); border: 1px solid var(--rule); border-radius: var(--radius-md); }
+.problems .num { font-family: var(--font-display); font-size: 22px; font-weight: 700; color: var(--accent); line-height: 1.3; }
+.problems h3 { margin: 0; font-size: 18px; }
+.problems p { margin-top: 6px; font-size: 16px; line-height: 1.6; }
+.terms { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; padding: 0; list-style: none; }
+.terms li { margin: 0; padding: 4px 12px; background: var(--accent-soft); color: var(--accent-dark); border-radius: 999px; font-size: 14px; font-weight: 600; }
+.terms li::marker { content: none; }
+
+/* order-summary style scope table */
+.ledger { margin-top: var(--s3); background: var(--surface); border: 1px solid var(--rule); border-radius: var(--radius-lg); overflow: hidden; }
+.ledger__row { display: grid; grid-template-columns: 160px 1fr; gap: var(--s2); padding: var(--s2) var(--s3); border-top: 1px solid var(--rule); }
+.ledger__row:first-child { border-top: 0; }
+.ledger__row dt { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: .02em; color: var(--muted); padding-top: 3px; }
+.ledger__row dd { font-size: 16px; line-height: 1.6; }
+
+/* research */
+.stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--s2); margin-top: var(--s4); }
+.stat { padding: var(--s2) var(--s3); background: var(--surface); border: 1px solid var(--rule); border-radius: var(--radius-md); }
+.stat b { display: block; font-family: var(--font-display); font-size: var(--t-xl); line-height: 1.1; font-weight: 700; }
+.stat span { font-size: 14px; color: var(--muted); line-height: 1.4; display: block; margin-top: 4px; }
+
+.insights { display: grid; gap: var(--s2); margin-top: var(--s3); }
+.insight { display: grid; grid-template-columns: 132px 1fr; gap: var(--s3); align-items: start; padding: var(--s3); background: var(--surface); border: 1px solid var(--rule); border-radius: var(--radius-lg); }
+.insight img { border-radius: 10px; box-shadow: 0 0 0 1px var(--rule); background: var(--well); }
+.insight h3 { margin: 0; font-size: 18px; }
+.insight p { margin-top: 6px; font-size: 16px; line-height: 1.6; }
+.insight .so { margin-top: var(--s2); padding-top: 12px; border-top: 1px dashed var(--rule); color: var(--accent-dark); font-weight: 500; }
+
+.quotes { list-style: none; padding: 0; margin-top: var(--s3); display: grid; grid-template-columns: 1fr 1fr; gap: var(--s2); }
+.quotes li { margin: 0; padding: var(--s2) var(--s3); background: var(--surface); border: 1px solid var(--rule); border-radius: var(--radius-md); font-size: 16px; line-height: 1.55; }
+.quotes li::marker { content: none; }
+.quotes cite { display: block; margin-top: 8px; font-style: normal; font-size: 14px; font-weight: 600; color: var(--muted); }
+
+.principles { counter-reset: p; list-style: none; padding: 0; margin-top: var(--s3); display: grid; gap: var(--s1); }
+.principles li { counter-increment: p; margin: 0; position: relative; padding: 14px var(--s3) 14px 60px; background: var(--surface); border: 1px solid var(--rule); border-radius: var(--radius-md); font-size: 17px; }
+.principles li::before { content: counter(p, decimal-leading-zero); position: absolute; left: var(--s3); top: 14px; font-weight: 700; color: var(--accent); }
+.principles li::marker { content: none; }
+
+/* bag options */
+.options { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--s2); margin-top: var(--s3); }
+.opt { display: flex; flex-direction: column; padding: var(--s2); background: var(--surface); border: 1px solid var(--rule); border-radius: var(--radius-lg); }
+.opt__shot { height: 170px; display: grid; place-items: center; background: var(--well); border-radius: var(--radius-md); overflow: hidden; padding: 10px; }
+.opt__shot img { max-height: 150px; width: auto; }
+.opt__tag { margin-top: 12px; display: inline-flex; align-self: flex-start; padding: 2px 10px; border-radius: 999px; font-size: 12.5px; font-weight: 700; background: var(--stop-soft); color: var(--stop); }
+.opt h3 { margin-top: 8px; font-size: 16px; line-height: 1.35; }
+.opt p { margin-top: 6px; font-size: 14.5px; line-height: 1.55; }
+.opt--pick { border: 2px solid var(--accent); grid-column: span 2; display: grid; grid-template-columns: 1fr 1fr; gap: var(--s2); align-items: center; }
+.opt--pick .opt__shot { height: 100%; min-height: 200px; }
+.opt--pick .opt__shot img { max-height: 220px; }
+.opt--pick .opt__tag { background: var(--accent-soft); color: var(--accent-dark); margin-top: 0; }
+
+/* CTA copy, set like an order summary */
+.cta-table { margin-top: var(--s3); background: var(--surface); border: 1px solid var(--rule); border-radius: var(--radius-lg); overflow: hidden; }
+.cta-row { display: grid; grid-template-columns: 150px 1fr auto; gap: var(--s2); align-items: center; padding: 14px var(--s3); border-top: 1px solid var(--rule); }
+.cta-row:first-child { border-top: 0; }
+.cta-row__who { font-size: 14px; color: var(--muted); }
+.cta-row__btn { justify-self: start; padding: 6px 14px; border-radius: 8px; background: #0071e3; color: #fff; font-size: 14.5px; font-weight: 600; white-space: nowrap; }
+.cta-row--no .cta-row__btn { background: #9aa1ad; text-decoration: line-through; text-decoration-color: rgba(255,255,255,.7); }
+.verdict { font-size: 14px; font-weight: 600; padding: 2px 10px; border-radius: 999px; white-space: nowrap; }
+.verdict--no { color: var(--stop); background: var(--stop-soft); }
+.verdict--yes { color: var(--accent-dark); background: var(--accent-soft); }
+
+/* outcome numbers */
+.results { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--s2); margin-top: var(--s3); }
+.result { padding: var(--s3); background: var(--surface); border: 1px solid var(--rule); border-radius: var(--radius-lg); }
+.result b { display: block; font-family: var(--font-display); font-size: 36px; line-height: 1; font-weight: 800; color: var(--accent); }
+.result span { display: block; margin-top: 10px; font-size: 15px; line-height: 1.5; color: #333844; }
+
+/* next */
+.next { display: flex; align-items: center; justify-content: space-between; gap: var(--s3); margin-top: var(--s2); padding: var(--s4) var(--s5); background: var(--surface); border: 1px solid var(--rule); border-radius: var(--radius-lg); text-decoration: none; }
+.next:hover { border-color: #c3c8d1; }
+.next:hover .next__title { text-decoration: underline; text-underline-offset: 4px; }
+.next__label { font-size: 14px; font-weight: 600; color: var(--muted); }
+.next__title { display: block; margin-top: 4px; font-family: var(--font-display); font-size: var(--t-lg); font-weight: 700; letter-spacing: -0.015em; }
+.next .icon { width: 28px; height: 28px; color: var(--accent); }
+
+.footer { margin-top: var(--s10); border-top: 1px solid var(--rule); }
+.footer .container { display: flex; justify-content: space-between; gap: var(--s2); flex-wrap: wrap; padding-top: var(--s4); padding-bottom: var(--s5); font-size: 15px; color: var(--muted); }
+.footer a { color: var(--ink); }
+
+/* lightbox */
+.lb { position: fixed; inset: 0; z-index: 50; display: none; align-items: center; justify-content: center; padding: var(--s3); background: rgba(28, 31, 38, .88); cursor: zoom-out; }
+.lb.open { display: flex; }
+.lb img { max-width: 100%; max-height: 100%; border-radius: 8px; background: #fff; }
+
+@media (max-width: 1100px) {
+  .cs-body { grid-template-columns: 180px minmax(0, 1fr); column-gap: var(--s5); }
+}
+@media (max-width: 860px) {
+  :root { --gutter: 24px; }
+  .cs-body { grid-template-columns: 1fr; margin-top: var(--s6); }
+  .toc { position: static; margin-bottom: var(--s5); padding: var(--s2) var(--s3); background: var(--surface); border: 1px solid var(--rule); border-radius: var(--radius-md); }
+  .toc ol { border-left: 0; margin-top: var(--s1); columns: 2; }
+  .toc a { padding-left: 0; border-left: 0; }
+  .toc a[aria-current="true"] { border-left: 0; }
+  .cs-meta { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .options { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 760px) {
+  .nav__links { gap: var(--s2); font-size: 15px; }
+  .cs-hero h1 { font-size: var(--t-xl); }
+  .cs-hero__lead { font-size: 18px; }
+  .cs-cover { padding: var(--s3) var(--s2); }
+  .cs-cover img { max-height: 240px; }
+  .fig-frame { padding: var(--s2); }
+  .fig-pair, .quotes, .results, .constraints { grid-template-columns: 1fr; }
+  .insight { grid-template-columns: 88px 1fr; gap: var(--s2); padding: var(--s2); }
+  .ledger__row { grid-template-columns: 1fr; gap: 4px; }
+  .options { grid-template-columns: 1fr; }
+  .opt--pick { grid-column: auto; grid-template-columns: 1fr; }
+  .cta-row { grid-template-columns: 1fr auto; }
+  .cta-row__who { grid-column: 1 / -1; }
+  .cs-content p, .cs-content li { font-size: 17px; }
+  .next { padding: var(--s3); }
+}
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  
+/* =========================================================
+   Polish: three small interactions (no custom animation)
+   1. Buttons answer hover, press and focus
+   2. Project cards + "Next case study" respond as one unit
+   3. Nav divider appears once content scrolls under it
+   ========================================================= */
+/* 1. Buttons */
+.btn { transition: background-color .15s ease-out, color .15s ease-out, border-color .15s ease-out, transform .1s ease-out; }
+.btn:active { transform: translateY(1px); }
+
+/* 2. Cards + next link */
+.project, .next { transition: border-color .15s ease-out; }
+.project:hover, .project:focus-within, .next:hover, .next:focus-visible { border-color: #c3c8d1; }
+.project__arrow { width: 20px; height: 20px; margin-left: 6px; vertical-align: -3px; color: var(--accent); }
+.project__arrow, .next .icon { transition: transform .15s ease-out; }
+.project:hover .project__arrow, .project:focus-within .project__arrow,
+.next:hover .icon, .next:focus-visible .icon { transform: translateX(3px); }
+
+/* 3. Nav divider: hidden at the top of the page, fades in once scrolled */
+.nav { transition: border-color .2s ease-out; }
+.nav.has-scroll-state:not(.is-scrolled) { border-bottom-color: transparent; }
+.nav-sentinel { position: absolute; top: 0; left: 0; width: 1px; height: 8px; pointer-events: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .btn, .project, .next, .next .icon, .project__arrow, .nav { transition: none; }
+}
+  </style>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="nav">
+    <div class="container">
+      <a class="nav__name" href="../index.html">Vagisha Singh</a>
+      <nav aria-label="Main">
+        <ul class="nav__links">
+          <li><a href="../index.html" aria-current="page">Work</a></li>
+          <li><a href="../about.html">About me</a></li>
+          <li><a href="../resume.html">Resume</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container" id="main">
+    <header class="cs-hero">
+      <a class="cs-back" href="../index.html"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg> All work</a>
+      <p class="cs-eyebrow">E-commerce UX</p>
+      <h1>Apple Card Monthly Installments</h1>
+      <p class="cs-hero__lead">Designing a new way to pay for every Apple product. From a financing feature that only existed for iPhone, to a system that scaled across Mac, iPad, Apple Watch, and accessories.</p>
+      <dl class="cs-meta">
+        <div><dt>Client</dt><dd><span class="meta__client"><img src="../images/apple.png" alt="" class="meta__logo" onerror="this.remove()" /><span>Apple, with Critical Mass</span></span></dd></div>
+        <div><dt>Platform</dt><dd>Web, Mobile Web, iOS App</dd></div>
+        <div><dt>Role</dt><dd>Lead UX (Mobile Web)<br />Apple Store App checkout</dd></div>
+        <div><dt>Timeframe</dt><dd>January 2019 – March 2020</dd></div>
+      </dl>
+      <div class="cs-cover"><img src="../images/work/acmi-hero-devices.png" alt="The Apple Card Monthly Installments explainer on a MacBook, beside the Apple Card web application on iPhone" width="1569" height="1043" /></div>
+    </header>
+
+    <div class="cs-body">
+      <nav class="toc" aria-label="On this page">
+        <p class="toc__title">On this page</p>
+        <ol>
+          <li><a href="#background">Background</a></li>
+          <li><a href="#problem">The problem space</a></li>
+          <li><a href="#research">Research</a></li>
+          <li><a href="#principles">Design principles</a></li>
+          <li><a href="#buy-flow">The buy flow</a></li>
+          <li><a href="#bag">The bag</a></li>
+          <li><a href="#mixed-bag">Mixed bag &amp; ledger</a></li>
+          <li><a href="#cta">The CTA copy</a></li>
+          <li><a href="#app">Apple Store App</a></li>
+          <li><a href="#outcome">Outcome</a></li>
+          <li><a href="#learnings">What I learned</a></li>
+        </ol>
+      </nav>
+
+      <article class="cs-content">
+
+      <!-- BACKGROUND -->
+      <section id="background" aria-labelledby="background-h">
+        <p class="kicker">Background</p>
+        <h2 id="background-h">ACMI existed. Now it needed to scale.</h2>
+        <p>Apple Card Monthly Installments launched in 2019. The idea was simple: buy your iPhone with 24 zero-interest monthly payments and get cash back along with that. It was elegant. It was new. And it was completely limited to iPhone.</p>
+        <p>By late 2019, the question wasn't whether to expand ACMI, it was how fast we could do it. Mac, iPad, Apple Watch, and accessories were all candidates. My brief: design the experience end-to-end, across every surface, in time for the next iOS release cycle.</p>
+        <p>This wasn't a redesign. It was an integration: weaving monthly installments into every step of Apple's existing buy flow so it felt native from the start, not bolted on. The work lived in the details: CTA hierarchy, how much mobile real estate each option earned, and making sure customers saw the right information at the right moment, especially around trade-ins and AppleCare, where pricing gets complicated.</p>
+        <p class="pullquote">Success meant the change felt invisible.</p>
+        <figure>
+          <div class="fig-frame fig-frame--wide"><img class="zoom" src="../images/work/acmi-high-level-flow.png" alt="Flow diagram: Buy Flow, Attach and Bag lead to a payment selection. One-time payment branches to Apple Pay or standard checkout; monthly installments branch to sign in, fulfillment, shipping, web application, application result, review, confirmation and provisioning the card in Wallet." width="1046" height="235" loading="lazy" /></div>
+          <figcaption>The customer journey with and without the Apple Card Monthly Installments payment option. Click to enlarge.</figcaption>
+        </figure>
+      </section>
+
+      <!-- PROBLEM SPACE -->
+      <section id="problem" aria-labelledby="problem-h">
+        <p class="kicker">Part one · The scope</p>
+        <h2 id="problem-h">Three problems arriving at the same time</h2>
+        <p>Expanding ACMI beyond iPhone introduced three interconnected problems that had to be solved together.</p>
+        <ol class="problems">
+          <li>
+            <span class="num">01</span>
+            <div>
+              <h3>Scalability across products and terms</h3>
+              <ul class="terms"><li>Mac · 12 months</li><li>Watch · 24 months</li><li>Accessories · 6 months</li></ul>
+              <p>A single bag could contain all three at once. The experience needed to handle mixed-term orders gracefully, without drowning users in a sea of asterisks and fine print.</p>
+            </div>
+          </li>
+          <li>
+            <span class="num">02</span>
+            <div>
+              <h3>Trust in a credit product</h3>
+              <p>Most shoppers thought Apple Card was a payment plan. Discovering it was a credit card application mid-purchase created friction we needed to design around. Credit cards carry baggage (late fees, interest, hidden costs) that Apple Card didn't have, but customers didn't know that yet.</p>
+            </div>
+          </li>
+          <li>
+            <span class="num">03</span>
+            <div>
+              <h3>A pricing story that makes sense</h3>
+              <p>Monthly price, full price, trade-in credits, Daily Cash, taxes, fees, and amount due today all needed to coexist without forcing users to do the math before checkout.</p>
+            </div>
+          </li>
+        </ol>
+        <dl class="ledger">
+          <div class="ledger__row"><dt>In scope</dt><dd>Mac, Watch and iPad buy flows · Trade-in with instant credit · Mixed-term bag · Accessories attach · Native and web credit card applications</dd></div>
+          <div class="ledger__row"><dt>Constraints</dt><dd>US-only, consumer only · No partial returns · No structural redesign of the buy flow · Fixed iOS ship date · Design ran parallel to requirements</dd></div>
+          <div class="ledger__row"><dt>Out of scope</dt><dd>Gift cards · Variable APR</dd></div>
+        </dl>
+      </section>
+
+      <!-- RESEARCH -->
+      <section id="research" aria-labelledby="research-h">
+        <p class="kicker">Part two · Listening before designing</p>
+        <h2 id="research-h">18 people, two prototypes, one clear message</h2>
+        <p>In March 2020, we ran moderated usability sessions at AnswerLab in San Francisco. Current iPhone owners, all planning a new purchase and most expecting to trade in, tested two prototype variants across desktop, mobile web and the Apple Store app. Before the sessions, the team had built an MVP to test against the existing iPhone experience, with each variant taking a different approach to surfacing the payment choice.</p>
+        <div class="stats">
+          <div class="stat"><b>18</b><span>participants</span></div>
+          <div class="stat"><b>6 / 12</b><span>desktop / mobile</span></div>
+          <div class="stat"><b>60</b><span>minutes per session</span></div>
+          <div class="stat"><b>2</b><span>already had an Apple Card</span></div>
+        </div>
+        <p>We went in with three questions: How do people perceive ACMI in the buy flow? How do they react when they realize it involves a credit card? Where do the flows break down? What we heard was consistent, clear, and in some places uncomfortable.</p>
+
+        <h3>What we learned, and what we did about it</h3>
+        <div class="insights">
+          <div class="insight">
+            <img class="zoom" src="../images/work/acmi-research-iphone-payment-choice.png" alt="Prototype screen asking the shopper to choose between Apple Card Monthly Installments and one-time payment" width="736" height="1582" loading="lazy" />
+            <div>
+              <h3>The credit card was invisible until it wasn't</h3>
+              <p>Most participants didn't know monthly installments meant applying for a credit card until the application started. The reveal caused surprise, even a sense of betrayal.</p>
+              <p class="so">So we named Apple Card wherever the monthly price appeared, not just at checkout.</p>
+            </div>
+          </div>
+          <div class="insight">
+            <img class="zoom" src="../images/work/acmi-research-checkout-choice.png" alt="Prototype checkout choice with an 'Apply and Check Out' button for monthly payments" width="946" height="2048" loading="lazy" />
+            <div>
+              <h3>“Apply” seemed dangerous</h3>
+              <p>The word “apply” triggered credit score anxiety. Participants hesitated to tap anything that sounded like it would run a credit check.</p>
+              <p class="so">So we rewrote the CTA by customer state (see the CTA copy).</p>
+            </div>
+          </div>
+          <div class="insight">
+            <img class="zoom" src="../images/work/acmi-research-tradein-bag.png" alt="Prototype bag showing price after trade-in, Apple Trade In credit and AppleCare+ with its own monthly price" width="946" height="2048" loading="lazy" />
+            <div>
+              <h3>AppleCare+ and trade-in were easy to miss</h3>
+              <p>Choosing a full-price AppleCare+ option upfront in order to pay monthly later felt counterintuitive. And the trade-in value went largely unnoticed on the product page.</p>
+              <p class="so">So we showed monthly pricing on every add-on and repeated the trade-in credit in the bag.</p>
+            </div>
+          </div>
+          <div class="insight">
+            <img class="zoom" src="../images/work/acmi-research-terms.png" alt="Apple Card terms and conditions screen in the prototype" width="1125" height="2436" loading="lazy" />
+            <div>
+              <h3>Easier to understand, but still lacking</h3>
+              <p>The new payment details were clearer than the existing iPhone flow, but people still wanted more: what they owe today, what they owe each month, and the total. They also trusted Apple more than the issuing bank.</p>
+              <p class="so">So we designed the price ledger, and kept Apple's voice front and center.</p>
+            </div>
+          </div>
+        </div>
+
+        <h3>In their words</h3>
+        <ul class="quotes">
+          <li>“When you say monthly installments I don't think I'm applying for a credit card.”<cite>Greg, Mobile</cite></li>
+          <li>“All of a sudden it says continue to Apple Card application. If I do get an Apple Card I'd like something not this hidden.”<cite>Daniele, Desktop</cite></li>
+          <li>“I wouldn't get a credit card that way. I don't get credit cards on a whim.”<cite>Heather, Mobile</cite></li>
+          <li>“I can see where the numbers are coming from but I have to do detective work. And math in my head.”<cite>Judy, Mobile</cite></li>
+          <li>“I'd like to know more about the Apple Card right upfront… Especially that percentage per day… What really is that?”<cite>Sue, Desktop</cite></li>
+          <li>“It's a lot of steps to buy a phone – you want to buy a phone as quick as possible.”<cite>Daniele, Desktop</cite></li>
+        </ul>
+        <blockquote class="pullquote">“Shopping is supposed to be fun. I'd like to have the card set up and then just feel like I'm buying the phone.”<cite>Judy, Mobile: a reminder that the experience had to feel light, not laborious.</cite></blockquote>
+      </section>
+
+      <!-- PRINCIPLES -->
+      <section id="principles" aria-labelledby="principles-h">
+        <p class="kicker">Part three · Designing the experience</p>
+        <h2 id="principles-h">Surface the commitment early. Eliminate the math. Fix the words.</h2>
+        <p>The research gave us three principles to design against. Every decision in the buy flow, bag and checkout was checked against them:</p>
+        <ol class="principles">
+          <li>Does this tell people earlier that Apple Card is involved?</li>
+          <li>Does this remove any mental arithmetic?</li>
+          <li>Does the language feel like continuation rather than commitment?</li>
+        </ol>
+      </section>
+
+      <!-- BUY FLOW -->
+      <section id="buy-flow" aria-labelledby="buy-flow-h">
+        <p class="kicker">Decision 1</p>
+        <h2 id="buy-flow-h">The buy flow: pricing that speaks for itself</h2>
+        <ul>
+          <li><strong>Monthly pricing from the start.</strong> Full and monthly prices sit side by side on the product page, with the term always beside the number. The monthly price recalculates with every configuration choice, and rides along in the sticky price summary next to Continue.</li>
+          <li><strong>A link that names the offer.</strong> The link says “0% APR,” not “Learn more.” In testing, people clicked the specific number far more.</li>
+          <li><strong>Pricing that reflects the trade-in.</strong> Adding a trade-in instantly recalculates the monthly price, so customers see their real cost, never a changing estimate.</li>
+        </ul>
+        <figure>
+          <div class="fig-frame fig-frame--wide"><img class="zoom" src="../images/work/acmi-mac-monthly-pricing.png" alt="Mac product selection: each configuration shows the full price and a monthly price for 12 months, with a link about paying monthly at 0% APR" width="1800" height="1016" loading="lazy" /></div>
+          <figcaption>Every configuration carries both prices, the term, and a link that names the 0% APR offer.</figcaption>
+        </figure>
+        <p>Placement mattered as much as presence. We explored several positions for the Apple Card banner in the bag. Too low and nobody saw it; too high and it overpowered the product information, or got confused with it. The selected design sits just under the page heading, quiet enough to read as part of the bag rather than an ad.</p>
+        <figure>
+          <div class="fig-pair">
+            <div class="fig-frame"><img class="zoom" src="../images/work/acmi-merch-explorations.png" alt="Four banner placements in the bag, annotated: not visible, overpowering the page, confused with product info, and the selected design" width="1663" height="1551" loading="lazy" /></div>
+            <div class="fig-frame"><img class="zoom" src="../images/work/acmi-apr-link.png" alt="Product page link copy: a generic link people didn't click, versus a link calling out 0% APR" width="1647" height="1551" loading="lazy" /></div>
+          </div>
+          <figcaption>Left: banner placements, from too quiet to too loud. Right: “Learn more” versus a link that calls out 0% APR.</figcaption>
+        </figure>
+      </section>
+
+      <!-- BAG -->
+      <section id="bag" aria-labelledby="bag-h">
+        <p class="kicker">Decision 2</p>
+        <h2 id="bag-h">The bag: two choices, equal weight</h2>
+        <p>The bag is where everything converges: products, trade-in, taxes, shipping, and now a decision about how to pay. Apple Pay had to stay visible, and we had to offer <strong>Pay in Full</strong> and <strong>Pay Monthly with Apple Card</strong> without letting either one push the other aside. I explored five ways to present that choice.</p>
+        <div class="options">
+          <article class="opt">
+            <div class="opt__shot"><img class="zoom" src="../images/work/acmi-opt1-toggle.png" alt="Option 1: a toggle at the top of the bag" loading="lazy" /></div>
+            <span class="opt__tag">Option 1 · Not chosen</span>
+            <h3>A toggle between the two</h3>
+            <p>The flow was already long. A toggle is easy to skim past without a second thought.</p>
+          </article>
+          <article class="opt">
+            <div class="opt__shot"><img class="zoom" src="../images/work/acmi-opt2-separate-page.png" alt="Option 2: a button leading to a separate payment page" loading="lazy" /></div>
+            <span class="opt__tag">Option 2 · Not chosen</span>
+            <h3>A separate payment page</h3>
+            <p>Splits the decision from the bag and causes back-and-forth. Apple Pay users might never see ACMI.</p>
+          </article>
+          <article class="opt">
+            <div class="opt__shot"><img class="zoom" src="../images/work/acmi-opt3-top-and-bottom.png" alt="Option 3: payment options at the top and bottom of the bag" loading="lazy" /></div>
+            <span class="opt__tag">Option 3 · Not chosen</span>
+            <h3>Options top and bottom</h3>
+            <p>Felt cumbersome and “markety.” Apple Card that high up read as pushy.</p>
+          </article>
+          <article class="opt">
+            <div class="opt__shot"><img class="zoom" src="../images/work/acmi-opt4-apple-pay-top.png" alt="Option 4: Apple Pay at top right with ACMI on the landing screen" loading="lazy" /></div>
+            <span class="opt__tag">Option 4 · Not chosen</span>
+            <h3>Apple Pay top right</h3>
+            <p>In testing, most people missed the Apple Pay button entirely, and ACMI at the top still felt pushy.</p>
+          </article>
+          <article class="opt opt--pick">
+            <div class="opt__shot"><img class="zoom" src="../images/work/acmi-opt5-cards-selected.png" alt="Option 5: Pay Monthly and Pay in Full as two cards at the bottom of the bag, on desktop and mobile" loading="lazy" /></div>
+            <div>
+              <span class="opt__tag">Option 5 · Shipped</span>
+              <h3>Two cards at the bottom</h3>
+              <p>Equal weight for both options, right after the order review. Each card carries what's needed to decide, and the same pattern works in the app.</p>
+            </div>
+          </article>
+        </div>
+        <figure>
+          <div class="fig-frame fig-frame--wide"><img class="zoom" src="../images/work/acmi-checkout-cards-desktop.png" alt="Final bag on desktop: the order total, then 'How would you like to check out?' with Pay Monthly with Apple Card at $222.61 per month at 0% APR, and Pay in Full at $3,046 with Check Out and Check Out with Apple Pay" width="1800" height="1437" loading="lazy" /></div>
+          <figcaption>Final design: review the order first, then decide, with the monthly and full totals side by side.</figcaption>
+        </figure>
+      </section>
+
+      <!-- MIXED BAG -->
+      <section id="mixed-bag" aria-labelledby="mixed-bag-h">
+        <p class="kicker">Decision 3</p>
+        <h2 id="mixed-bag-h">The mixed bag and the ledger</h2>
+        <p>This was the part of the project with the most eyes on it. A single bag could hold a Mac on 12 months, AppleCare+ on the same term, an accessory on 6 months, and an item that couldn't be financed at all. Each line had its own term, and a trade-in could change the financed amount mid-flow.</p>
+        <p>Adding all of that to the bag would have buried the order. Instead, choosing Pay Monthly opens a <strong>price ledger</strong>: an overlay that extends the bag rather than replacing it, so customers understand the numbers before they commit, then return to their order in one tap.</p>
+        <p>The ledger splits the order into two plain questions: <strong>what do I pay every month</strong>, and <strong>what is charged today</strong>. Each financed product is listed with its own term, full price and instant trade-in credit. Anything that can't go on installments (a cable, shipping, tax, fees) moves to “Charged to Apple Card today.” Items that couldn't be bought with ACMI at all were flagged, and customers were asked to remove them before continuing with monthly payments.</p>
+        <figure>
+          <div class="fig-pair">
+            <div class="fig-frame"><img class="zoom" src="../images/work/acmi-price-ledger-overlay.png" alt="Desktop price ledger, collapsed and expanded, showing monthly payments, additional charges today, and full price and trade-in credit per item" width="996" height="628" loading="lazy" /></div>
+            <div class="fig-frame fig-frame--phone"><img class="zoom" src="../images/work/acmi-mixed-bag-ledger-mobile.png" alt="Mobile ledger for a mixed bag: MacBook Pro for 12 months at 0% APR with a $1,000 instant trade-in credit, AppleCare+ for 12 months, the monthly installment, then items charged today including a USB-C adapter, shipping, tax and fees" width="750" height="1259" loading="lazy" /></div>
+          </div>
+          <figcaption>Left: the desktop ledger, collapsed and expanded. Right: on mobile, one financed term per line, trade-in shown as a credit, everything else charged today.</figcaption>
+        </figure>
+        <h3>A finding we chose not to fix</h3>
+        <p>Participants said the Apple Card information felt repetitive. But the same sessions showed people moving back and forth to re-check terms before deciding. For a first-of-its-kind credit experience, repetition was transparency, so we kept the details and links within reach at every step.</p>
+      </section>
+
+      <!-- CTA -->
+      <section id="cta" aria-labelledby="cta-h">
+        <p class="kicker">Decision 4</p>
+        <h2 id="cta-h">The CTA copy problem</h2>
+        <p>The monthly payment button was one of the most iterated elements in the project. Each version taught us something about how people react to words like “apply” next to money.</p>
+        <div class="cta-table" role="table" aria-label="CTA copy iterations">
+          <div class="cta-row cta-row--no" role="row"><span class="cta-row__who" role="cell">Iteration 1</span><span class="cta-row__btn" role="cell">Apply in Checkout</span><span class="verdict verdict--no" role="cell">Triggers credit fear</span></div>
+          <div class="cta-row cta-row--no" role="row"><span class="cta-row__who" role="cell">Iteration 2</span><span class="cta-row__btn" role="cell">Apply and Check Out</span><span class="verdict verdict--no" role="cell">Still abrupt</span></div>
+          <div class="cta-row" role="row"><span class="cta-row__who" role="cell">New applicants</span><span class="cta-row__btn" role="cell">Learn More and Apply</span><span class="verdict verdict--yes" role="cell">Signals a next step</span></div>
+          <div class="cta-row" role="row"><span class="cta-row__who" role="cell">Existing cardholders</span><span class="cta-row__btn" role="cell">Check Out</span><span class="verdict verdict--yes" role="cell">Simple, no friction</span></div>
+        </div>
+        <p>“Learn More and Apply” worked because it set an expectation: there's something more to see before you commit. People worried about their credit score could read at their own pace. People who already had Apple Card skipped straight to checkout. The same surface served both, without routing anyone to a different page.</p>
+      </section>
+
+      <!-- APP -->
+      <section id="app" aria-labelledby="app-h">
+        <p class="kicker">Part four · Apple Store App</p>
+        <h2 id="app-h">Taking it native</h2>
+        <p>While the web buy flow was a collaborative effort across the team, <strong>the Apple Store App was my project to own.</strong> I led the native iOS UX end-to-end, from problem framing through final handoff, designing the checkout decision sheet that every Apple Store App customer sees at the moment of purchase.</p>
+        <ul>
+          <li><strong>Two choices in a sheet.</strong> On a phone, putting both options on the page would hide the bag and make going back hard. A sheet keeps the bag visible underneath, so one tap on Cancel brings people back. It also asks for a deliberate choice instead of defaulting to the first option.</li>
+          <li><strong>Only what's needed to decide.</strong> Each card holds the price, the monthly amount with its term, the trade-in note and what's due today. Everything else is one tap away in the ledger.</li>
+          <li><strong>A CTA for each customer.</strong> “Check Out” for cardholders, “Learn More and Apply” for everyone else.</li>
+        </ul>
+        <figure>
+          <div class="fig-frame"><img class="zoom" src="../images/work/acmi-asa-checkout-sheet.png" alt="Apple Store App Check Out Options sheet in two states: for existing cardholders the monthly button says Check Out; for new applicants it says Learn More and Apply" width="381" height="334" loading="lazy" style="width:100%;max-width:520px" /></div>
+          <figcaption>The checkout sheet for an existing cardholder (left) and a new applicant (right).</figcaption>
+        </figure>
+        <p>Because web and app share the same two-card structure, customers can start on one and finish on the other without relearning the decision. I mapped every state of the app flow for engineering handoff: the splitter with and without Apple Card, the exclusion experience for ineligible items, the ledger, sign-in, the native application and confirmation.</p>
+        <figure>
+          <div class="fig-frame"><img class="zoom" src="../images/work/acmi-asa-flow-map.png" alt="Apple Store App flow map: splitter states with and without Apple Card and for ineligible items, ledger states, sign-in, checkout and the Apple Card application" width="580" height="834" loading="lazy" style="width:100%;max-width:400px" /></div>
+          <figcaption>The Apple Store App flow map, from the bag splitter through the Apple Card application.</figcaption>
+        </figure>
+      </section>
+
+      <!-- OUTCOME -->
+      <section id="outcome" aria-labelledby="outcome-h">
+        <p class="kicker">Part five · What shipped</p>
+        <h2 id="outcome-h">From iPhone-only to every Apple product line</h2>
+        <p>ACMI launched across Mac, iPad, Apple Watch and accessories in 2020, in two releases. The design shipped on desktop, mobile web and the Apple Store App under one system, with financing terms mapped per product line.</p>
+        <div class="results">
+          <div class="result"><b>5+</b><span>product lines brought into ACMI, from iPhone only</span></div>
+          <div class="result"><b>3</b><span>platforms unified under one design system</span></div>
+          <div class="result"><b>0% APR</b><span>links drew more clicks than a generic “Learn more”</span></div>
+        </div>
+        <p>Financing stopped being a checkout option and became part of how price is communicated: monthly pricing sits beside full price everywhere it appears. The experience stayed live until Apple.com's next redesign, and parts of the approach carried into it.</p>
+      </section>
+
+      <!-- LEARNINGS -->
+      <section id="learnings" aria-labelledby="learnings-h">
+        <h2 id="learnings-h">What I learned</h2>
+        <ul>
+          <li><strong>Clarity beats cleverness with credit.</strong> People are wary of credit cards because of hidden fees, late charges and high interest. Every button had to say exactly what the next screen would ask of them.</li>
+          <li><strong>Design for the back-and-forth.</strong> People move between product details and financing details before deciding, so each detail has to be purposeful and easy to find again.</li>
+          <li><strong>People decide on the total.</strong> The monthly price gets attention, but people want to know what they'll pay in total. Showing both together is what earned trust.</li>
+          <li><strong>The hard part is invisible.</strong> Each screen looks simple on its own. The difficulty lived in the constraints (mixed terms, trade-ins, a fixed ship date) and in the decisions that made them disappear for the customer.</li>
+        </ul>
+        <figure>
+          <div class="fig-frame"><img src="../images/work/acmi-closing-devices.png" alt="Apply for Apple Card page on a MacBook, and the 'Pay for your new Apple products over time, interest-free' page on iPhone" width="1569" height="1043" loading="lazy" /></div>
+        </figure>
+      </section>
+
+        <a class="next" href="pricing-portal.html">
+          <span><span class="next__label">Next case study</span><span class="next__title">Pricing Portal</span></span>
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
+        </a>
+      </article>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <span>Designed in Figma by me, coded with AI.</span>
+      <a href="mailto:vagishasingh10@gmail.com">vagishasingh10@gmail.com</a>
+    </div>
+  </footer>
+
+  <div class="lb" role="dialog" aria-modal="true" aria-label="Enlarged image"><img alt="" /></div>
+
+  <script>
+  (() => {
+    /* Highlight the section you're reading in the pinned "On this page" list */
+    const links = [...document.querySelectorAll('.toc a')];
+    const sections = links.map(a => document.querySelector(a.getAttribute('href')));
+    const setCurrent = (id) => links.forEach(a => a.getAttribute('href') === '#' + id
+      ? a.setAttribute('aria-current', 'true') : a.removeAttribute('aria-current'));
+    const io = new IntersectionObserver((entries) => {
+      const visible = entries.filter(e => e.isIntersecting).sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
+      if (visible.length) setCurrent(visible[0].target.id);
+    }, { rootMargin: '-80px 0px -60% 0px' });
+    sections.forEach(s => s && io.observe(s));
+    if (sections[0]) setCurrent(sections[0].id);
+
+    /* Click to enlarge dense screenshots */
+    const lb = document.querySelector('.lb'), lbImg = lb.querySelector('img');
+    document.querySelectorAll('img.zoom').forEach(img => {
+      img.tabIndex = 0; img.setAttribute('role', 'button');
+      const open = () => { lbImg.src = img.src; lbImg.alt = img.alt; lb.classList.add('open'); };
+      img.addEventListener('click', open);
+      img.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); } });
+    });
+    const close = () => lb.classList.remove('open');
+    lb.addEventListener('click', close);
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
+  })();
+  </script>
+  <script>
+  /* Polish #3: show the nav divider only after content scrolls under it */
+  (() => {
+    const nav = document.querySelector('.nav');
+    if (!nav || !('IntersectionObserver' in window)) return;
+    const s = document.createElement('div');
+    s.className = 'nav-sentinel'; s.setAttribute('aria-hidden', 'true');
+    document.body.prepend(s);
+    nav.classList.add('has-scroll-state');
+    new IntersectionObserver(([e]) => nav.classList.toggle('is-scrolled', !e.isIntersecting)).observe(s);
+  })();
+  </script>
+</body>
+</html>

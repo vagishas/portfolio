@@ -247,8 +247,8 @@ body {
 .project__summary { margin-top: var(--s1); font-size: 16px; line-height: 1.6; color: var(--muted); max-width: 46ch; }
 
 /* Whole card is clickable via the title link */
-.project { position: relative; transition: border-color .15s ease, box-shadow .15s ease; }
-.project:hover { border-color: #c3c8d1; box-shadow: 0 8px 24px rgba(28, 31, 38, 0.08); }
+.project { position: relative; }
+.project:hover { border-color: #c3c8d1; }
 .project:hover .project__title { text-decoration: underline; text-underline-offset: 4px; text-decoration-thickness: 2px; }
 .project__link { color: inherit; text-decoration: none; }
 .project__link::after { content: ""; position: absolute; inset: 0; border-radius: var(--radius-lg); }
@@ -355,6 +355,33 @@ body {
   .meta dd { font-size: 14.5px; }
 }
 
+  
+/* =========================================================
+   Polish: three small interactions (no custom animation)
+   1. Buttons answer hover, press and focus
+   2. Project cards + "Next case study" respond as one unit
+   3. Nav divider appears once content scrolls under it
+   ========================================================= */
+/* 1. Buttons */
+.btn { transition: background-color .15s ease-out, color .15s ease-out, border-color .15s ease-out, transform .1s ease-out; }
+.btn:active { transform: translateY(1px); }
+
+/* 2. Cards + next link */
+.project, .next { transition: border-color .15s ease-out; }
+.project:hover, .project:focus-within, .next:hover, .next:focus-visible { border-color: #c3c8d1; }
+.project__arrow { width: 20px; height: 20px; margin-left: 6px; vertical-align: -3px; color: var(--accent); }
+.project__arrow, .next .icon { transition: transform .15s ease-out; }
+.project:hover .project__arrow, .project:focus-within .project__arrow,
+.next:hover .icon, .next:focus-visible .icon { transform: translateX(3px); }
+
+/* 3. Nav divider: hidden at the top of the page, fades in once scrolled */
+.nav { transition: border-color .2s ease-out; }
+.nav.has-scroll-state:not(.is-scrolled) { border-bottom-color: transparent; }
+.nav-sentinel { position: absolute; top: 0; left: 0; width: 1px; height: 8px; pointer-events: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .btn, .project, .next, .next .icon, .project__arrow, .nav { transition: none; }
+}
   </style>
 </head>
 <body>
@@ -399,7 +426,7 @@ body {
             <img src="images/acmi.png" alt="Apple Card Monthly Installments checkout on a MacBook and iPhone" class="media--laptop" />
           </div>
           <div class="project__body">
-            <h3 class="project__title"><a class="project__link" href="work/monthly-price-integration.html">Monthly Price Integration<span class="visually-hidden"> case study (password protected)</span></a></h3>
+            <h3 class="project__title"><a class="project__link" href="work/monthly-price-integration.html">Monthly Price Integration<svg class="icon project__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg><span class="visually-hidden"> case study (password protected)</span></a></h3>
             <p class="project__summary">Brought monthly pricing into Apple.com checkout, shown alongside full price from the bag to checkout.</p>
             <dl class="meta">
               <div><dt>Client</dt><dd><span class="meta__client"><img src="images/apple.png" alt="" class="meta__logo meta__logo--apple" /><span>Apple</span></span></dd></div>
@@ -429,7 +456,7 @@ body {
             </div>
           </div>
           <div class="project__body">
-            <h3 class="project__title"><a class="project__link" href="work/pricing-portal.html">Pricing Portal<span class="visually-hidden"> case study (password protected)</span></a></h3>
+            <h3 class="project__title"><a class="project__link" href="work/pricing-portal.html">Pricing Portal<svg class="icon project__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg><span class="visually-hidden"> case study (password protected)</span></a></h3>
             <p class="project__summary">Redesigned Apple's in-store iPhone pricing portal so shoppers at carriers like Verizon find the best offer fast.</p>
             <dl class="meta">
               <div><dt>Client</dt><dd><span class="meta__client"><img src="images/apple.png" alt="" class="meta__logo meta__logo--apple" /><span>Apple</span></span></dd></div>
@@ -444,7 +471,7 @@ body {
             <img src="images/MarchMadnessHero.jpg" alt="Nissan Road 2 The Final Four campaign banner" class="media--banner" />
           </div>
           <div class="project__body">
-            <h3 class="project__title"><a class="project__link" href="work/nissan-campaign.html">Nissan Campaign<span class="visually-hidden"> case study (password protected)</span></a></h3>
+            <h3 class="project__title"><a class="project__link" href="work/nissan-campaign.html">Nissan Campaign<svg class="icon project__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg><span class="visually-hidden"> case study (password protected)</span></a></h3>
             <p class="project__summary">Conversion-focused campaign experiences for Nissan's &ldquo;Road 2 The Final Four&rdquo; during March Madness.</p>
             <dl class="meta">
               <div><dt>Client</dt><dd><span class="meta__client"><img src="images/nissan.png" alt="" class="meta__logo meta__logo--nissan" /><span>Nissan</span></span></dd></div>
@@ -508,6 +535,18 @@ body {
         document.getElementById('copy-status').textContent = 'Could not copy. Select the email address instead.';
       }
     }));
+  })();
+  </script>
+  <script>
+  /* Polish #3: show the nav divider only after content scrolls under it */
+  (() => {
+    const nav = document.querySelector('.nav');
+    if (!nav || !('IntersectionObserver' in window)) return;
+    const s = document.createElement('div');
+    s.className = 'nav-sentinel'; s.setAttribute('aria-hidden', 'true');
+    document.body.prepend(s);
+    nav.classList.add('has-scroll-state');
+    new IntersectionObserver(([e]) => nav.classList.toggle('is-scrolled', !e.isIntersecting)).observe(s);
   })();
   </script>
 </body>
