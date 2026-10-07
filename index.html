@@ -93,55 +93,29 @@ h1 .wig:hover{animation:wiggle .6s}
 .reach svg{width:20px;height:20px;flex:none;fill:none;stroke:var(--tomato);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 .btn:hover{transform:translate(-2px,-2px);box-shadow:4px 4px 0 var(--tomato)}
 .stage{position:relative;min-width:0}
-/* mini checkout: drag products into the bag, receipt prints, one tap pays */
+/* one big price tag on a string: swings when you brush past or drag it, flips when tapped */
 #stage{height:clamp(300px, min(44vw, calc(100svh - 300px)), 560px)}
-.things{position:absolute;inset:0;pointer-events:none}
-.thing{position:absolute;left:var(--x);top:var(--y);width:clamp(64px, 6.4vw, 86px);aspect-ratio:1;translate:-50% -50%;border-radius:50%;border:2px solid var(--ink);background:var(--paper);
-  display:grid;place-items:center;cursor:grab;touch-action:none;pointer-events:auto;padding:0;user-select:none;-webkit-user-select:none;
-  animation:bob 3.4s ease-in-out infinite;animation-delay:var(--d);transition:scale .25s cubic-bezier(.3,1.6,.5,1), opacity .3s, box-shadow .2s}
-.thing svg{width:58%;height:58%;pointer-events:none}
-.thing .tagp{position:absolute;bottom:-8px;left:50%;translate:-50% 0;background:var(--ink);color:var(--paper);font-size:12px;font-weight:700;padding:2px 8px;border-radius:999px;font-variant-numeric:tabular-nums;white-space:nowrap}
-.thing:hover{scale:1.08}
-.thing.held{animation:none;cursor:grabbing;scale:1.12;z-index:6;box-shadow:0 18px 26px -12px rgba(30,10,40,.45);transition:scale .2s, box-shadow .2s}
-.thing.in,.thing.back{animation:none}
-.thing.in{opacity:0;scale:.2;pointer-events:none;transition:transform .45s cubic-bezier(.5,0,.7,.4), scale .45s, opacity .45s}
-.thing.back{transition:transform .5s cubic-bezier(.3,1.5,.5,1), scale .25s}
-.thing.pop{animation:popback .5s cubic-bezier(.3,1.6,.5,1) both}
-@keyframes popback{from{scale:0;opacity:0}}
-@keyframes bob{50%{transform:translateY(-8px) rotate(var(--r,3deg))}}
-.tote{position:absolute;left:36%;bottom:5%;width:30%;max-width:210px;aspect-ratio:1;translate:-50% 0;transform-origin:50% 100%;pointer-events:none}
-.tote svg{width:100%;height:100%;overflow:visible}
-.tote .body{fill:var(--tomato)}
-.tote .fold{fill:#000;opacity:.12}
-.tote .handle{fill:none;stroke:var(--ink);stroke-width:6;stroke-linecap:round}
-.tote-n{position:absolute;left:0;right:0;top:48%;text-align:center;color:var(--paper);font-weight:800;font-size:clamp(20px, 2.4vw, 34px);letter-spacing:-.02em;font-variant-numeric:tabular-nums}
-.tote.hot .body{fill:color-mix(in srgb, var(--tomato) 80%, var(--mustard))}
-.tote.hot{scale:1.06;transition:scale .2s}
-.tote.gulp{animation:gulp .5s cubic-bezier(.3,1.6,.5,1)}
-@keyframes gulp{30%{transform:scale(1.12,.86)}60%{transform:scale(.94,1.08)}}
-.tote.hop{animation:hop .7s cubic-bezier(.3,1.5,.5,1)}
-@keyframes hop{40%{transform:translateY(-26px) rotate(-6deg)}}
-.slip{position:absolute;right:2%;bottom:5%;width:min(46%, 250px);background:var(--paper);border-radius:6px 6px 16px 16px;padding:14px 16px 16px;display:grid;gap:6px;
-  font-variant-numeric:tabular-nums;box-shadow:0 18px 30px -18px rgba(30,10,40,.45);transform:rotate(2deg)}
-.slip::before{content:"";position:absolute;left:0;right:0;top:-8px;height:8px;background:radial-gradient(circle at 6px 8px, var(--paper) 5.5px, transparent 6px) 0 0/12px 8px repeat-x}
-.slip-h{margin:0;font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
-.slip-lines{list-style:none;margin:0;padding:0;display:grid;gap:3px;font-size:14px;max-height:7.4em;overflow:hidden}
-.slip-lines li{display:flex;justify-content:space-between;gap:8px;animation:println .35s ease-out}
-@keyframes println{from{opacity:0;transform:translateY(-6px)}}
-.slip-empty{color:var(--muted);justify-content:flex-start!important}
-.slip-tot{display:flex;justify-content:space-between;font-weight:800;font-size:17px;border-top:2px dashed var(--line);padding-top:6px}
-.slip-mo{margin:0;font-size:12.5px;color:var(--muted)}
-.pay{margin-top:4px;min-height:44px;border:0;border-radius:999px;background:var(--ink);color:var(--paper);font-weight:750;cursor:pointer;transition:transform .2s cubic-bezier(.3,1.6,.5,1)}
-.pay:hover:not(:disabled){transform:scale(1.04)}
-.pay:disabled{opacity:.35;cursor:not-allowed}
-.paid{position:absolute;inset:auto 0 46% 0;text-align:center;font-size:30px;color:var(--tomato);transform:rotate(-8deg);margin:0;pointer-events:none;animation:stamp .45s cubic-bezier(.3,1.6,.5,1)}
-@keyframes stamp{from{transform:rotate(-8deg) scale(2.2);opacity:0}}
-.confetti{position:absolute;width:12px;height:12px;border-radius:3px;pointer-events:none;z-index:7;animation:conf 1.1s cubic-bezier(.2,.7,.4,1) forwards}
-@keyframes conf{to{transform:translate(var(--cx), var(--cy)) rotate(var(--cr));opacity:0}}
+.hanger{position:absolute;left:58%;top:0;bottom:0;width:0}
+.pin{position:absolute;left:-7px;top:6%;width:14px;height:14px;border-radius:50%;background:var(--ink);z-index:2}
+.swing{position:absolute;left:0;top:calc(6% + 7px);transform-origin:0 0;transform:rotate(var(--a, 0deg));will-change:transform}
+.string{position:absolute;left:-1px;top:0;width:2px;height:var(--len, 110px);background:var(--ink);opacity:.8}
+.ptag{--w:clamp(150px, min(24vw, 42vh), 280px);position:absolute;left:calc(var(--w) / -2);top:var(--len, 110px);width:var(--w);aspect-ratio:3/4;padding:0;border:0;background:none;cursor:grab;perspective:900px;touch-action:none;color:inherit}
+.ptag:active{cursor:grabbing}
+.ptag-in{position:absolute;inset:0;transform-style:preserve-3d;transition:transform .7s cubic-bezier(.3,1.3,.4,1)}
+.ptag[aria-pressed="true"] .ptag-in{transform:rotateY(180deg)}
+.ptag-face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;text-align:center;
+  clip-path:polygon(50% 0, 100% 16%, 100% 100%, 0 100%, 0 16%);border-radius:0 0 22px 22px;padding:16% 10% 10%}
+.ptag-front{background:var(--tomato);color:var(--paper)}
+.ptag-back{background:var(--sky);color:#1A1530;transform:rotateY(180deg)}
+.hole{position:absolute;top:9%;left:50%;width:9%;aspect-ratio:1;translate:-50% 0;border-radius:50%;background:var(--ground);box-shadow:inset 0 0 0 2px rgba(0,0,0,.18)}
+.ptag-face small{font-size:calc(var(--w) * .075);font-weight:700;letter-spacing:.06em;text-transform:uppercase;opacity:.85}
+.ptag-face b{font-size:calc(var(--w) * .27);font-weight:800;letter-spacing:-.05em;line-height:1;font-variant-numeric:tabular-nums}
+.ptag-face b i{font-style:normal;font-size:.36em;letter-spacing:-.01em}
+.ptag-face em{font-style:normal;font-size:calc(var(--w) * .072);font-weight:650;opacity:.9}
+.tag-note{left:4%;top:auto;bottom:22%;transform:rotate(-6deg);flex-direction:column;gap:0}
+.tag-note svg{margin:2px 0 0 60px}
 .note{position:absolute;left:2%;top:6%;font-size:clamp(22px, 2.2vw, 28px);color:var(--muted);transform:rotate(-8deg);pointer-events:none;display:flex;align-items:flex-start;gap:4px;line-height:1}
 .note svg{width:70px;height:54px;margin-top:14px}
-.pack-note{left:0;top:auto;bottom:34%;transform:rotate(-6deg);flex-direction:column;gap:0}
-.pack-note svg{margin:2px 0 0 54px}
 .note path{fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round}
 
 
@@ -346,14 +320,10 @@ footer h2 span{color:var(--tomato)}
   .shelf{grid-template-columns:1fr; max-width:560px}
   .about-grid{grid-template-columns:1fr}
   #stage{height:clamp(150px, calc(100svh - 700px), 360px);margin-top:4px}
-  .tote{left:20%;width:24%;bottom:2%}
-  .slip{width:46%;right:0;bottom:2%;padding:8px 10px 10px;gap:3px}
-  .paid{font-size:22px;inset:auto 0 100% 0}
-  .slip-h,.slip-lines,.slip-mo{display:none}
-  .slip-tot{border:0;padding:0;font-size:15px}
-  .pay{min-height:38px;margin:0}
-  .thing{width:clamp(44px, 12vw, 60px)}
-  .thing .tagp{font-size:11px;padding:1px 6px}
+  .hanger{left:50%}
+  .pin{top:0}
+  .swing{top:7px}
+  .ptag{--w:clamp(96px, calc((100svh - 700px) * .62), 200px)}
   .hero{gap:0}
   .note{display:none}
   .lede{font-size:16px;line-height:1.45}
@@ -406,23 +376,21 @@ footer h2 span{color:var(--tomato)}
         <li><a href="tel:+14125033357"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 3.5h3l1.5 4-2 1.5a11 11 0 0 0 6 6l1.5-2 4 1.5v3a2 2 0 0 1-2 2A16 16 0 0 1 4.5 5.5a2 2 0 0 1 2-2z"/></svg>412-503-3357</a></li>
       </ul>
     </div>
-    <div class="stage" id="stage" aria-labelledby="pack-title">
-      <h2 class="sr" id="pack-title">Mini checkout: pack the bag</h2>
-      <div class="note pack-note hand" aria-hidden="true">drag one<br>into the bag
+    <div class="stage" id="stage">
+      <div class="note tag-note hand" aria-hidden="true">give it a swing,<br>or tap to flip
         <svg viewBox="0 0 70 54"><path d="M4 6 C 30 4, 48 18, 44 32 C 41 42, 30 40, 34 30 C 38 20, 56 30, 62 48"/><path d="M54 44 L62 49 L64 39"/></svg>
       </div>
-      <div class="things" id="things"></div>
-      <div class="tote" id="tote" aria-hidden="true">
-        <svg viewBox="0 0 120 120"><path class="handle" d="M38 40 C 38 12, 82 12, 82 40"/><path class="body" d="M16 38 H104 L112 112 H8 Z"/><path class="fold" d="M16 38 H104 L102 50 H18 Z"/></svg>
-        <span class="tote-n" id="toteN">bag</span>
-      </div>
-      <div class="slip" id="slip" aria-live="polite">
-        <p class="slip-h">Receipt</p>
-        <ul class="slip-lines" id="slipLines"><li class="slip-empty">Your bag is empty</li></ul>
-        <div class="slip-tot"><span>Total</span><b id="slipTot">$0</b></div>
-        <p class="slip-mo" id="slipMo">or $0/mo. for 12 mo. at 0% APR</p>
-        <button class="pay" id="pay" type="button" disabled>Pay</button>
-        <p class="paid hand" id="paid" hidden>paid in 1 tap!</p>
+      <div class="hanger" id="hanger">
+        <span class="pin" aria-hidden="true"></span>
+        <div class="swing" id="swing">
+          <span class="string" aria-hidden="true"></span>
+          <button class="ptag" id="ptag" type="button" aria-pressed="false" aria-label="Price tag. Showing pay in full, $999. Press to flip to pay monthly.">
+            <span class="ptag-in">
+              <span class="ptag-face ptag-front"><span class="hole" aria-hidden="true"></span><small>Pay in full</small><b>$999</b><em>or $41.62/mo.</em></span>
+              <span class="ptag-face ptag-back"><span class="hole" aria-hidden="true"></span><small>Pay monthly</small><b>$41.62<i>/mo.</i></b><em>24 mo. at 0% APR</em></span>
+            </span>
+          </button>
+        </div>
       </div>
     </div>
   </section>
@@ -704,113 +672,64 @@ footer h2 span{color:var(--tomato)}
     st.addEventListener('pointerup', drop); st.addEventListener('pointercancel', drop);
   });
 
-  /* ================= mini checkout (pack the bag) ================= */
+  /* ================= the swinging price tag ================= */
   const buddy = (() => {
-    const stage = $('#stage'), wrap = $('#things'), tote = $('#tote');
-    const ink = 'stroke="var(--ink)" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"';
-    const PRODUCTS = [
-      { id:'phone', name:'Phone', price:799, svg:`<rect x="16" y="6" width="28" height="48" rx="7" fill="var(--sky)" ${ink}/><path d="M26 12h8" ${ink}/>` },
-      { id:'kicks', name:'Sneakers', price:85, svg:`<path d="M6 38c0-8 4-17 11-17 2 6 8 8 14 8l19 6c3 1 3 7 0 9H6z" fill="var(--paper)" ${ink}/><path d="M6 44h48M20 27l4 4M26 25l4 4" ${ink}/>` },
-      { id:'coffee', name:'Coffee', price:5, svg:`<path d="M14 18h28l-3 34H17z" fill="var(--mustard)" ${ink}/><path d="M12 18h32M42 26h4a5 5 0 0 1 0 10h-5" fill="none" ${ink}/><path d="M24 6c-2 3 2 5 0 8M32 6c-2 3 2 5 0 8" ${ink}/>` },
-      { id:'plant', name:'Plant', price:24, svg:`<path d="M19 36h22l-3 18H22z" fill="var(--tomato)" ${ink}/><path d="M30 36V18" ${ink}/><path d="M30 27c-9 0-13-7-13-13 9 0 13 7 13 13zM30 22c7 0 11-5 11-11-7 0-11 5-11 11z" fill="#5FB36A" ${ink}/>` },
-      { id:'phones', name:'Headphones', price:59, svg:`<path d="M12 36v-6a18 18 0 0 1 36 0v6" fill="none" ${ink}/><rect x="8" y="34" width="11" height="17" rx="5" fill="var(--pink)" ${ink}/><rect x="41" y="34" width="11" height="17" rx="5" fill="var(--pink)" ${ink}/>` }
-    ];
-    // resting spots (percent of the stage); phones use a row layout
-    const SPOTS = { wide:[[12,16],[35,9],[59,15],[83,9],[82,38]], narrow:[[10,17],[30,17],[50,17],[70,17],[90,17]] };
-    const narrow = matchMedia('(max-width:900px)');
-    const cart = [];
-    let paidTimer = 0;
-
-    wrap.innerHTML = PRODUCTS.map((p, k) => `
-      <button class="thing" type="button" data-id="${p.id}" style="--d:${(-k * 0.7).toFixed(1)}s;--r:${k % 2 ? -4 : 4}deg"
-        aria-label="Add ${p.name}, $${p.price}, to the bag">
-        <svg viewBox="0 0 60 60" aria-hidden="true">${p.svg}</svg><span class="tagp" aria-hidden="true">$${p.price}</span>
-      </button>`).join('');
-    const els = [...wrap.querySelectorAll('.thing')];
-    function place(){ const sp = SPOTS[narrow.matches ? 'narrow' : 'wide']; els.forEach((el, k) => { el.style.setProperty('--x', sp[k][0] + '%'); el.style.setProperty('--y', sp[k][1] + '%'); }); }
-    place(); narrow.addEventListener('change', place);
-
-    const money = n => '$' + n.toLocaleString('en-US', { maximumFractionDigits: 2, minimumFractionDigits: n % 1 ? 2 : 0 });
-    function receipt(){
-      const total = cart.reduce((t, p) => t + p.price, 0);
-      $('#slipLines').innerHTML = cart.length ? cart.map(p => `<li><span>${p.name}</span><span>${money(p.price)}</span></li>`).join('') : '<li class="slip-empty">Your bag is empty</li>';
-      $('#slipTot').textContent = money(total);
-      $('#slipMo').textContent = `or ${money(Math.floor(total / 12 * 100) / 100)}/mo. for 12 mo. at 0% APR`;
-      $('#pay').disabled = !cart.length;
-      $('#pay').textContent = cart.length ? `Pay ${money(total)}` : 'Pay';
-      $('#toteN').textContent = cart.length ? cart.length : 'bag';
+    const stage = $('#stage'), swing = $('#swing'), tag = $('#ptag');
+    let a = 0, v = 0, t = 0, drag = null, lastX = null, len = 110;
+    const pivot = () => { const r = swing.getBoundingClientRect(); return { x: r.left, y: r.top }; };   // rotation origin
+    function size(){
+      const h = stage.clientHeight, tagH = tag.offsetWidth * 4 / 3;
+      len = Math.max(18, Math.min(150, h - tagH - h * 0.14));
+      swing.style.setProperty('--len', len + 'px');
     }
-    const replay = (el, c) => { el.classList.remove(c); void el.offsetWidth; el.classList.add(c); };
+    size(); addEventListener('resize', size);
 
-    function overTote(x, y){ const r = tote.getBoundingClientRect(), pad = r.width * 0.25; return x > r.left - pad && x < r.right + pad && y > r.top - pad && y < r.bottom + pad * 0.5; }
-    function drop(el){
-      const p = PRODUCTS.find(q => q.id === el.dataset.id);
-      if (!p || el.classList.contains('in')) return;
-      const r = el.getBoundingClientRect(), t = tote.getBoundingClientRect();
-      const cur = new DOMMatrixReadOnly(getComputedStyle(el).transform);
-      el.classList.remove('held', 'back');
-      el.style.transform = `translate(${cur.m41 + (t.left + t.width / 2) - (r.left + r.width / 2)}px, ${cur.m42 + (t.top + t.height * 0.55) - (r.top + r.height / 2)}px)`;
-      el.classList.add('in');
-      cart.push(p); receipt();
-      setTimeout(() => replay(tote, 'gulp'), 300);
-      $('#paid').hidden = true;
-      if (document.activeElement === el) $('#pay').focus({ preventScroll:true });
-    }
-
-    function settle(el){ el.classList.remove('held'); el.classList.add('back'); el.style.transform = ''; setTimeout(() => el.classList.remove('back'), 520); }
-
-    els.forEach(el => {
-      let sx = 0, sy = 0, held = false, moved = false;
-      el.addEventListener('pointerdown', e => {
-        if (el.classList.contains('in')) return;
-        held = true; moved = false; sx = e.clientX; sy = e.clientY;
-        el.setPointerCapture(e.pointerId); el.classList.remove('back'); el.classList.add('held');
-      });
-      el.addEventListener('pointermove', e => {
-        if (!held) return;
-        const dx = e.clientX - sx, dy = e.clientY - sy;
-        if (Math.hypot(dx, dy) > 6) moved = true;
-        el.style.transform = `translate(${dx}px, ${dy}px)`;
-        tote.classList.toggle('hot', overTote(e.clientX, e.clientY));
-      });
-      const up = e => {
-        if (!held) return; held = false; tote.classList.remove('hot');
-        if (!moved || overTote(e.clientX, e.clientY)) return drop(el);   // a tap also drops it in
-        settle(el);
-      };
-      el.addEventListener('pointerup', up);
-      el.addEventListener('pointercancel', () => { held = false; tote.classList.remove('hot'); settle(el); });
-      el.addEventListener('animationend', e => { if (e.animationName === 'popback') el.classList.remove('pop'); });
-      el.addEventListener('click', e => { if (e.detail === 0) drop(el); });   // keyboard: Enter / Space
+    // brushing past the tag nudges it
+    stage.addEventListener('pointermove', e => {
+      if (drag || e.pointerType !== 'mouse') { lastX = null; return; }
+      const r = tag.getBoundingClientRect();
+      if (lastX !== null && e.clientX > r.left - 20 && e.clientX < r.right + 20 && e.clientY > r.top && e.clientY < r.bottom) v += (e.clientX - lastX) * 0.012;
+      lastX = e.clientX;
     });
+    stage.addEventListener('pointerleave', () => { lastX = null; });
 
-    function confetti(){
-      const cols = ['--tomato', '--mustard', '--sky', '--pink'], t = tote.getBoundingClientRect(), s0 = stage.getBoundingClientRect();
-      for (let k = 0; k < 26; k++) {
-        const c = document.createElement('i'); c.className = 'confetti';
-        c.style.left = (t.left - s0.left + t.width / 2) + 'px'; c.style.top = (t.top - s0.top + t.height * 0.3) + 'px';
-        c.style.background = `var(${cols[k % 4]})`;
-        const a = Math.random() * Math.PI - Math.PI, d = 70 + Math.random() * 120;
-        c.style.setProperty('--cx', Math.cos(a) * d + 'px'); c.style.setProperty('--cy', Math.sin(a) * d + 'px'); c.style.setProperty('--cr', (Math.random() * 720 - 360) + 'deg');
-        stage.appendChild(c); setTimeout(() => c.remove(), 1200);
+    // dragging swings it; a tap flips it
+    tag.addEventListener('pointerdown', e => { drag = { x: e.clientX, y: e.clientY, moved: false, a0: a }; tag.setPointerCapture(e.pointerId); });
+    tag.addEventListener('pointermove', e => {
+      if (!drag) return;
+      if (Math.hypot(e.clientX - drag.x, e.clientY - drag.y) > 6) drag.moved = true;
+      if (!drag.moved) return;
+      const p = pivot(), target = Math.atan2(-(e.clientX - p.x), e.clientY - p.y) * 180 / Math.PI;
+      const next = Math.max(-75, Math.min(75, target));
+      v = next - a; a = next;
+    });
+    const end = () => { if (!drag) return; const tap = !drag.moved; drag = null; if (tap) flip(); };
+    tag.addEventListener('pointerup', end);
+    tag.addEventListener('pointercancel', () => { drag = null; });
+    tag.addEventListener('click', e => { if (e.detail === 0) flip(); });   // keyboard
+
+    function flip(){
+      const on = tag.getAttribute('aria-pressed') !== 'true';
+      tag.setAttribute('aria-pressed', on);
+      tag.setAttribute('aria-label', on ? 'Price tag. Showing pay monthly, $41.62 a month for 24 months at 0% APR. Press to flip to pay in full.' : 'Price tag. Showing pay in full, $999. Press to flip to pay monthly.');
+      v += on ? 2.2 : -2.2;
+    }
+
+    function loop(){
+      t += 1;
+      if (!drag) {
+        v += -a * 0.012;                 // gravity pulls it back to centre
+        if (!reduce) v += Math.sin(t * 0.021) * 0.006;   // a lazy idle sway
+        v *= 0.985; a += v;
       }
+      swing.style.setProperty('--a', a.toFixed(2) + 'deg');
+      requestAnimationFrame(loop);
     }
-    $('#pay').addEventListener('click', () => {
-      if (!cart.length) return;
-      $('#paid').hidden = false; replay($('#paid'), 'paid');
-      replay(tote, 'hop'); if (!reduce) confetti();
-      $('#pay').disabled = true; $('#pay').textContent = narrow.matches ? 'Paid' : 'Paid. No hidden fees.';
-      clearTimeout(paidTimer);
-      paidTimer = setTimeout(() => {
-        cart.length = 0; receipt(); $('#paid').hidden = true;
-        els.forEach((el, k) => { el.classList.remove('in'); el.style.transform = ''; setTimeout(() => replay(el, 'pop'), k * 90); });
-      }, 2600);
-    });
-    receipt();
+    if (reduce) swing.style.setProperty('--a', '0deg'); else requestAnimationFrame(loop);
 
     return {
       setCount(){},
-      cheer(){ replay(tote, 'gulp'); }
+      cheer(){ v += 3; }
     };
   })();
 
