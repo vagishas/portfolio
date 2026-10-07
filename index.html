@@ -95,13 +95,6 @@ h1 .wig:hover{animation:wiggle .6s}
 .note svg{width:70px;height:54px;margin-top:14px}
 .note path{fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round}
 
-/* ---------- marquee ---------- */
-.band{background:var(--tomato);color:var(--paper);overflow:hidden;padding-block:20px;margin-top:20px;transform:rotate(-1.5deg) scale(1.02)}
-.track{display:flex;width:max-content;animation:slide 32s linear infinite}
-.band:hover .track{animation-play-state:paused}
-.track span{font-size:clamp(26px, 3.6vw, 44px);font-weight:780;letter-spacing:-.02em;padding-inline:22px;white-space:nowrap;display:flex;align-items:center;gap:44px}
-.track svg{width:26px;height:26px;flex:none}
-@keyframes slide{to{transform:translateX(-50%)}}
 
 /* ---------- shelf of work ---------- */
 .work{padding-block:clamp(70px, 9vw, 120px) 30px}
@@ -352,9 +345,6 @@ footer h2 span{color:var(--tomato)}
     </div>
   </section>
 
-  <div class="band" aria-hidden="true">
-    <div class="track" id="track"></div>
-  </div>
 
   <section class="wrap work" id="work" aria-labelledby="work-title">
     <div class="head">
@@ -527,11 +517,6 @@ footer h2 span{color:var(--tomato)}
     ball:`<svg viewBox="0 0 200 140" aria-hidden="true"><path d="M18 22h40v28h40M18 78h40V50M18 98h40v28h40M18 134h40v-8M98 50v38h40" fill="none" stroke="var(--ink)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><circle cx="160" cy="88" r="28" fill="var(--tomato)"/><path d="M132 88h56M160 60v56M140 68c10 10 10 30 0 40M180 68c-10 10-10 30 0 40" fill="none" stroke="var(--ink)" stroke-width="2.4"/></svg>`
   };
 
-  /* ================= marquee ================= */
-  const flower = '<svg viewBox="0 0 26 26" aria-hidden="true"><g fill="currentColor"><circle cx="13" cy="5" r="5"/><circle cx="13" cy="21" r="5"/><circle cx="5" cy="13" r="5"/><circle cx="21" cy="13" r="5"/></g><circle cx="13" cy="13" r="4" fill="var(--mustard)"/></svg>';
-  const words = ['Checkout','Pricing','Offers','Conversion','Web & app','E-commerce'];
-  const run = words.map(w => `<span>${w}${flower}</span>`).join('');
-  $('#track').innerHTML = run + run;
 
   /* ================= shelf + bag ================= */
   const bag = new Set();
