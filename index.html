@@ -87,6 +87,10 @@ h1 .wig:hover{animation:wiggle .6s}
 .btn{display:inline-flex;align-items:center;gap:10px;min-height:52px;padding:0 24px;border-radius:999px;font-weight:700;text-decoration:none;border:2px solid var(--ink);cursor:pointer;transition:transform .25s cubic-bezier(.3,1.6,.5,1), box-shadow .25s}
 .btn.solid{background:var(--ink);color:var(--paper)}
 .btn.ghost{background:transparent}
+.reach{list-style:none;margin:22px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:10px 22px}
+.reach a{display:inline-flex;align-items:center;gap:8px;min-height:44px;font-weight:650;font-size:17px;text-decoration:none;border-bottom:2px solid transparent;transition:border-color .2s, color .2s}
+.reach a:hover{color:var(--tomato);border-bottom-color:var(--tomato)}
+.reach svg{width:20px;height:20px;flex:none;fill:none;stroke:var(--tomato);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 .btn:hover{transform:translate(-2px,-2px);box-shadow:4px 4px 0 var(--tomato)}
 .stage{position:relative;min-width:0}
 #buddy{display:block;width:100%;height:clamp(380px, 46vw, 560px);touch-action:none;cursor:grab}
@@ -334,8 +338,11 @@ footer h2 span{color:var(--tomato)}
       <p class="lede">7+ years shaping checkout, pricing and offers for Apple and Nissan at Critical Mass. I love building things and watching people use them.</p>
       <div class="ctas">
         <a class="btn solid" href="#work">See my work</a>
-        <a class="btn ghost" href="#contact">Say hi</a>
       </div>
+      <ul class="reach" aria-label="Contact">
+        <li><a href="mailto:vagishasingh10@gmail.com"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="m4 7 8 6 8-6"/></svg>vagishasingh10@gmail.com</a></li>
+        <li><a href="tel:+14125033357"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 3.5h3l1.5 4-2 1.5a11 11 0 0 0 6 6l1.5-2 4 1.5v3a2 2 0 0 1-2 2A16 16 0 0 1 4.5 5.5a2 2 0 0 1 2-2z"/></svg>412-503-3357</a></li>
+      </ul>
     </div>
     <div class="stage">
       <canvas id="buddy" aria-label="A squishy blue character holding a shopping bag. Drag its arms or the bag, or poke it."></canvas>
