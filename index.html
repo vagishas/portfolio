@@ -93,10 +93,55 @@ h1 .wig:hover{animation:wiggle .6s}
 .reach svg{width:20px;height:20px;flex:none;fill:none;stroke:var(--tomato);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 .btn:hover{transform:translate(-2px,-2px);box-shadow:4px 4px 0 var(--tomato)}
 .stage{position:relative;min-width:0}
-#buddy{display:block;width:100%;height:clamp(300px, min(44vw, calc(100svh - 300px)), 560px);touch-action:none;cursor:grab}
-#buddy.grabbing{cursor:grabbing}
+/* mini checkout: drag products into the bag, receipt prints, one tap pays */
+#stage{height:clamp(300px, min(44vw, calc(100svh - 300px)), 560px)}
+.things{position:absolute;inset:0;pointer-events:none}
+.thing{position:absolute;left:var(--x);top:var(--y);width:clamp(64px, 6.4vw, 86px);aspect-ratio:1;translate:-50% -50%;border-radius:50%;border:2px solid var(--ink);background:var(--paper);
+  display:grid;place-items:center;cursor:grab;touch-action:none;pointer-events:auto;padding:0;user-select:none;-webkit-user-select:none;
+  animation:bob 3.4s ease-in-out infinite;animation-delay:var(--d);transition:scale .25s cubic-bezier(.3,1.6,.5,1), opacity .3s, box-shadow .2s}
+.thing svg{width:58%;height:58%;pointer-events:none}
+.thing .tagp{position:absolute;bottom:-8px;left:50%;translate:-50% 0;background:var(--ink);color:var(--paper);font-size:12px;font-weight:700;padding:2px 8px;border-radius:999px;font-variant-numeric:tabular-nums;white-space:nowrap}
+.thing:hover{scale:1.08}
+.thing.held{animation:none;cursor:grabbing;scale:1.12;z-index:6;box-shadow:0 18px 26px -12px rgba(30,10,40,.45);transition:scale .2s, box-shadow .2s}
+.thing.in,.thing.back{animation:none}
+.thing.in{opacity:0;scale:.2;pointer-events:none;transition:transform .45s cubic-bezier(.5,0,.7,.4), scale .45s, opacity .45s}
+.thing.back{transition:transform .5s cubic-bezier(.3,1.5,.5,1), scale .25s}
+.thing.pop{animation:popback .5s cubic-bezier(.3,1.6,.5,1) both}
+@keyframes popback{from{scale:0;opacity:0}}
+@keyframes bob{50%{transform:translateY(-8px) rotate(var(--r,3deg))}}
+.tote{position:absolute;left:36%;bottom:5%;width:30%;max-width:210px;aspect-ratio:1;translate:-50% 0;transform-origin:50% 100%;pointer-events:none}
+.tote svg{width:100%;height:100%;overflow:visible}
+.tote .body{fill:var(--tomato)}
+.tote .fold{fill:#000;opacity:.12}
+.tote .handle{fill:none;stroke:var(--ink);stroke-width:6;stroke-linecap:round}
+.tote-n{position:absolute;left:0;right:0;top:48%;text-align:center;color:var(--paper);font-weight:800;font-size:clamp(20px, 2.4vw, 34px);letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.tote.hot .body{fill:color-mix(in srgb, var(--tomato) 80%, var(--mustard))}
+.tote.hot{scale:1.06;transition:scale .2s}
+.tote.gulp{animation:gulp .5s cubic-bezier(.3,1.6,.5,1)}
+@keyframes gulp{30%{transform:scale(1.12,.86)}60%{transform:scale(.94,1.08)}}
+.tote.hop{animation:hop .7s cubic-bezier(.3,1.5,.5,1)}
+@keyframes hop{40%{transform:translateY(-26px) rotate(-6deg)}}
+.slip{position:absolute;right:2%;bottom:5%;width:min(46%, 250px);background:var(--paper);border-radius:6px 6px 16px 16px;padding:14px 16px 16px;display:grid;gap:6px;
+  font-variant-numeric:tabular-nums;box-shadow:0 18px 30px -18px rgba(30,10,40,.45);transform:rotate(2deg)}
+.slip::before{content:"";position:absolute;left:0;right:0;top:-8px;height:8px;background:radial-gradient(circle at 6px 8px, var(--paper) 5.5px, transparent 6px) 0 0/12px 8px repeat-x}
+.slip-h{margin:0;font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.slip-lines{list-style:none;margin:0;padding:0;display:grid;gap:3px;font-size:14px;max-height:7.4em;overflow:hidden}
+.slip-lines li{display:flex;justify-content:space-between;gap:8px;animation:println .35s ease-out}
+@keyframes println{from{opacity:0;transform:translateY(-6px)}}
+.slip-empty{color:var(--muted);justify-content:flex-start!important}
+.slip-tot{display:flex;justify-content:space-between;font-weight:800;font-size:17px;border-top:2px dashed var(--line);padding-top:6px}
+.slip-mo{margin:0;font-size:12.5px;color:var(--muted)}
+.pay{margin-top:4px;min-height:44px;border:0;border-radius:999px;background:var(--ink);color:var(--paper);font-weight:750;cursor:pointer;transition:transform .2s cubic-bezier(.3,1.6,.5,1)}
+.pay:hover:not(:disabled){transform:scale(1.04)}
+.pay:disabled{opacity:.35;cursor:not-allowed}
+.paid{position:absolute;inset:auto 0 46% 0;text-align:center;font-size:30px;color:var(--tomato);transform:rotate(-8deg);margin:0;pointer-events:none;animation:stamp .45s cubic-bezier(.3,1.6,.5,1)}
+@keyframes stamp{from{transform:rotate(-8deg) scale(2.2);opacity:0}}
+.confetti{position:absolute;width:12px;height:12px;border-radius:3px;pointer-events:none;z-index:7;animation:conf 1.1s cubic-bezier(.2,.7,.4,1) forwards}
+@keyframes conf{to{transform:translate(var(--cx), var(--cy)) rotate(var(--cr));opacity:0}}
 .note{position:absolute;left:2%;top:6%;font-size:clamp(22px, 2.2vw, 28px);color:var(--muted);transform:rotate(-8deg);pointer-events:none;display:flex;align-items:flex-start;gap:4px;line-height:1}
 .note svg{width:70px;height:54px;margin-top:14px}
+.pack-note{left:0;top:auto;bottom:34%;transform:rotate(-6deg);flex-direction:column;gap:0}
+.pack-note svg{margin:2px 0 0 54px}
 .note path{fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round}
 
 
@@ -300,7 +345,15 @@ footer h2 span{color:var(--tomato)}
   .hero{grid-template-columns:1fr}
   .shelf{grid-template-columns:1fr; max-width:560px}
   .about-grid{grid-template-columns:1fr}
-  #buddy{height:clamp(130px, calc(100svh - 715px), 380px);margin-block:-4px -8px}
+  #stage{height:clamp(150px, calc(100svh - 700px), 360px);margin-top:4px}
+  .tote{left:20%;width:24%;bottom:2%}
+  .slip{width:46%;right:0;bottom:2%;padding:8px 10px 10px;gap:3px}
+  .paid{font-size:22px;inset:auto 0 100% 0}
+  .slip-h,.slip-lines,.slip-mo{display:none}
+  .slip-tot{border:0;padding:0;font-size:15px}
+  .pay{min-height:38px;margin:0}
+  .thing{width:clamp(44px, 12vw, 60px)}
+  .thing .tagp{font-size:11px;padding:1px 6px}
   .hero{gap:0}
   .note{display:none}
   .lede{font-size:16px;line-height:1.45}
@@ -353,10 +406,23 @@ footer h2 span{color:var(--tomato)}
         <li><a href="tel:+14125033357"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 3.5h3l1.5 4-2 1.5a11 11 0 0 0 6 6l1.5-2 4 1.5v3a2 2 0 0 1-2 2A16 16 0 0 1 4.5 5.5a2 2 0 0 1 2-2z"/></svg>412-503-3357</a></li>
       </ul>
     </div>
-    <div class="stage">
-      <canvas id="buddy" aria-label="A squishy blue character holding a shopping bag. Drag its arms or the bag, or poke it."></canvas>
-      <div class="note hand" aria-hidden="true">psst, grab an arm
+    <div class="stage" id="stage" aria-labelledby="pack-title">
+      <h2 class="sr" id="pack-title">Mini checkout: pack the bag</h2>
+      <div class="note pack-note hand" aria-hidden="true">drag one<br>into the bag
         <svg viewBox="0 0 70 54"><path d="M4 6 C 30 4, 48 18, 44 32 C 41 42, 30 40, 34 30 C 38 20, 56 30, 62 48"/><path d="M54 44 L62 49 L64 39"/></svg>
+      </div>
+      <div class="things" id="things"></div>
+      <div class="tote" id="tote" aria-hidden="true">
+        <svg viewBox="0 0 120 120"><path class="handle" d="M38 40 C 38 12, 82 12, 82 40"/><path class="body" d="M16 38 H104 L112 112 H8 Z"/><path class="fold" d="M16 38 H104 L102 50 H18 Z"/></svg>
+        <span class="tote-n" id="toteN">bag</span>
+      </div>
+      <div class="slip" id="slip" aria-live="polite">
+        <p class="slip-h">Receipt</p>
+        <ul class="slip-lines" id="slipLines"><li class="slip-empty">Your bag is empty</li></ul>
+        <div class="slip-tot"><span>Total</span><b id="slipTot">$0</b></div>
+        <p class="slip-mo" id="slipMo">or $0/mo. for 12 mo. at 0% APR</p>
+        <button class="pay" id="pay" type="button" disabled>Pay</button>
+        <p class="paid hand" id="paid" hidden>paid in 1 tap!</p>
       </div>
     </div>
   </section>
@@ -638,174 +704,113 @@ footer h2 span{color:var(--tomato)}
     st.addEventListener('pointerup', drop); st.addEventListener('pointercancel', drop);
   });
 
-  /* ================= the buddy (canvas physics) ================= */
+  /* ================= mini checkout (pack the bag) ================= */
   const buddy = (() => {
-    const cv = $('#buddy'), ctx = cv.getContext('2d');
-    let W = 0, H = 0, R = 0, C0 = {x:0,y:0}, C = {x:0,y:0}, t = 0;
-    let col = {};
-    const readCols = () => { col = { body:css('--sky'), arm:css('--mustard'), bag:css('--tomato'), ink:css('--ink'), paper:css('--paper'), pink:css('--pink'), ground:css('--ground') }; };
-    readCols();
-    matchMedia('(prefers-color-scheme: dark)').addEventListener('change', readCols);
-    new MutationObserver(readCols).observe(document.documentElement, { attributes:true, attributeFilter:['data-theme'] });
+    const stage = $('#stage'), wrap = $('#things'), tote = $('#tote');
+    const ink = 'stroke="var(--ink)" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"';
+    const PRODUCTS = [
+      { id:'phone', name:'Phone', price:799, svg:`<rect x="16" y="6" width="28" height="48" rx="7" fill="var(--sky)" ${ink}/><path d="M26 12h8" ${ink}/>` },
+      { id:'kicks', name:'Sneakers', price:85, svg:`<path d="M6 38c0-8 4-17 11-17 2 6 8 8 14 8l19 6c3 1 3 7 0 9H6z" fill="var(--paper)" ${ink}/><path d="M6 44h48M20 27l4 4M26 25l4 4" ${ink}/>` },
+      { id:'coffee', name:'Coffee', price:5, svg:`<path d="M14 18h28l-3 34H17z" fill="var(--mustard)" ${ink}/><path d="M12 18h32M42 26h4a5 5 0 0 1 0 10h-5" fill="none" ${ink}/><path d="M24 6c-2 3 2 5 0 8M32 6c-2 3 2 5 0 8" ${ink}/>` },
+      { id:'plant', name:'Plant', price:24, svg:`<path d="M19 36h22l-3 18H22z" fill="var(--tomato)" ${ink}/><path d="M30 36V18" ${ink}/><path d="M30 27c-9 0-13-7-13-13 9 0 13 7 13 13zM30 22c7 0 11-5 11-11-7 0-11 5-11 11z" fill="#5FB36A" ${ink}/>` },
+      { id:'phones', name:'Headphones', price:59, svg:`<path d="M12 36v-6a18 18 0 0 1 36 0v6" fill="none" ${ink}/><rect x="8" y="34" width="11" height="17" rx="5" fill="var(--pink)" ${ink}/><rect x="41" y="34" width="11" height="17" rx="5" fill="var(--pink)" ${ink}/>` }
+    ];
+    // resting spots (percent of the stage); phones use a row layout
+    const SPOTS = { wide:[[12,16],[35,9],[59,15],[83,9],[82,38]], narrow:[[10,17],[30,17],[50,17],[70,17],[90,17]] };
+    const narrow = matchMedia('(max-width:900px)');
+    const cart = [];
+    let paidTimer = 0;
 
-    const N = 48; const off = new Float32Array(N), vel = new Float32Array(N);
-    let arms = [], seg = 0, grabbed = null, count = 0, happy = 0, blink = 0, nextBlink = 2500, look = {x:0,y:0}, ptr = {x:-1e4,y:-1e4};
+    wrap.innerHTML = PRODUCTS.map((p, k) => `
+      <button class="thing" type="button" data-id="${p.id}" style="--d:${(-k * 0.7).toFixed(1)}s;--r:${k % 2 ? -4 : 4}deg"
+        aria-label="Add ${p.name}, $${p.price}, to the bag">
+        <svg viewBox="0 0 60 60" aria-hidden="true">${p.svg}</svg><span class="tagp" aria-hidden="true">$${p.price}</span>
+      </button>`).join('');
+    const els = [...wrap.querySelectorAll('.thing')];
+    function place(){ const sp = SPOTS[narrow.matches ? 'narrow' : 'wide']; els.forEach((el, k) => { el.style.setProperty('--x', sp[k][0] + '%'); el.style.setProperty('--y', sp[k][1] + '%'); }); }
+    place(); narrow.addEventListener('change', place);
 
-    function shoulder(s){ return { x: C.x + s * R * 0.9, y: C.y + R * 0.12 }; }
-    function build(){
-      const r = cv.getBoundingClientRect(), d = Math.min(devicePixelRatio || 1, 2);
-      W = r.width; H = r.height; cv.width = W * d; cv.height = H * d; ctx.setTransform(d,0,0,d,0,0);
-      R = Math.min(W * 0.2, H * 0.21); C0 = { x: W * 0.5, y: H * 0.4 }; C = { ...C0 };
-      seg = R * 0.105;
-      arms = [-1, 1].map(s => {
-        const sh = shoulder(s), pts = [];
-        for (let i = 0; i < 12; i++) { const x = sh.x + s * i * seg * 0.55, y = sh.y + i * seg * 0.8; pts.push({ x, y, px:x, py:y, w: i === 0 ? 0 : 1 }); }
-        if (s === 1) pts[pts.length - 1].w = 0.35; // the bag end is heavier
-        return { s, pts };
-      });
+    const money = n => '$' + n.toLocaleString('en-US', { maximumFractionDigits: 2, minimumFractionDigits: n % 1 ? 2 : 0 });
+    function receipt(){
+      const total = cart.reduce((t, p) => t + p.price, 0);
+      $('#slipLines').innerHTML = cart.length ? cart.map(p => `<li><span>${p.name}</span><span>${money(p.price)}</span></li>`).join('') : '<li class="slip-empty">Your bag is empty</li>';
+      $('#slipTot').textContent = money(total);
+      $('#slipMo').textContent = `or ${money(Math.floor(total / 12 * 100) / 100)}/mo. for 12 mo. at 0% APR`;
+      $('#pay').disabled = !cart.length;
+      $('#pay').textContent = cart.length ? `Pay ${money(total)}` : 'Pay';
+      $('#toteN').textContent = cart.length ? cart.length : 'bag';
     }
-    build(); addEventListener('resize', build);
+    const replay = (el, c) => { el.classList.remove(c); void el.offsetWidth; el.classList.add(c); };
 
-    const local = e => { const r = cv.getBoundingClientRect(); return { x: e.clientX - r.left, y: e.clientY - r.top }; };
-    addEventListener('pointermove', e => { const p = local(e); ptr = p; if (grabbed) { grabbed.x = p.x; grabbed.y = p.y; } });
-    cv.addEventListener('pointerdown', e => {
-      const p = local(e);
-      let best = null, bd = 44;
-      arms.forEach(a => a.pts.forEach((q, i) => { if (i < 3) return; const d = Math.hypot(q.x - p.x, q.y - p.y); if (d < bd) { bd = d; best = q; } }));
-      // bag body counts as a handle too
-      const end = arms[1].pts[arms[1].pts.length - 1];
-      if (!best && Math.hypot(end.x - p.x, end.y - R*0.4 - p.y) < R * 0.45) best = end;
-      if (best) { grabbed = best; grabbed.saveW = grabbed.w; grabbed.w = 0; cv.setPointerCapture(e.pointerId); cv.classList.add('grabbing'); happy = 40; return; }
-      if (Math.hypot(p.x - C.x, p.y - C.y) < R * 1.1) { poke(p); }
+    function overTote(x, y){ const r = tote.getBoundingClientRect(), pad = r.width * 0.25; return x > r.left - pad && x < r.right + pad && y > r.top - pad && y < r.bottom + pad * 0.5; }
+    function drop(el){
+      const p = PRODUCTS.find(q => q.id === el.dataset.id);
+      if (!p || el.classList.contains('in')) return;
+      const r = el.getBoundingClientRect(), t = tote.getBoundingClientRect();
+      const cur = new DOMMatrixReadOnly(getComputedStyle(el).transform);
+      el.classList.remove('held', 'back');
+      el.style.transform = `translate(${cur.m41 + (t.left + t.width / 2) - (r.left + r.width / 2)}px, ${cur.m42 + (t.top + t.height * 0.55) - (r.top + r.height / 2)}px)`;
+      el.classList.add('in');
+      cart.push(p); receipt();
+      setTimeout(() => replay(tote, 'gulp'), 300);
+      $('#paid').hidden = true;
+      if (document.activeElement === el) $('#pay').focus({ preventScroll:true });
+    }
+
+    function settle(el){ el.classList.remove('held'); el.classList.add('back'); el.style.transform = ''; setTimeout(() => el.classList.remove('back'), 520); }
+
+    els.forEach(el => {
+      let sx = 0, sy = 0, held = false, moved = false;
+      el.addEventListener('pointerdown', e => {
+        if (el.classList.contains('in')) return;
+        held = true; moved = false; sx = e.clientX; sy = e.clientY;
+        el.setPointerCapture(e.pointerId); el.classList.remove('back'); el.classList.add('held');
+      });
+      el.addEventListener('pointermove', e => {
+        if (!held) return;
+        const dx = e.clientX - sx, dy = e.clientY - sy;
+        if (Math.hypot(dx, dy) > 6) moved = true;
+        el.style.transform = `translate(${dx}px, ${dy}px)`;
+        tote.classList.toggle('hot', overTote(e.clientX, e.clientY));
+      });
+      const up = e => {
+        if (!held) return; held = false; tote.classList.remove('hot');
+        if (!moved || overTote(e.clientX, e.clientY)) return drop(el);   // a tap also drops it in
+        settle(el);
+      };
+      el.addEventListener('pointerup', up);
+      el.addEventListener('pointercancel', () => { held = false; tote.classList.remove('hot'); settle(el); });
+      el.addEventListener('animationend', e => { if (e.animationName === 'popback') el.classList.remove('pop'); });
+      el.addEventListener('click', e => { if (e.detail === 0) drop(el); });   // keyboard: Enter / Space
     });
-    const release = () => { if (grabbed) { grabbed.w = grabbed.saveW; grabbed = null; cv.classList.remove('grabbing'); } };
-    cv.addEventListener('pointerup', release); cv.addEventListener('pointercancel', release);
 
-    function poke(p){
-      const a0 = Math.atan2(p.y - C.y, p.x - C.x);
-      for (let i = 0; i < N; i++) { const a = i / N * Math.PI * 2; const c = Math.max(0, Math.cos(a - a0)); vel[i] -= R * 0.09 * c * c * c; vel[i] += R * 0.012; }
-      happy = 50; blink = 8;
-    }
-
-    function physics(){
-      // body jelly
-      for (let i = 0; i < N; i++) {
-        const l = off[(i + N - 1) % N], r = off[(i + 1) % N];
-        vel[i] += -0.08 * off[i] + 0.25 * (l + r - 2 * off[i]);
-        vel[i] *= 0.9;
+    function confetti(){
+      const cols = ['--tomato', '--mustard', '--sky', '--pink'], t = tote.getBoundingClientRect(), s0 = stage.getBoundingClientRect();
+      for (let k = 0; k < 26; k++) {
+        const c = document.createElement('i'); c.className = 'confetti';
+        c.style.left = (t.left - s0.left + t.width / 2) + 'px'; c.style.top = (t.top - s0.top + t.height * 0.3) + 'px';
+        c.style.background = `var(${cols[k % 4]})`;
+        const a = Math.random() * Math.PI - Math.PI, d = 70 + Math.random() * 120;
+        c.style.setProperty('--cx', Math.cos(a) * d + 'px'); c.style.setProperty('--cy', Math.sin(a) * d + 'px'); c.style.setProperty('--cr', (Math.random() * 720 - 360) + 'deg');
+        stage.appendChild(c); setTimeout(() => c.remove(), 1200);
       }
-      for (let i = 0; i < N; i++) off[i] += vel[i];
-      // arms (verlet)
-      arms.forEach(a => {
-        const P = a.pts, sh = shoulder(a.s);
-        P[0].x = P[0].px = sh.x; P[0].y = P[0].py = sh.y;
-        for (let i = 1; i < P.length; i++) {
-          const q = P[i]; if (q === grabbed) continue;
-          const vx = (q.x - q.px) * 0.985, vy = (q.y - q.py) * 0.985;
-          q.px = q.x; q.py = q.y; q.x += vx; q.y += vy + 0.45 + (a.s === 1 && i === P.length - 1 ? 0.6 : 0);
-          if (!reduce && a.s === -1 && !grabbed) q.x += Math.sin(t * 0.03 + i * 0.4) * 0.05 * i; // idle wave
-        }
-        for (let k = 0; k < 10; k++) {
-          for (let i = 0; i < P.length - 1; i++) {
-            const p1 = P[i], p2 = P[i + 1];
-            const dx = p2.x - p1.x, dy = p2.y - p1.y, d = Math.hypot(dx, dy) || 1, diff = (d - seg) / d;
-            const w1 = p1 === grabbed ? 0 : p1.w, w2 = p2 === grabbed ? 0 : p2.w, ws = w1 + w2; if (!ws) continue;
-            p1.x += dx * diff * w1 / ws; p1.y += dy * diff * w1 / ws;
-            p2.x -= dx * diff * w2 / ws; p2.y -= dy * diff * w2 / ws;
-          }
-          for (let i = 2; i < P.length; i++) { // keep noodles outside the body
-            const q = P[i], dx = q.x - C.x, dy = q.y - C.y, d = Math.hypot(dx, dy);
-            if (d < R * 1.05 && q !== grabbed) { q.x = C.x + dx / d * R * 1.05; q.y = C.y + dy / d * R * 1.05; }
-          }
-        }
-        // keep inside the canvas
-        P.forEach(q => { q.x = Math.max(10, Math.min(W - 10, q.x)); q.y = Math.max(10, Math.min(H - 10, q.y)); });
-      });
     }
-
-    function smoothPath(pts){
-      ctx.beginPath(); ctx.moveTo(pts[0].x, pts[0].y);
-      for (let i = 1; i < pts.length - 1; i++) { const mx = (pts[i].x + pts[i+1].x) / 2, my = (pts[i].y + pts[i+1].y) / 2; ctx.quadraticCurveTo(pts[i].x, pts[i].y, mx, my); }
-      ctx.lineTo(pts[pts.length-1].x, pts[pts.length-1].y);
-    }
-
-    function draw(){
-      ctx.clearRect(0, 0, W, H);
-      // shadow
-      const lift = (C.y - C0.y);
-      ctx.fillStyle = col.ink; ctx.globalAlpha = 0.1;
-      ctx.beginPath(); ctx.ellipse(C0.x, C0.y + R * 1.9, R * (0.9 - lift * 0.01), R * 0.13, 0, 0, Math.PI * 2); ctx.fill(); ctx.globalAlpha = 1;
-
-      // body
-      const pts = [];
-      for (let i = 0; i < N; i++) {
-        const a = i / N * Math.PI * 2;
-        const wob = reduce ? 0 : Math.sin(a * 3 + t * 0.04) * R * 0.025 + Math.sin(a * 5 - t * 0.03) * R * 0.015;
-        const rr = R + off[i] + wob;
-        pts.push({ x: C.x + Math.cos(a) * rr, y: C.y + Math.sin(a) * rr * 1.04 });
-      }
-      ctx.beginPath();
-      for (let i = 0; i <= N; i++) { const p = pts[i % N], q = pts[(i + 1) % N]; const mx = (p.x + q.x)/2, my = (p.y + q.y)/2; i ? ctx.quadraticCurveTo(p.x, p.y, mx, my) : ctx.moveTo(mx, my); }
-      ctx.closePath(); ctx.fillStyle = col.body; ctx.fill();
-
-      // little feet
-      ctx.fillStyle = col.ink;
-      [-0.35, 0.35].forEach(s => { ctx.beginPath(); ctx.ellipse(C.x + s * R, C.y + R * 1.06, R * 0.17, R * 0.09, 0, 0, Math.PI * 2); ctx.fill(); });
-
-      // face
-      look.x += ((Math.max(-1, Math.min(1, (ptr.x - C.x) / (W * 0.5)))) - look.x) * 0.12;
-      look.y += ((Math.max(-1, Math.min(1, (ptr.y - C.y) / (H * 0.5)))) - look.y) * 0.12;
-      const eyeOpen = blink > 0 ? 0.12 : 1;
-      [-1, 1].forEach(s => {
-        const ex = C.x + s * R * 0.33 + look.x * R * 0.05, ey = C.y - R * 0.18 + look.y * R * 0.04;
-        ctx.fillStyle = col.paper; ctx.beginPath(); ctx.ellipse(ex, ey, R * 0.2, R * 0.23 * eyeOpen, 0, 0, Math.PI * 2); ctx.fill();
-        if (eyeOpen > .5) { ctx.fillStyle = '#1A1024'; ctx.beginPath(); ctx.arc(ex + look.x * R * 0.08, ey + look.y * R * 0.09, R * 0.095, 0, Math.PI * 2); ctx.fill();
-          ctx.fillStyle = '#fff'; ctx.beginPath(); ctx.arc(ex + look.x * R * 0.08 + R*0.03, ey + look.y * R * 0.09 - R*0.035, R * 0.028, 0, Math.PI * 2); ctx.fill(); }
-        ctx.fillStyle = col.pink; ctx.globalAlpha = .85; ctx.beginPath(); ctx.ellipse(C.x + s * R * 0.58, C.y + R * 0.15, R * 0.12, R * 0.075, 0, 0, Math.PI * 2); ctx.fill(); ctx.globalAlpha = 1;
-      });
-      ctx.strokeStyle = '#1A1024'; ctx.lineWidth = R * 0.045; ctx.lineCap = 'round';
-      if (happy > 0) { ctx.fillStyle = '#1A1024'; ctx.beginPath(); ctx.arc(C.x, C.y + R * 0.18, R * 0.16, 0, Math.PI); ctx.fill();
-        ctx.fillStyle = col.pink; ctx.beginPath(); ctx.arc(C.x, C.y + R * 0.27, R * 0.07, Math.PI, 0); ctx.fill(); }
-      else { ctx.beginPath(); ctx.arc(C.x, C.y + R * 0.13, R * 0.13, 0.2, Math.PI - 0.2); ctx.stroke(); }
-
-      // arms
-      arms.forEach(a => {
-        smoothPath(a.pts);
-        ctx.strokeStyle = col.arm; ctx.lineWidth = R * 0.13; ctx.lineCap = 'round'; ctx.lineJoin = 'round'; ctx.stroke();
-        const e = a.pts[a.pts.length - 1];
-        if (a.s === 1) drawBag(e, a.pts[a.pts.length - 2]);
-        ctx.fillStyle = col.arm; ctx.beginPath(); ctx.arc(e.x, e.y, R * 0.11, 0, Math.PI * 2); ctx.fill();
-      });
-    }
-
-    function drawBag(e, prev){
-      const ang = Math.atan2(e.y - prev.y, e.x - prev.x) - Math.PI / 2;
-      ctx.save(); ctx.translate(e.x, e.y); ctx.rotate(ang * 0.45);
-      const w = R * 0.7, h = R * 0.62, top = R * 0.16;
-      ctx.strokeStyle = col.ink; ctx.lineWidth = R * 0.04;
-      ctx.beginPath(); ctx.moveTo(-w * 0.22, top + 2); ctx.quadraticCurveTo(0, -R * 0.12, w * 0.22, top + 2); ctx.stroke();
-      ctx.fillStyle = col.bag;
-      ctx.beginPath(); ctx.moveTo(-w * 0.42, top); ctx.lineTo(w * 0.42, top); ctx.lineTo(w * 0.5, top + h); ctx.lineTo(-w * 0.5, top + h); ctx.closePath(); ctx.fill();
-      ctx.fillStyle = col.paper; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-      ctx.font = `800 ${Math.round(R * (count ? 0.34 : 0.17))}px ${css('--display')}`;
-      ctx.fillText(count ? String(count) : 'bag', 0, top + h * 0.52);
-      ctx.restore();
-    }
-
-    function loop(){
-      t++;
-      C.y = C0.y + (reduce ? 0 : Math.sin(t * 0.03) * R * 0.04);
-      C.x = C0.x;
-      if (blink > 0) blink--; else if (!reduce && (nextBlink -= 16) < 0) { blink = 7; nextBlink = 2000 + Math.random() * 3000; }
-      if (happy > 0) happy--;
-      physics(); draw();
-      requestAnimationFrame(loop);
-    }
-    requestAnimationFrame(loop);
+    $('#pay').addEventListener('click', () => {
+      if (!cart.length) return;
+      $('#paid').hidden = false; replay($('#paid'), 'paid');
+      replay(tote, 'hop'); if (!reduce) confetti();
+      $('#pay').disabled = true; $('#pay').textContent = narrow.matches ? 'Paid' : 'Paid. No hidden fees.';
+      clearTimeout(paidTimer);
+      paidTimer = setTimeout(() => {
+        cart.length = 0; receipt(); $('#paid').hidden = true;
+        els.forEach((el, k) => { el.classList.remove('in'); el.style.transform = ''; setTimeout(() => replay(el, 'pop'), k * 90); });
+      }, 2600);
+    });
+    receipt();
 
     return {
-      setCount(n){ count = n; },
-      cheer(){ happy = 70; const e = arms[1].pts[arms[1].pts.length - 1]; e.py += R * 0.25; e.px += R * 0.1; poke({ x: C.x, y: C.y - R }); }
+      setCount(){},
+      cheer(){ replay(tote, 'gulp'); }
     };
   })();
 
