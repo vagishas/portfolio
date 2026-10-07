@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Portfolio in progress — Vagisha Singh</title>
+  <meta name="description" content="Vagisha Singh's product design portfolio is being updated. Get in touch for work samples." />
+  <meta name="robots" content="noindex" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+:root {
+  --bg: #f5f6f8; --surface: #ffffff; --ink: #1c1f26; --muted: #5a616e; --rule: #e1e4ea;
+  --accent: #0e6b57; --accent-dark: #0a5646; --accent-soft: #e3f1ec;
+  --font-display: "Bricolage Grotesque", system-ui, -apple-system, sans-serif;
+  --font: "Instrument Sans", system-ui, -apple-system, sans-serif;
+}
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; }
+body {
+  background: var(--bg); color: var(--ink); font-family: var(--font); font-size: 17px; line-height: 1.6;
+  -webkit-font-smoothing: antialiased; display: flex; flex-direction: column;
+}
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+.top { padding: 20px 24px; border-bottom: 1px solid var(--rule); background: var(--surface); }
+.top span { font-family: var(--font-display); font-weight: 700; font-size: 18px; letter-spacing: -0.01em; }
+main { flex: 1; display: grid; place-items: center; padding: 48px 24px; }
+.card {
+  width: 100%; max-width: 560px; padding: 48px 40px;
+  background: var(--surface); border: 1px solid var(--rule); border-radius: 16px;
+}
+.status {
+  display: inline-flex; align-items: center; gap: 10px; padding: 6px 14px 6px 12px;
+  background: var(--accent-soft); color: var(--accent-dark); border-radius: 999px; font-size: 15px; font-weight: 600;
+}
+.status::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--accent); animation: pulse 2s ease-in-out infinite; }
+@keyframes pulse { 50% { opacity: .35; } }
+h1 { margin: 20px 0 0; font-family: var(--font-display); font-size: 36px; line-height: 1.15; letter-spacing: -0.025em; text-wrap: balance; }
+p { margin: 16px 0 0; color: #333844; }
+.btn {
+  display: inline-flex; align-items: center; gap: 8px; margin-top: 28px; padding: 12px 20px;
+  background: var(--accent); color: #fff; border-radius: 10px; font-weight: 600; text-decoration: none;
+}
+.btn:hover { background: var(--accent-dark); }
+.btn svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.small { margin-top: 32px; padding-top: 20px; border-top: 1px solid var(--rule); font-size: 15px; color: var(--muted); }
+.small a { color: var(--ink); }
+@media (max-width: 520px) { .card { padding: 32px 24px; } h1 { font-size: 30px; } }
+@media (prefers-reduced-motion: reduce) { .status::before { animation: none; } }
+  </style>
+</head>
+<body>
+  <header class="top"><span>Vagisha Singh</span></header>
+  <main>
+    <div class="card">
+      <p class="status" style="margin:0">Portfolio in progress</p>
+      <h1>I'm polishing my portfolio. It'll be back soon.</h1>
+      <p>I'm a product designer focused on e-commerce, checkout and pricing, with work for Apple and Nissan. I'm adding new case studies right now.</p>
+      <p>In the meantime, I'm happy to share work samples and my resume directly.</p>
+      <a class="btn" href="mailto:vagishasingh10@gmail.com?subject=Portfolio%20and%20work%20samples">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+        Email me
+      </a>
+      <p class="small">vagishasingh10@gmail.com · <a href="/unlock.html?next=%2Findex.html">Have the password? Preview the site</a></p>
+    </div>
+  </main>
+</body>
+</html>
